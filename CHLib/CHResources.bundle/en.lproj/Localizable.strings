@@ -1,0 +1,37 @@
+/* 
+ Localizable.strings
+ libMeetings
+ 
+ Created by miniMac on 16/2/24.
+ Copyright © 2016年 macmini. All rights reserved.
+ */
+
+"Cancel" = "Cancel";
+
+"Login.Channel" = "Channel";
+"Login.Channel.Placeholder" = "Please enter your channel id";
+"Login.NickName" = "NickName";
+"Login.NickName.Placeholder" = "Please enter your nick name";
+"Login.Enter" = "Enter";
+
+"VideoProfilePopup.Title" = "Set resolution";
+
+"Chart.Input.Placeholder" = "Please enter your message";
+
+
+"list_popup_mine" = "Mine";
+"list_popup_nick" = "Nickname";
+"list_popup_defaultNick" = "Default nickname ";
+"list_popup_finish" = "Finish";
+"list_noLive" = "There is no live stream currently, please create one";
+"list_liveName" = "Name of broadcast room ";
+
+"live_inputRoomNum" = "Enter your live number";
+"live_startLive" = "Start live";
+
+"BeautySet.Beauty" = "Beauty";
+"BeautySet.Whitening" = "Whitening";
+"BeautySet.ThinFace" = "Thin Face";
+"BeautySet.BigEyes" = "Big Eyes";
+"BeautySet.Exfoliating" = "Exfoliating";
+"BeautySet.Ruddy" = "Ruddy";

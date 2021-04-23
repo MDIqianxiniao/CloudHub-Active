@@ -1,0 +1,12 @@
+/* 
+  InfoPlist.strings
+  CloudHub Active
+
+  Created by 马迪 on 2021/4/22.
+  
+*/
+
+CFBundleDisplayName = "CloudHub Active";
+/*权限声明*/
+NSCameraUsageDescription = "You need to make video calls in the room and shoot if you allow the camera to turn on";
+NSMicrophoneUsageDescription  = "You need to send a voice message in the room and speak if you're allowed to turn on the microphone";

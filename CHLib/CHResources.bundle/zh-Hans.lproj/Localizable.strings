@@ -1,0 +1,39 @@
+/*
+ Localizable.strings
+ libMeetings
+ 
+ Created by miniMac on 16/2/24.
+ Copyright © 2016年 macmini. All rights reserved.
+ */
+
+"Cancel" = "取消";
+
+"Login.Channel" = "频道";
+"Login.Channel.Placeholder" = "请输入您的房间号";
+"Login.NickName" = "昵称";
+"Login.NickName.Placeholder" = "请输入您的昵称";
+"Login.Enter" = "进入";
+
+"VideoProfilePopup.Title" = "设置分辨率";
+
+"Chart.Input.Placeholder" = "请输入您的消息";
+
+"list_popup_mine" = "我的";
+"list_popup_nick" = "昵称";
+"list_popup_defaultNick" = "默认昵称";
+"list_popup_finish" = "完成";
+"list_noLive" = "当前没有直播，请创建一个";
+"list_liveName" = "直播间名";
+
+"live_inputRoomNum" = "输入您的直播号";
+"live_startLive" = "开始直播";
+"live_set" = "设置";
+"live_set_resolution" = "分辨率";
+"live_set_rate" = "帧率";
+
+"BeautySet.Beauty" = "美 颜";
+"BeautySet.Whitening" = "美白";
+"BeautySet.ThinFace" = "瘦脸";
+"BeautySet.BigEyes" = "大眼";
+"BeautySet.Exfoliating" = "磨皮";
+"BeautySet.Ruddy" = "红润";
