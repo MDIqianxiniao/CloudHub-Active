@@ -30,6 +30,9 @@
 
 @property (nonatomic, assign) CGFloat cellHeight;
 
+@property (nonatomic, weak) UILabel *resolutionLable;
+@property (nonatomic, weak) UILabel *rateLable;
+
 
 @end
 
@@ -73,27 +76,28 @@
     for (int i = 0; i<2; i++)
     {
         UILabel *titleLabel = [[UILabel alloc]init];
-        titleLabel.text = CH_Localized(@"list_popup_mine");
         titleLabel.font = CHFont12;
         titleLabel.textColor = CHColor_6D7278;
         titleLabel.textAlignment  = NSTextAlignmentCenter;
         [self addSubview:titleLabel];
-        
-        if (!i)
-        {
-            titleLabel.text = CH_Localized(@"live_set_resolution");
-        }
-        else
-        {
-            titleLabel.text = CH_Localized(@"live_set_rate");
-        }
+
         
         UILabel *valueLable = [[UILabel alloc]init];
-        valueLable.text = CH_Localized(@"live_set_resolution");
         valueLable.font = CHFont12;
         valueLable.textColor = CHColor_6D7278;
         valueLable.textAlignment  = NSTextAlignmentRight;
         [self addSubview:valueLable];
+        
+        if (!i)
+        {
+            titleLabel.text = CH_Localized(@"live_set_resolution");
+            self.resolutionLable = valueLable;
+        }
+        else
+        {
+            titleLabel.text = CH_Localized(@"live_set_rate");
+            self.rateLable = valueLable;
+        }
         
         UIButton *arrowButton = [[UIButton alloc]init];
         arrowButton.tag = i+100;
@@ -139,6 +143,19 @@
     
     [super setFrame:frame];
 }
+
+- (void)setResolutionString:(NSString *)resolutionString
+{
+    _resolutionString = resolutionString;
+    self.resolutionLable.text = resolutionString;
+}
+
+- (void)setRateString:(NSString *)rateString
+{
+    _rateString = rateString;
+    self.rateLable.text = rateString;
+}
+
 
 - (void)arrowButtonClick:(UIButton *)sender
 {

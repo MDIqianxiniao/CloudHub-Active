@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) void(^setArrowButtonClick)(UIButton *button);
 
+@property (nonatomic, copy) NSString *resolutionString;
+@property (nonatomic, copy) NSString *rateString;
+
 - (instancetype)initWithFrame:(CGRect)frame itemGap:(CGFloat)gap;
 
 @end

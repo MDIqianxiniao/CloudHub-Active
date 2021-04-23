@@ -12,7 +12,7 @@
 #import "CHVideoSetView.h"
 #import "CHResolutionView.h"
 
-#define CellGap ([UIDevice ch_isiPad] ? 20.0f : 4.0f)
+#define CellGap ([UIDevice ch_isiPad] ? 20.0f : 8.0f)
 
 @interface CHLiveViewController ()
 <
@@ -155,9 +155,16 @@
             
             CHWeakSelf
             __weak CHResolutionView *weakResolutionView = self.resolutionView;
-            resolutionView.backButtonClick = ^{
-                weakSelf.videoSetView.ch_originY = weakSelf.view.ch_height - weakSelf.videoSetView.ch_height;
-                weakResolutionView.ch_originY = weakSelf.view.ch_height;
+            resolutionView.resolutionViewButtonClick = ^(NSString * _Nullable value) {
+                if ([value ch_isNotEmpty])
+                {
+                    weakSelf.videoSetView.resolutionString = value;
+                }
+                else
+                {
+                    weakSelf.videoSetView.ch_originY = weakSelf.view.ch_height - weakSelf.videoSetView.ch_height;
+                    weakResolutionView.ch_originY = weakSelf.view.ch_height;
+                }
             };
         }
                 
@@ -179,9 +186,16 @@
             
             CHWeakSelf
             __weak CHResolutionView *weakRateView = self.rateView;
-            rateView.backButtonClick = ^{
-                weakSelf.videoSetView.ch_originY = weakSelf.view.ch_height - weakSelf.videoSetView.ch_height;
-                weakRateView.ch_originY = weakSelf.view.ch_height;
+            rateView.resolutionViewButtonClick = ^(NSString * _Nullable value) {
+                if ([value ch_isNotEmpty])
+                {
+                    weakSelf.videoSetView.rateString = value;
+                }
+                else
+                {
+                    weakSelf.videoSetView.ch_originY = weakSelf.view.ch_height - weakSelf.videoSetView.ch_height;
+                    weakRateView.ch_originY = weakSelf.view.ch_height;
+                }
             };
         }
         

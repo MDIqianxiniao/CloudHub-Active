@@ -8,7 +8,7 @@
 #import "CHResolutionView.h"
 
 #define leftMargin 20.0f
-#define CHSetView_SGap               12.0f
+#define CHSetView_SGap               ([UIDevice ch_isiPad] ? 10.0f : 8.0f)
 #define CHSetView_ValueHeight          20.0f
 #define CHSetView_LineHeight       1.0f
 
@@ -83,8 +83,10 @@
     UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(15, 0, 25, 25)];
     backButton.ch_centerY = titleLable.ch_centerY;
     [backButton setImage:[UIImage imageNamed:@"live_setNextArrow"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(buttonClick) forControlEvents:UIControlEventTouchUpInside];
+    [backButton addTarget:self action:@selector(buttonsClick:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:backButton];
+    backButton.tag = 1000;
+    
     // 旋转图片
     CGAffineTransform transform= CGAffineTransformMakeRotation(M_PI);
     backButton.imageView.transform = transform;//旋转
@@ -139,23 +141,34 @@
 
 - (void)buttonsClick:(UIButton *)button
 {
-    if ([self.selectValue ch_isNotEmpty] && !button.selected)
+    if (button.tag == 1000)
     {
-        NSInteger index = [self.dataArray indexOfObject:self.selectValue];
-        UIButton *lastButton = [self.valueArray ch_safeObjectAtIndex:index];
-        lastButton.selected = NO;
-        
-        button.selected = YES;
-        self.selectValue = button.titleLabel.text;
+        if (_resolutionViewButtonClick)
+        {
+            _resolutionViewButtonClick(nil);
+        }
+    }
+    else
+    {
+        if (!button.selected)
+        {
+            NSInteger index = [self.dataArray indexOfObject:self.selectValue];
+            UIButton *lastButton = [self.valueArray ch_safeObjectAtIndex:index];
+            lastButton.selected = NO;
+            
+            button.selected = YES;
+            self.selectValue = button.titleLabel.text;
+            if (_resolutionViewButtonClick)
+            {
+                _resolutionViewButtonClick(self.selectValue);
+            }
+        }
     }
 }
 
 - (void)buttonClick
 {
-    if (_backButtonClick)
-    {
-        _backButtonClick();
-    }
+    
 }
 
 @end

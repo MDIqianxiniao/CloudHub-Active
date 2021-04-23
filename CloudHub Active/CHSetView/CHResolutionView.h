@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CHResolutionView : UIView
 
-@property (nonatomic, copy) void(^backButtonClick)(void);
+@property (nonatomic, copy) void(^resolutionViewButtonClick)(NSString * _Nullable value);
 
 @property (nonatomic, copy) NSString *selectValue;
 
