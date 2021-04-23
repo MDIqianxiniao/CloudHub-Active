@@ -30,6 +30,8 @@
         [self setTopbarViews];
         
         [self setBottomViews];
+        
+        [self addPrompt];
     }
     return self;
 }
