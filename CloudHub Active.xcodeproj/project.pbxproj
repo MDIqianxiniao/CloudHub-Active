@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		048B29842632AB4400CA945A /* CHResolutionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B29832632AB4400CA945A /* CHResolutionView.m */; };
+		048B298E2635085600CA945A /* CHLiveRoomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B298D2635085600CA945A /* CHLiveRoomVC.m */; };
 		049D7138262D64DC002DC098 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D7137262D64DC002DC098 /* AppDelegate.m */; };
 		049D713E262D64DC002DC098 /* CHLiveListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D713D262D64DC002DC098 /* CHLiveListVC.m */; };
 		049D7143262D64DD002DC098 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 049D7142262D64DD002DC098 /* Assets.xcassets */; };
@@ -46,7 +47,7 @@
 		049D7208262FCF0E002DC098 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 049D7207262FCF0E002DC098 /* Launch Screen.storyboard */; };
 		049D720B262FCF99002DC098 /* CHMinePopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D720A262FCF99002DC098 /* CHMinePopupView.m */; };
 		049D720C262FD2D0002DC098 /* UIColor+CHCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D71A3262E792B002DC098 /* UIColor+CHCategory.m */; };
-		049D720F263009B7002DC098 /* CHLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D720E263009B7002DC098 /* CHLiveViewController.m */; };
+		049D720F263009B7002DC098 /* CHCreatLiveVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D720E263009B7002DC098 /* CHCreatLiveVC.m */; };
 		049D722F26311168002DC098 /* CHRoomUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D722D26311168002DC098 /* CHRoomUser.m */; };
 		049D723326311189002DC098 /* CHVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D723126311189002DC098 /* CHVideoView.m */; };
 		04C8251A26315D8F004AE13C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04C8251C26315D8F004AE13C /* InfoPlist.strings */; };
@@ -145,6 +146,8 @@
 /* Begin PBXFileReference section */
 		048B29822632AB4400CA945A /* CHResolutionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHResolutionView.h; sourceTree = "<group>"; };
 		048B29832632AB4400CA945A /* CHResolutionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHResolutionView.m; sourceTree = "<group>"; };
+		048B298C2635085600CA945A /* CHLiveRoomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHLiveRoomVC.h; sourceTree = "<group>"; };
+		048B298D2635085600CA945A /* CHLiveRoomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHLiveRoomVC.m; sourceTree = "<group>"; };
 		049D7133262D64DC002DC098 /* CloudHub Active.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CloudHub Active.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		049D7136262D64DC002DC098 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		049D7137262D64DC002DC098 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -223,8 +226,8 @@
 		049D7207262FCF0E002DC098 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		049D7209262FCF99002DC098 /* CHMinePopupView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHMinePopupView.h; sourceTree = "<group>"; };
 		049D720A262FCF99002DC098 /* CHMinePopupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHMinePopupView.m; sourceTree = "<group>"; };
-		049D720D263009B7002DC098 /* CHLiveViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHLiveViewController.h; sourceTree = "<group>"; };
-		049D720E263009B7002DC098 /* CHLiveViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHLiveViewController.m; sourceTree = "<group>"; };
+		049D720D263009B7002DC098 /* CHCreatLiveVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHCreatLiveVC.h; sourceTree = "<group>"; };
+		049D720E263009B7002DC098 /* CHCreatLiveVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHCreatLiveVC.m; sourceTree = "<group>"; };
 		049D722D26311168002DC098 /* CHRoomUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRoomUser.m; sourceTree = "<group>"; };
 		049D722E26311168002DC098 /* CHRoomUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRoomUser.h; sourceTree = "<group>"; };
 		049D723126311189002DC098 /* CHVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHVideoView.m; sourceTree = "<group>"; };
@@ -456,8 +459,10 @@
 				048B29872632D5D400CA945A /* CHLiveFrontView */,
 				049D713C262D64DC002DC098 /* CHLiveListVC.h */,
 				049D713D262D64DC002DC098 /* CHLiveListVC.m */,
-				049D720D263009B7002DC098 /* CHLiveViewController.h */,
-				049D720E263009B7002DC098 /* CHLiveViewController.m */,
+				049D720D263009B7002DC098 /* CHCreatLiveVC.h */,
+				049D720E263009B7002DC098 /* CHCreatLiveVC.m */,
+				048B298C2635085600CA945A /* CHLiveRoomVC.h */,
+				048B298D2635085600CA945A /* CHLiveRoomVC.m */,
 				048B29882632D62600CA945A /* Supporting Files */,
 			);
 			path = "CloudHub Active";
@@ -882,7 +887,7 @@
 				04C8264826318942004AE13C /* SDWebImageIndicator.m in Sources */,
 				049D71FD262ED5DA002DC098 /* ViewController+MASAdditions.m in Sources */,
 				04C8267326318942004AE13C /* SDDeviceHelper.m in Sources */,
-				049D720F263009B7002DC098 /* CHLiveViewController.m in Sources */,
+				049D720F263009B7002DC098 /* CHCreatLiveVC.m in Sources */,
 				04C8266C26318942004AE13C /* UIView+WebCache.m in Sources */,
 				04C8265126318942004AE13C /* SDWebImageError.m in Sources */,
 				049D71DB262EB82C002DC098 /* CHLiveListTableView.m in Sources */,
@@ -956,6 +961,7 @@
 				049D7204262ED5DA002DC098 /* MASViewConstraint.m in Sources */,
 				04C8265A26318942004AE13C /* SDImageCache.m in Sources */,
 				04C8266B26318942004AE13C /* UIView+WebCacheOperation.m in Sources */,
+				048B298E2635085600CA945A /* CHLiveRoomVC.m in Sources */,
 				04C8265326318942004AE13C /* SDImageCoderHelper.m in Sources */,
 				04C8266626318942004AE13C /* UIImage+MemoryCacheCost.m in Sources */,
 				04C8266726318942004AE13C /* SDImageCacheConfig.m in Sources */,

@@ -5,7 +5,7 @@
 //  Created by 马迪 on 2021/4/21.
 //
 
-#import "CHLiveViewController.h"
+#import "CHCreatLiveVC.h"
 #import "CHVideoView.h"
 #import "CHCreatLiveView.h"
 #import "CHBeautySetView.h"
@@ -16,7 +16,7 @@
 
 static NSString *const kToken = nil;
 
-@interface CHLiveViewController ()
+@interface CHCreatLiveVC ()
 <
     CloudHubRtcEngineDelegate,
     CHVideoViewDelegate
@@ -44,7 +44,7 @@ static NSString *const kToken = nil;
 
 @end
 
-@implementation CHLiveViewController
+@implementation CHCreatLiveVC
 
 - (void)viewDidLoad
 {
@@ -227,7 +227,7 @@ static NSString *const kToken = nil;
 #pragma mark - Join Channel
 
 /// Join Channel
-- (void)initRtcEngineKitAndJoinChannel
+- (void)beginLiveJoinChannel
 {
     NSString *anchorName = [[NSUserDefaults standardUserDefaults] objectForKey:CHCacheAnchorName];
     
@@ -243,6 +243,8 @@ static NSString *const kToken = nil;
 
     [self.rtcEngine joinChannelByToken:kToken channelId:self.liveFrontView.liveNum properties:str uid:nil joinSuccess:nil];
 }
+
+
 
 
 

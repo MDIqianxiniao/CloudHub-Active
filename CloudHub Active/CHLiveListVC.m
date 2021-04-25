@@ -8,7 +8,7 @@
 #import "CHLiveListVC.h"
 #import "CHLiveListTableView.h"
 #import "CHMinePopupView.h"
-#import "CHLiveViewController.h"
+#import "CHCreatLiveVC.h"
 
 @interface CHLiveListVC ()
 
@@ -99,7 +99,7 @@
 /// 创建新直播按钮点击
 - (void)clickToCreatLive
 {
-    CHLiveViewController *liveVC = [[CHLiveViewController alloc]init];
+    CHCreatLiveVC *liveVC = [[CHCreatLiveVC alloc]init];
     [self.navigationController pushViewController:liveVC animated:YES];
 }
 

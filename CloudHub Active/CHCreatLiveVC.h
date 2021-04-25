@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CHLiveViewController : UIViewController
+@interface CHCreatLiveVC : UIViewController
 
 @end
 
