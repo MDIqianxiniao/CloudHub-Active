@@ -8,7 +8,7 @@
 #import "CHLiveRoomVC.h"
 #import "CHCloudHubUtil.h"
 #import "CHLiveRoomFrontView.h"
-
+#import "CHMusicView.h"
 
 static NSString *const kToken = nil;
 
@@ -20,6 +20,8 @@ static NSString *const kToken = nil;
 @property (nonatomic, strong) NSMutableDictionary *smallVideoViews;
 
 @property (nonatomic, weak) CHLiveRoomFrontView *liveRoomFrontView;
+
+@property (nonatomic, strong) CHMusicView *musicView;
 
 @end
 
@@ -39,6 +41,7 @@ static NSString *const kToken = nil;
     
     [self beginLiveJoinChannel];
     
+    [self setupMusicView];
 }
 
 - (void)setupFrontViewUI
@@ -52,6 +55,14 @@ static NSString *const kToken = nil;
     liveRoomFrontView.liveRoomFrontViewButtonsClick = ^(UIButton * _Nonnull button) {
         [weakSelf frontViewButtonsClick:button];
     };
+}
+
+- (void)setupMusicView
+{
+    CHMusicView *musicView = [[CHMusicView alloc] init];
+    self.musicView = musicView;
+    musicView.frame = CGRectMake(0, self.view.ch_height, self.view.ch_width, 200.0f);
+    [self.view addSubview:musicView];
 }
 
 - (void)frontViewButtonsClick:(UIButton *)button
@@ -75,7 +86,11 @@ static NSString *const kToken = nil;
             break;
         case CHLiveRoomFrontButton_Music:
         {
+            [UIView animateWithDuration:0.25 animations:^{
+                self.musicView.ch_originY = self.view.ch_height - self.musicView.ch_height;
+            }];
             
+            [self.musicView ch_bringToFront];
         }
             break;
         case CHLiveRoomFrontButton_Beauty:
@@ -102,6 +117,7 @@ static NSString *const kToken = nil;
 //        self.videoSetView.ch_originY = self.view.ch_height;
 //        self.resolutionView.ch_originY = self.view.ch_height;
 //        self.rateView.ch_originY = self.view.ch_height;
+        self.musicView.ch_originY = self.view.ch_height;
     }];
 }
 
