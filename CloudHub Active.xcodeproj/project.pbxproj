@@ -404,6 +404,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		048B29872632D5D400CA945A /* CHLiveFrontView */ = {
+			isa = PBXGroup;
+			children = (
+				04C8254626316B6C004AE13C /* CHCreatLiveView.h */,
+				04C8254726316B6C004AE13C /* CHCreatLiveView.m */,
+			);
+			path = CHLiveFrontView;
+			sourceTree = "<group>";
+		};
+		048B29882632D62600CA945A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				049D715E262D66B3002DC098 /* PrefixHeader.pch */,
+				04C8251C26315D8F004AE13C /* InfoPlist.strings */,
+				049D7136262D64DC002DC098 /* AppDelegate.h */,
+				049D7137262D64DC002DC098 /* AppDelegate.m */,
+				049D7142262D64DD002DC098 /* Assets.xcassets */,
+				049D7207262FCF0E002DC098 /* Launch Screen.storyboard */,
+				049D7147262D64DD002DC098 /* Info.plist */,
+				049D7148262D64DD002DC098 /* main.m */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		049D712A262D64DC002DC098 = {
 			isa = PBXGroup;
 			children = (
@@ -429,20 +453,12 @@
 				04DF095826329C42006D4169 /* CHBeautyView */,
 				04C826A126326B84004AE13C /* CHSetView */,
 				049D7206262FCDDC002DC098 /* CHLiveListVC */,
+				048B29872632D5D400CA945A /* CHLiveFrontView */,
 				049D713C262D64DC002DC098 /* CHLiveListVC.h */,
 				049D713D262D64DC002DC098 /* CHLiveListVC.m */,
 				049D720D263009B7002DC098 /* CHLiveViewController.h */,
 				049D720E263009B7002DC098 /* CHLiveViewController.m */,
-				04C8254626316B6C004AE13C /* CHCreatLiveView.h */,
-				04C8254726316B6C004AE13C /* CHCreatLiveView.m */,
-				049D7136262D64DC002DC098 /* AppDelegate.h */,
-				049D7137262D64DC002DC098 /* AppDelegate.m */,
-				049D715E262D66B3002DC098 /* PrefixHeader.pch */,
-				049D7142262D64DD002DC098 /* Assets.xcassets */,
-				04C8251C26315D8F004AE13C /* InfoPlist.strings */,
-				049D7207262FCF0E002DC098 /* Launch Screen.storyboard */,
-				049D7147262D64DD002DC098 /* Info.plist */,
-				049D7148262D64DD002DC098 /* main.m */,
+				048B29882632D62600CA945A /* Supporting Files */,
 			);
 			path = "CloudHub Active";
 			sourceTree = "<group>";
@@ -1112,9 +1128,9 @@
 					"$(PROJECT_DIR)/CHLib",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CloudHub Active/PrefixHeader.pch";
+				GCC_PREFIX_HEADER = "CloudHub Active/Supporting Files/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/CHCommon";
-				INFOPLIST_FILE = "CloudHub Active/Info.plist";
+				INFOPLIST_FILE = "CloudHub Active/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1143,9 +1159,9 @@
 					"$(PROJECT_DIR)/CHLib",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CloudHub Active/PrefixHeader.pch";
+				GCC_PREFIX_HEADER = "CloudHub Active/Supporting Files/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/CHCommon";
-				INFOPLIST_FILE = "CloudHub Active/Info.plist";
+				INFOPLIST_FILE = "CloudHub Active/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

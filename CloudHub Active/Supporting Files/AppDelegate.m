@@ -10,7 +10,7 @@
 #import "CHNavigationController.h"
 
 static NSString *const kAppkey = @"cjdoHSFdOzrpXs0Y";
-static NSString *const kToken = nil;
+
 
 @interface AppDelegate ()
 
@@ -34,7 +34,7 @@ static NSString *const kToken = nil;
     [self.window makeKeyAndVisible];
     
     
-    NSDictionary *rtcEngineKitConfig = @{ @"server": @"demo.roadofcloud.net", @"port":@(80), @"secure":@(NO) };
+    NSDictionary *rtcEngineKitConfig = @{ @"server": CHLiveActive_Server, @"port":@(80), @"secure":@(NO) };
     self.rtcEngine = [CloudHubRtcEngineKit sharedEngineWithAppId:kAppkey config:[rtcEngineKitConfig ch_toJSON]];
     
     return YES;
