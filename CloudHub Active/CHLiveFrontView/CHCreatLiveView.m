@@ -12,6 +12,8 @@
 
 @interface CHCreatLiveView ()
 
+
+
 @property (nonatomic, weak) UITextField *liveNumField;
 
 @property (nonatomic, weak) UIButton *startButton;
@@ -77,10 +79,28 @@
     liveNumField.returnKeyType = UIReturnKeyDone;
     self.liveNumField = liveNumField;
     [fieldBgView addSubview:liveNumField];
+    [liveNumField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
 
 }
 
-
+#pragma  mark - 监听输入
+- (void)textChange:(UITextField *)textField{
+    
+    UITextRange *selectedRange = [textField markedTextRange];
+    NSString * newText = [textField textInRange:selectedRange];
+    // 获取高亮部分
+    if(newText.length > 0)
+    {
+        return;
+    }
+    
+    if (textField.text.length > 15)
+    {
+        textField.text = [textField.text substringToIndex:15];
+    }
+    
+    self.liveNum = textField.text;
+}
 // 底部试图
 - (void)setBottomViews
 {

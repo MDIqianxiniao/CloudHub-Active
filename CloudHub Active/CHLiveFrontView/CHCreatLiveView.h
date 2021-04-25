@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CHCreatLiveView : UIView
 
+@property (nonatomic, copy) NSString *liveNum;
+
 @property (nonatomic, copy) void(^creatLiveViewButtonsClick)(UIButton *sender);
 
 @end
