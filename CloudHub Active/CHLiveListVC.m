@@ -9,6 +9,7 @@
 #import "CHLiveListTableView.h"
 #import "CHMinePopupView.h"
 #import "CHCreatLiveVC.h"
+#import "CHLiveRoomVC.h"
 
 @interface CHLiveListVC ()
 
@@ -93,7 +94,18 @@
     liveListTableView.dataArray = mutArray;
     [bgImageView addSubview:liveListTableView];
     
+    CHWeakSelf
+    liveListTableView.liveListCellClick = ^(NSIndexPath * _Nonnull index) {
+        
+        CHLiveModel * model = mutArray[index.row];
+        CHLiveRoomVC *vc = [[CHLiveRoomVC alloc]init];
+        vc.channelId = model.channelId;
+        vc.roleType = CHUserType_Audience;
+        [weakSelf.navigationController pushViewController:vc animated:YES];
+    };
+    
     self.centreImageView.hidden = self.noLiveLable.hidden = (mutArray.count > 0);
+    
 }
 
 /// 创建新直播按钮点击

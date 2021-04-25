@@ -29,6 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) CHBeautySetView *beautyView;
 
+@property (nonatomic, assign) CHUserRoleType roleType;
+
+
+- (BOOL)sendMessageWithText:(NSString *)message withMessageType:(CHChatMessageType)messageType withMemberModel:(CHRoomUser *)memberModel;
+
 @end
 
 NS_ASSUME_NONNULL_END

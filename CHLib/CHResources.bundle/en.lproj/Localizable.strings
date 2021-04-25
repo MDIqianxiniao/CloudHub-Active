@@ -33,7 +33,8 @@
 "Live_Set_Resolution" = "Resolution";
 "Live_Set_Rate" = "Rate";
 "Live_InputRoomNumPrompt" = "Please enter your live stream number";
-
+"Live_ChatPlaceholder" = "Let me say something...";
+"Live_ChatTextNumber" = "Enter a maximum of 80 characters for text";
 
 "BeautySet.Beauty" = "Beauty";
 "BeautySet.Whitening" = "Whitening";
