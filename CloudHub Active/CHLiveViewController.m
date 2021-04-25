@@ -14,16 +14,21 @@
 
 #define CellGap ([UIDevice ch_isiPad] ? 20.0f : 8.0f)
 
+static NSString *const kToken = nil;
+
 @interface CHLiveViewController ()
 <
     CloudHubRtcEngineDelegate,
     CHVideoViewDelegate
 >
 
+@property (nonatomic, strong) CloudHubRtcEngineKit *rtcEngine;
 
 @property (nonatomic, strong) CHVideoView *largeVideoView;
 
-@property (nonatomic, weak) UITextField *liveNumField;
+@property (nonatomic, weak) CHCreatLiveView *liveFrontView;
+
+//@property (nonatomic, weak) UITextField *liveNumField;
 
 @property (nonatomic, weak) UIButton *startButton;
 
@@ -46,7 +51,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = UIColor.yellowColor;
         
-    RtcEngine.delegate = self;
+    self.rtcEngine = RtcEngine;
+    self.rtcEngine.delegate = self;
         
     // 主播视频
     [self setupLargeVideoView];
@@ -68,11 +74,12 @@
 
 - (void)setupFrontViewUI
 {
-    CHCreatLiveView *creatLiveView = [[CHCreatLiveView alloc]initWithFrame:self.view.bounds];
-    [self.view addSubview:creatLiveView];
+    CHCreatLiveView *liveFrontView = [[CHCreatLiveView alloc]initWithFrame:self.view.bounds];
+    self.liveFrontView = liveFrontView;
+    [self.view addSubview:liveFrontView];
     
     CHWeakSelf
-    creatLiveView.creatLiveViewButtonsClick = ^(UIButton * _Nonnull sender) {
+    liveFrontView.creatLiveViewButtonsClick = ^(UIButton * _Nonnull sender) {
         [weakSelf creatLiveViewButtonsSelect:sender];
     };
 }
@@ -216,6 +223,28 @@
         self.rateView.ch_originY = self.view.ch_height;
     }];
 }
+
+#pragma mark - Join Channel
+
+/// Join Channel
+- (void)initRtcEngineKitAndJoinChannel
+{
+    NSString *anchorName = [[NSUserDefaults standardUserDefaults] objectForKey:CHCacheAnchorName];
+    
+    // user property
+    NSMutableDictionary *userProperty = [NSMutableDictionary dictionary];
+    [userProperty ch_setString:anchorName forKey:sCHUserNickname];
+    NSMutableDictionary *userCameras = [NSMutableDictionary dictionary];
+    [userCameras setObject:@{sCHUserVideoFail: @(CHDeviceFaultNone)} forKey:sCHUserDefaultSourceId];
+    [userProperty setObject:userCameras forKey:sCHUserCameras];
+    [userProperty ch_setUInteger:CHDeviceFaultNone forKey:sCHUserAudioFail];
+
+    NSString *str = [userProperty ch_toJSON];
+
+    [self.rtcEngine joinChannelByToken:kToken channelId:self.liveFrontView.liveNum properties:str uid:nil joinSuccess:nil];
+}
+
+
 
 - (BOOL)shouldAutorotate
 {

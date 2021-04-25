@@ -12,6 +12,11 @@
 #define CHVC_Localized          [NSBundle bundleWithPath:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:CH_VCBUNDLE_NAME]]
 #define CH_Localized(s)       [CHVC_Localized localizedStringForKey:s value:@"" table:nil]
 
+#define CHLiveActive_Server          @"demo.roadofcloud.net"
+
+/// 缓存key
+static NSString *const CHCacheAnchorName                  = @"AnchorName";
+
 /// Send a message to everyone on the channel
 static NSString *const CHRoomPubMsgTellAll                  = @"__all";
 

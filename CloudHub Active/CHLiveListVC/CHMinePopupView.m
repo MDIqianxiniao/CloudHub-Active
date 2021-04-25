@@ -7,6 +7,11 @@
 
 #import "CHMinePopupView.h"
 
+@interface CHMinePopupView ()
+
+@property (nonatomic, copy) NSString *nameString;
+
+@end
 
 @implementation CHMinePopupView
 
@@ -59,6 +64,7 @@
     nameField.attributedPlaceholder = placeholderStr;
     [fieldBgView addSubview:nameField];
     nameField.clearButtonMode = UITextFieldViewModeAlways;
+    [nameField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
 
     UIButton *finishButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 84, 28)];
     [finishButton setBackgroundImage:[UIImage imageNamed:@"list_finishButton"] forState:UIControlStateNormal];
@@ -72,6 +78,25 @@
     finishButton.tag = 2;
 }
 
+#pragma  mark - 监听输入
+- (void)textChange:(UITextField *)textField{
+    
+    UITextRange *selectedRange = [textField markedTextRange];
+    NSString * newText = [textField textInRange:selectedRange];
+    // 获取高亮部分
+    if(newText.length > 0)
+    {
+        return;
+    }
+    
+    if (textField.text.length > 15)
+    {
+        textField.text = [textField.text substringToIndex:15];
+    }
+    
+    self.nameString = textField.text;
+}
+
 - (void)buttonsClick:(UIButton *)sender
 {
     if (sender.tag == 1)
@@ -80,7 +105,8 @@
     }
     else if (sender.tag == 2)
     {
-        NSLog(@"点击了我的，完成");
+//        NSLog(@"点击了我的，完成");
+        [[NSUserDefaults standardUserDefaults] setValue:self.nameString forKey:CHCacheAnchorName];
     }
     self.hidden = YES;
 }
