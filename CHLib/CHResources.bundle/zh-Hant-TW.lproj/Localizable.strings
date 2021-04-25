@@ -33,6 +33,8 @@
 "Live_Set_Resolution" = "分辨率";
 "Live_Set_Rate" = "幀率";
 "Live_InputRoomNumPrompt" = "請輸入您的直播號";
+"Live_ChatPlaceholder" = "我來說幾句...";
+"Live_ChatTextNumber" = "文本最多輸入 80 個字符";
 
 "BeautySet.Beauty" = "美 顏";
 "BeautySet.Whitening" = "美白";

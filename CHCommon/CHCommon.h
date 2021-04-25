@@ -86,12 +86,16 @@
 #define CHColor_DBDBDB [UIColor ch_colorWithHex:0x6D7278]
 #define CHColor_C4C4C4 [UIColor ch_colorWithHex:0xC4C4C4]
 #define CHColor_24D3EE [UIColor ch_colorWithHex:0x24D3EE]
+#define CHColor_BBBBBB [UIColor ch_colorWithHex:0xBBBBBB]
+
+
 
 /// StatusBar
 #define StatusBarH_iPhone 20
 #define StatusBarH_iPad 44
 #define StatusBarH ([UIDevice ch_isiPad] ? StatusBarH_iPad : StatusBarH_iPhone)
 
-
+#define CHVideoViewW 86
+#define CHVideoViewH 115
 
 #endif /* CHCommon_h */

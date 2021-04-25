@@ -37,7 +37,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = UIColor.yellowColor;
+    self.view.backgroundColor = UIColor.whiteColor;
             
     // 上层试图的View
     [self setupFrontViewUI];
@@ -87,13 +87,14 @@
 //            if (![self.liveFrontView.channelId ch_isNotEmpty])
 //            {
 //                [CHProgressHUD ch_showHUDAddedTo:self.view animated:YES withText:CH_Localized(@"Live_InputRoomNumPrompt") delay:2.0];
-//                
+//
 //                return;
 //            }
             
             CHLiveRoomVC *liveRoomVC = [[CHLiveRoomVC alloc]init];
             liveRoomVC.channelId = self.liveFrontView.channelId;
             liveRoomVC.nickName = self.nickName;
+            liveRoomVC.roleType = CHUserType_Anchor;
             [self.navigationController pushViewController:liveRoomVC animated:YES];
         }
             break;
@@ -123,6 +124,7 @@
             break;
     }
 }
+
 
 - (void)setViewArrowButtonClick:(UIButton *)button
 {
@@ -203,20 +205,6 @@
 }
 
 
-- (BOOL)shouldAutorotate
-{
-    return YES;
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
-{
-    return UIInterfaceOrientationPortrait;
-}
 
 
 @end

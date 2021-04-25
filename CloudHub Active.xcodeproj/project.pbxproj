@@ -12,6 +12,10 @@
 		048B299126350BE300CA945A /* CHSuperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B299026350BE300CA945A /* CHSuperViewController.m */; };
 		048B29942635175700CA945A /* CHLiveRoomFrontView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B29932635175700CA945A /* CHLiveRoomFrontView.m */; };
 		048B2998263542FA00CA945A /* CHProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B2996263542FA00CA945A /* CHProgressHUD.m */; };
+		048B29A226356C2500CA945A /* SCChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B299A26356C2500CA945A /* SCChatView.m */; };
+		048B29A426356C2500CA945A /* SCTipsMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B299D26356C2500CA945A /* SCTipsMessageCell.m */; };
+		048B29A526356C2500CA945A /* SCTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B29A026356C2500CA945A /* SCTextMessageCell.m */; };
+		048B29A826356C5800CA945A /* CHChatMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B29A726356C5800CA945A /* CHChatMessageModel.m */; };
 		049D7138262D64DC002DC098 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D7137262D64DC002DC098 /* AppDelegate.m */; };
 		049D713E262D64DC002DC098 /* CHLiveListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D713D262D64DC002DC098 /* CHLiveListVC.m */; };
 		049D7143262D64DD002DC098 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 049D7142262D64DD002DC098 /* Assets.xcassets */; };
@@ -157,6 +161,14 @@
 		048B29932635175700CA945A /* CHLiveRoomFrontView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHLiveRoomFrontView.m; sourceTree = "<group>"; };
 		048B2996263542FA00CA945A /* CHProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHProgressHUD.m; sourceTree = "<group>"; };
 		048B2997263542FA00CA945A /* CHProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHProgressHUD.h; sourceTree = "<group>"; };
+		048B299A26356C2500CA945A /* SCChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCChatView.m; sourceTree = "<group>"; };
+		048B299C26356C2500CA945A /* SCTextMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTextMessageCell.h; sourceTree = "<group>"; };
+		048B299D26356C2500CA945A /* SCTipsMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTipsMessageCell.m; sourceTree = "<group>"; };
+		048B299F26356C2500CA945A /* SCChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCChatView.h; sourceTree = "<group>"; };
+		048B29A026356C2500CA945A /* SCTextMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTextMessageCell.m; sourceTree = "<group>"; };
+		048B29A126356C2500CA945A /* SCTipsMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTipsMessageCell.h; sourceTree = "<group>"; };
+		048B29A626356C5800CA945A /* CHChatMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHChatMessageModel.h; sourceTree = "<group>"; };
+		048B29A726356C5800CA945A /* CHChatMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatMessageModel.m; sourceTree = "<group>"; };
 		049D7133262D64DC002DC098 /* CloudHub Active.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CloudHub Active.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		049D7136262D64DC002DC098 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		049D7137262D64DC002DC098 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -451,6 +463,21 @@
 			path = CHProgressHUD;
 			sourceTree = "<group>";
 		};
+		048B299926356C2500CA945A /* SCChat */ = {
+			isa = PBXGroup;
+			children = (
+				048B299F26356C2500CA945A /* SCChatView.h */,
+				048B299A26356C2500CA945A /* SCChatView.m */,
+				048B299C26356C2500CA945A /* SCTextMessageCell.h */,
+				048B29A026356C2500CA945A /* SCTextMessageCell.m */,
+				048B29A126356C2500CA945A /* SCTipsMessageCell.h */,
+				048B299D26356C2500CA945A /* SCTipsMessageCell.m */,
+				048B29A626356C5800CA945A /* CHChatMessageModel.h */,
+				048B29A726356C5800CA945A /* CHChatMessageModel.m */,
+			);
+			path = SCChat;
+			sourceTree = "<group>";
+		};
 		049D712A262D64DC002DC098 = {
 			isa = PBXGroup;
 			children = (
@@ -473,6 +500,7 @@
 		049D7135262D64DC002DC098 /* CloudHub Active */ = {
 			isa = PBXGroup;
 			children = (
+				048B299926356C2500CA945A /* SCChat */,
 				04DF095826329C42006D4169 /* CHBeautyView */,
 				04C826A126326B84004AE13C /* CHSetView */,
 				049D7206262FCDDC002DC098 /* CHLiveListVC */,
@@ -904,6 +932,7 @@
 				049D7201262ED5DA002DC098 /* NSArray+MASAdditions.m in Sources */,
 				04C8263C26318942004AE13C /* SDWebImageManager.m in Sources */,
 				04C8265E26318942004AE13C /* SDImageLoadersManager.m in Sources */,
+				048B29A426356C2500CA945A /* SCTipsMessageCell.m in Sources */,
 				049D71C9262E792B002DC098 /* UIImageView+CHCategory.m in Sources */,
 				04C8266926318942004AE13C /* SDWebImageDefine.m in Sources */,
 				04C8263926318942004AE13C /* SDImageCoder.m in Sources */,
@@ -945,7 +974,9 @@
 				048B29942635175700CA945A /* CHLiveRoomFrontView.m in Sources */,
 				04C8266F26318942004AE13C /* SDWebImageDownloaderRequestModifier.m in Sources */,
 				049D7203262ED5DA002DC098 /* MASConstraint.m in Sources */,
+				048B29A526356C2500CA945A /* SCTextMessageCell.m in Sources */,
 				04C8264226318942004AE13C /* SDImageAWebPCoder.m in Sources */,
+				048B29A826356C5800CA945A /* CHChatMessageModel.m in Sources */,
 				048B299126350BE300CA945A /* CHSuperViewController.m in Sources */,
 				049D71E1262ED3AD002DC098 /* CHLiveModel.m in Sources */,
 				04C8263B26318942004AE13C /* SDWebImageDownloaderDecryptor.m in Sources */,
@@ -991,6 +1022,7 @@
 				04C8266626318942004AE13C /* UIImage+MemoryCacheCost.m in Sources */,
 				04C8266726318942004AE13C /* SDImageCacheConfig.m in Sources */,
 				049D71C2262E792B002DC098 /* NSAttributedString+CHCategory.m in Sources */,
+				048B29A226356C2500CA945A /* SCChatView.m in Sources */,
 				04C8264326318942004AE13C /* SDAnimatedImagePlayer.m in Sources */,
 				049D71C5262E792B002DC098 /* UIImage+CHCategory.m in Sources */,
 				04C8266126318942004AE13C /* SDImageTransformer.m in Sources */,

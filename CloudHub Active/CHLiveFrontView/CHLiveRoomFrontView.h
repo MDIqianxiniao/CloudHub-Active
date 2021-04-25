@@ -23,7 +23,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSMutableArray *userList;
 
+@property (nonatomic, weak) UITextView *inputView;
+
+@property (nonatomic, strong) NSMutableArray <CHChatMessageModel *> *SCMessageList;
+
+
 @property (nonatomic, copy) void(^liveRoomFrontViewButtonsClick)(UIButton *button);
+
+@property (nonatomic, copy) void(^sendMessage)(NSString *message);
 
 - (instancetype)initWithFrame:(CGRect)frame WithUserType:(CHUserRoleType)roleType;
 

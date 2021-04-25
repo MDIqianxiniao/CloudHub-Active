@@ -22,6 +22,7 @@
 
 #import "CHRoomUser.h"
 
+#import "CHChatMessageModel.h"
 
 
 #endif /* PrefixHeader_pch */

@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// name
 @property (nonatomic, copy) NSString *liveName;
 
+/// channelId
+@property (nonatomic, copy) NSString *channelId;
+
 /// 人数
 @property (nonatomic, assign) NSInteger memberNum;
 

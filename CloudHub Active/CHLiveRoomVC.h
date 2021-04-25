@@ -12,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CHLiveRoomVC : CHSuperViewController
 
-
 /// user list
 @property (nonatomic, strong) NSMutableArray <CHRoomUser *> *userList;
 
