@@ -55,7 +55,7 @@
     self.centreImageView = centreImageView;
     
     UILabel *noLiveLable = [[UILabel alloc]initWithFrame:CGRectMake(0, centreImageView.ch_bottom + 10, bgImageView.ch_width, 30)];
-    noLiveLable.text = CH_Localized(@"list_noLive");
+    noLiveLable.text = CH_Localized(@"List_NoLive");
     noLiveLable.font = CHFont12;
     noLiveLable.textColor = CHWhiteColor;
     noLiveLable.textAlignment = NSTextAlignmentCenter;
@@ -81,7 +81,7 @@
     for (int i = 0; i<8; i++)
     {
         CHLiveModel *model = [[CHLiveModel alloc]init];
-        model.liveName = [NSString stringWithFormat:@"%@：%d",CH_Localized(@"list_liveName"), i];
+        model.liveName = [NSString stringWithFormat:@"%@：%d",CH_Localized(@"List_LiveName"), i];
         model.memberNum = i+100;
         
         [mutArray addObject:model];
@@ -99,7 +99,15 @@
 /// 创建新直播按钮点击
 - (void)clickToCreatLive
 {
+//    if (![self.minPopupView.nameString ch_isNotEmpty])
+//    {
+//        [CHProgressHUD ch_showHUDAddedTo:self.view animated:YES withText:CH_Localized(@"List_InpuYourNickName") delay:2.0];
+//        
+//        return;
+//    }
+    
     CHCreatLiveVC *liveVC = [[CHCreatLiveVC alloc]init];
+    liveVC.nickName = self.minPopupView.nameString;
     [self.navigationController pushViewController:liveVC animated:YES];
 }
 
@@ -114,7 +122,6 @@
     if (!_minPopupView)
     {
         _minPopupView = [[CHMinePopupView alloc]initWithFrame:CGRectMake(0, 0, 240, 162)];
-        _minPopupView.backgroundColor = CHWhiteColor;
         _minPopupView.layer.cornerRadius = 10;
         _minPopupView.ch_centerX = self.view.ch_width *0.5;
         _minPopupView.ch_centerY = self.view.ch_height *0.5;

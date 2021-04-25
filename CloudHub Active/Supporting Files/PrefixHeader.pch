@@ -12,10 +12,6 @@
 
 #import "CHCommon.h"
 
-#import "Masonry.h"
-
-#import "UIImageView+WebCache.h"
-
 #import "AppDelegate.h"
 
 #import "CHAppEnum.h"
@@ -23,6 +19,9 @@
 #import "CHAppDefine.h"
 
 #import "CHLiveModel.h"
+
+#import "CHRoomUser.h"
+
 
 
 #endif /* PrefixHeader_pch */

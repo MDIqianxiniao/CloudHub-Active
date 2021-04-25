@@ -6,10 +6,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CHSuperViewController.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CHCreatLiveVC : UIViewController
+@interface CHCreatLiveVC : CHSuperViewController
 
 @end
 

@@ -52,7 +52,7 @@
 - (void)setupView
 {
     UILabel *titleLable = [[UILabel alloc]init];
-    titleLable.text = CH_Localized(@"list_popup_mine");
+    titleLable.text = CH_Localized(@"List_Popup_Mine");
     titleLable.font = CHFont12;
     titleLable.textColor = CHColor_6D7278;
     titleLable.textAlignment  = NSTextAlignmentCenter;

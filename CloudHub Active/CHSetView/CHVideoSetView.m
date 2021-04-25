@@ -65,7 +65,7 @@
 - (void)setupView
 {
     UILabel *titleLable = [[UILabel alloc]init];
-    titleLable.text = CH_Localized(@"live_set");
+    titleLable.text = CH_Localized(@"Live_Set");
     titleLable.font = CHFont12;
     titleLable.textColor = CHColor_6D7278;
     titleLable.textAlignment  = NSTextAlignmentCenter;
@@ -90,12 +90,12 @@
         
         if (!i)
         {
-            titleLabel.text = CH_Localized(@"live_set_resolution");
+            titleLabel.text = CH_Localized(@"Live_Set_Resolution");
             self.resolutionLable = valueLable;
         }
         else
         {
-            titleLabel.text = CH_Localized(@"live_set_rate");
+            titleLabel.text = CH_Localized(@"Live_Set_Rate");
             self.rateLable = valueLable;
         }
         

@@ -9,7 +9,7 @@
 
 @interface CHMinePopupView ()
 
-@property (nonatomic, copy) NSString *nameString;
+@property (nonatomic, weak) UITextField *nameField;
 
 @end
 
@@ -19,6 +19,8 @@
 {
     if (self = [super initWithFrame:frame])
     {
+        self.backgroundColor = CHWhiteColor;
+        
         [self setupViews];
     }
     return self;
@@ -27,7 +29,7 @@
 - (void)setupViews
 {
     UILabel *titleLable = [[UILabel alloc]initWithFrame:CGRectMake(0, 8, 50, 15)];
-    titleLable.text = CH_Localized(@"list_popup_mine");
+    titleLable.text = CH_Localized(@"List_Popup_Mine");
     titleLable.font = CHFont12;
     titleLable.textColor = CHColor_212121;
     [self addSubview:titleLable];
@@ -42,7 +44,7 @@
     cancelButton.ch_centerY = titleLable.ch_centerY;
     
     UILabel *nickLable = [[UILabel alloc]initWithFrame:CGRectMake(30, 0, 30, 15)];
-    nickLable.text = CH_Localized(@"list_popup_nick");
+    nickLable.text = CH_Localized(@"List_Popup_Nickname");
     nickLable.font = CHFont12;
     nickLable.textColor = CHColor_6D7278;
     [self addSubview:nickLable];
@@ -60,15 +62,16 @@
     
     UITextField *nameField = [[UITextField alloc]initWithFrame:CGRectMake(leftMargin, 0, fieldBgView.ch_width - leftMargin, fieldBgView.ch_height)];
     nameField.font = CHFont12;
-    NSAttributedString *placeholderStr = [[NSAttributedString alloc]initWithString:CH_Localized(@"list_popup_defaultNick") attributes:@{NSForegroundColorAttributeName:CHColor_6D7278,NSFontAttributeName:CHFont12}];
+    NSAttributedString *placeholderStr = [[NSAttributedString alloc]initWithString:CH_Localized(@"List_Popup_DefaultNick") attributes:@{NSForegroundColorAttributeName:CHColor_6D7278,NSFontAttributeName:CHFont12}];
     nameField.attributedPlaceholder = placeholderStr;
     [fieldBgView addSubview:nameField];
     nameField.clearButtonMode = UITextFieldViewModeAlways;
     [nameField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
+    self.nameField = nameField;
 
     UIButton *finishButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 84, 28)];
     [finishButton setBackgroundImage:[UIImage imageNamed:@"list_finishButton"] forState:UIControlStateNormal];
-    [finishButton setTitle:CH_Localized(@"list_popup_finish") forState:UIControlStateNormal];
+    [finishButton setTitle:CH_Localized(@"List_Popup_Finish") forState:UIControlStateNormal];
     [finishButton setTitleColor:CHWhiteColor forState:UIControlStateNormal];
     finishButton.titleLabel.font = CHFont12;
     finishButton.ch_centerX = self.ch_width *0.5;
@@ -105,7 +108,8 @@
     }
     else if (sender.tag == 2)
     {
-//        NSLog(@"点击了我的，完成");
+        [self.nameField resignFirstResponder];
+        
         [[NSUserDefaults standardUserDefaults] setValue:self.nameString forKey:CHCacheAnchorName];
     }
     self.hidden = YES;

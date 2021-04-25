@@ -13,10 +13,10 @@
 /// CHUserRoleType User roles
 typedef NS_ENUM(NSInteger, CHUserRoleType)
 {
-    /// Teacher
-    CHUserType_Teacher = 0,
-    /// Student
-    CHUserType_Student = 2,
+    /// Anchor
+    CHUserType_Anchor = 0,
+    /// Audience
+    CHUserType_Audience = 2,
 };
 
 /// Room type

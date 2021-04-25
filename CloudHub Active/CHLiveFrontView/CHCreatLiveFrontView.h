@@ -9,9 +9,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CHCreatLiveView : UIView
+@interface CHCreatLiveFrontView : UIView
 
-@property (nonatomic, copy) NSString *liveNum;
+@property (nonatomic, copy) NSString *channelId;
+
+@property (nonatomic, weak,readonly) UITextField *liveNumField;
 
 @property (nonatomic, copy) void(^creatLiveViewButtonsClick)(UIButton *sender);
 

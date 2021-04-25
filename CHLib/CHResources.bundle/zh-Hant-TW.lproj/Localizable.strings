@@ -19,15 +19,20 @@
 "Chart.Input.Placeholder" = "請輸入您的消息";
 
 
-"list_popup_mine" = "我的";
-"list_popup_nick" = "昵稱";
-"list_popup_defaultNick" = "默認昵稱";
-"list_popup_finish" = "完成";
-"list_noLive" = "當前沒有直播，請創建一個";
-"list_liveName" = "直播間名";
+"List_Popup_Mine" = "我的";
+"List_Popup_Nickname" = "昵稱";
+"List_Popup_DefaultNick" = "默認昵稱";
+"List_Popup_Finish" = "完成";
+"List_NoLive" = "當前沒有直播，請創建一個";
+"List_LiveName" = "直播間名";
+"List_InpuYourNickName" = "請輸入您的昵稱";
 
-"live_inputRoomNum" = "輸入您的直播號";
-"live_startLive" = "開始直播";
+"Live_InputRoomNum" = "輸入您的直播號";
+"Live_StartLive" = "開始直播";
+"Live_Set" = "設置";
+"Live_Set_Resolution" = "分辨率";
+"Live_Set_Rate" = "幀率";
+"Live_InputRoomNumPrompt" = "請輸入您的直播號";
 
 "BeautySet.Beauty" = "美 顏";
 "BeautySet.Whitening" = "美白";

@@ -195,7 +195,7 @@
 
     _roomUser = roomUser;
     
-    if (self.roomType == CHRoomUseTypeLiveRoom && roomUser.role == CHUserType_Teacher)
+    if (self.roomType == CHRoomUseTypeLiveRoom && roomUser.role == CHUserType_Anchor)
     {
         self.nickNameLabel.text = @"";
     }

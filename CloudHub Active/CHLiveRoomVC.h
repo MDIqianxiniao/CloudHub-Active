@@ -6,10 +6,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CHSuperViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CHLiveRoomVC : UIViewController
+@interface CHLiveRoomVC : CHSuperViewController
+
+
+/// user list
+@property (nonatomic, strong) NSMutableArray <CHRoomUser *> *userList;
 
 @end
 

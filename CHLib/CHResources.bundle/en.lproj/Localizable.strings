@@ -19,15 +19,21 @@
 "Chart.Input.Placeholder" = "Please enter your message";
 
 
-"list_popup_mine" = "Mine";
-"list_popup_nick" = "Nickname";
-"list_popup_defaultNick" = "Default nickname ";
-"list_popup_finish" = "Finish";
-"list_noLive" = "There is no live stream currently, please create one";
-"list_liveName" = "Name of broadcast room ";
+"List_Popup_Mine" = "Mine";
+"List_Popup_Nickname" = "Nickname";
+"List_Popup_DefaultNick" = "Default nickname ";
+"List_Popup_Finish" = "Finish";
+"List_NoLive" = "There is no live stream currently, please create one";
+"List_LiveName" = "Name of broadcast room ";
+"List_InpuYourNickName" = "Please enter your nickname";
 
-"live_inputRoomNum" = "Enter your live number";
-"live_startLive" = "Start live";
+"Live_InputRoomNum" = "Enter your live number";
+"Live_StartLive" = "Start live";
+"Live_Set" = "Set";
+"Live_Set_Resolution" = "Resolution";
+"Live_Set_Rate" = "Rate";
+"Live_InputRoomNumPrompt" = "Please enter your live stream number";
+
 
 "BeautySet.Beauty" = "Beauty";
 "BeautySet.Whitening" = "Whitening";

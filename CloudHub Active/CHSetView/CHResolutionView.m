@@ -65,11 +65,11 @@
     NSString * titleStr = nil;
     if (self.viewType == CHVideoSetViewType_Resolution)
     {
-        titleStr = CH_Localized(@"live_set_resolution");
+        titleStr = CH_Localized(@"Live_Set_Resolution");
     }
     else if (self.viewType == CHVideoSetViewType_Rate)
     {
-        titleStr = CH_Localized(@"live_set_rate");
+        titleStr = CH_Localized(@"Live_Set_Rate");
     }
     
     UILabel *titleLable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.ch_width, 45)];

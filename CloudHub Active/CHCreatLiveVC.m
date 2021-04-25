@@ -6,33 +6,21 @@
 //
 
 #import "CHCreatLiveVC.h"
-#import "CHVideoView.h"
-#import "CHCreatLiveView.h"
-#import "CHBeautySetView.h"
+
+#import "CHCreatLiveFrontView.h"
+
 #import "CHVideoSetView.h"
 #import "CHResolutionView.h"
+#import "CHLiveRoomVC.h"
 
-#define CellGap ([UIDevice ch_isiPad] ? 20.0f : 8.0f)
 
-static NSString *const kToken = nil;
+
 
 @interface CHCreatLiveVC ()
-<
-    CloudHubRtcEngineDelegate,
-    CHVideoViewDelegate
->
 
-@property (nonatomic, strong) CloudHubRtcEngineKit *rtcEngine;
-
-@property (nonatomic, strong) CHVideoView *largeVideoView;
-
-@property (nonatomic, weak) CHCreatLiveView *liveFrontView;
-
-//@property (nonatomic, weak) UITextField *liveNumField;
+@property (nonatomic, weak) CHCreatLiveFrontView *liveFrontView;
 
 @property (nonatomic, weak) UIButton *startButton;
-
-@property (nonatomic, weak) CHBeautySetView *beautyView;
 
 @property (nonatomic, weak) CHVideoSetView *videoSetView;
 
@@ -50,31 +38,15 @@ static NSString *const kToken = nil;
 {
     [super viewDidLoad];
     self.view.backgroundColor = UIColor.yellowColor;
-        
-    self.rtcEngine = RtcEngine;
-    self.rtcEngine.delegate = self;
-        
-    // 主播视频
-    [self setupLargeVideoView];
-    
+            
     // 上层试图的View
     [self setupFrontViewUI];
 }
 
-// 主播视频
-- (void)setupLargeVideoView
-{
-    CHVideoView *largeVideoView = [[CHVideoView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:largeVideoView];
-    largeVideoView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    largeVideoView.isBigView = YES;
-    self.largeVideoView = largeVideoView;
-    [RtcEngine startPlayingLocalVideo:self.largeVideoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled];
-}
 
 - (void)setupFrontViewUI
 {
-    CHCreatLiveView *liveFrontView = [[CHCreatLiveView alloc]initWithFrame:self.view.bounds];
+    CHCreatLiveFrontView *liveFrontView = [[CHCreatLiveFrontView alloc]initWithFrame:self.view.bounds];
     self.liveFrontView = liveFrontView;
     [self.view addSubview:liveFrontView];
     
@@ -101,24 +73,28 @@ static NSString *const kToken = nil;
             break;
         case 3:
         {// 美颜设置
-                        
-            if (!self.beautyView)
-            {
-                CHBeautySetView *beautyView = [[CHBeautySetView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 0) itemGap:CellGap];
-                
-                [self.view addSubview:beautyView];
-                self.beautyView = beautyView;
-            }
-
-            [self.beautyView ch_bringToFront];
+            
             [UIView animateWithDuration:0.25 animations:^{
                 self.beautyView.ch_originY = self.view.ch_height - self.beautyView.ch_height;
            }];
+            
+            [self.beautyView ch_bringToFront];
         }
             break;
         case 4:
-        {
-            NSLog(@"开始直播");
+        {// 开始直播
+            
+//            if (![self.liveFrontView.channelId ch_isNotEmpty])
+//            {
+//                [CHProgressHUD ch_showHUDAddedTo:self.view animated:YES withText:CH_Localized(@"Live_InputRoomNumPrompt") delay:2.0];
+//                
+//                return;
+//            }
+            
+            CHLiveRoomVC *liveRoomVC = [[CHLiveRoomVC alloc]init];
+            liveRoomVC.channelId = self.liveFrontView.channelId;
+            liveRoomVC.nickName = self.nickName;
+            [self.navigationController pushViewController:liveRoomVC animated:YES];
         }
             break;
         case 5:
@@ -135,11 +111,11 @@ static NSString *const kToken = nil;
                 };
             }
             
-            [self.videoSetView ch_bringToFront];
-            
             [UIView animateWithDuration:0.25 animations:^{
                 self.videoSetView.ch_originY = self.view.ch_height - self.videoSetView.ch_height;
            }];
+            
+            [self.videoSetView ch_bringToFront];
         }
             break;
             
@@ -216,6 +192,8 @@ static NSString *const kToken = nil;
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
+    [self.liveFrontView.liveNumField resignFirstResponder];
+    
     [UIView animateWithDuration:0.25 animations:^{
         self.beautyView.ch_originY = self.view.ch_height;
         self.videoSetView.ch_originY = self.view.ch_height;
@@ -223,29 +201,6 @@ static NSString *const kToken = nil;
         self.rateView.ch_originY = self.view.ch_height;
     }];
 }
-
-#pragma mark - Join Channel
-
-/// Join Channel
-- (void)beginLiveJoinChannel
-{
-    NSString *anchorName = [[NSUserDefaults standardUserDefaults] objectForKey:CHCacheAnchorName];
-    
-    // user property
-    NSMutableDictionary *userProperty = [NSMutableDictionary dictionary];
-    [userProperty ch_setString:anchorName forKey:sCHUserNickname];
-    NSMutableDictionary *userCameras = [NSMutableDictionary dictionary];
-    [userCameras setObject:@{sCHUserVideoFail: @(CHDeviceFaultNone)} forKey:sCHUserDefaultSourceId];
-    [userProperty setObject:userCameras forKey:sCHUserCameras];
-    [userProperty ch_setUInteger:CHDeviceFaultNone forKey:sCHUserAudioFail];
-
-    NSString *str = [userProperty ch_toJSON];
-
-    [self.rtcEngine joinChannelByToken:kToken channelId:self.liveFrontView.liveNum properties:str uid:nil joinSuccess:nil];
-}
-
-
-
 
 
 - (BOOL)shouldAutorotate

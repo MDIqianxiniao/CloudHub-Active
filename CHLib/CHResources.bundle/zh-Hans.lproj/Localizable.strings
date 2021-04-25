@@ -10,7 +10,6 @@
 
 "Login.Channel" = "频道";
 "Login.Channel.Placeholder" = "请输入您的房间号";
-"Login.NickName" = "昵称";
 "Login.NickName.Placeholder" = "请输入您的昵称";
 "Login.Enter" = "进入";
 
@@ -18,18 +17,23 @@
 
 "Chart.Input.Placeholder" = "请输入您的消息";
 
-"list_popup_mine" = "我的";
-"list_popup_nick" = "昵称";
-"list_popup_defaultNick" = "默认昵称";
-"list_popup_finish" = "完成";
-"list_noLive" = "当前没有直播，请创建一个";
-"list_liveName" = "直播间名";
+"List_Popup_Mine" = "我的";
+"List_Popup_Nickname" = "昵称";
+"List_Popup_DefaultNick" = "默认昵称";
+"List_Popup_Finish" = "完成";
+"List_NoLive" = "当前没有直播，请创建一个";
+"List_LiveName" = "直播间名";
+"List_InpuYourNickName" = "请输入您的昵称";
 
-"live_inputRoomNum" = "输入您的直播号";
-"live_startLive" = "开始直播";
-"live_set" = "设置";
-"live_set_resolution" = "分辨率";
-"live_set_rate" = "帧率";
+"Live_InputRoomNum" = "输入您的直播号";
+"Live_StartLive" = "开始直播";
+"Live_Set" = "设置";
+"Live_Set_Resolution" = "分辨率";
+"Live_Set_Rate" = "帧率";
+"Live_Prompt_Title" = "温馨提示";
+"Live_Prompt_Content" = "本应用为测试产品，请勿商用，\n单次直播最多10分钟，每个通道最多10人";
+"Live_InputRoomNumPrompt" = "请输入您的直播号";
+
 
 "BeautySet.Beauty" = "美 颜";
 "BeautySet.Whitening" = "美白";
@@ -37,3 +41,5 @@
 "BeautySet.BigEyes" = "大眼";
 "BeautySet.Exfoliating" = "磨皮";
 "BeautySet.Ruddy" = "红润";
+
+//"LiveRoom_Rate" = "帧率";

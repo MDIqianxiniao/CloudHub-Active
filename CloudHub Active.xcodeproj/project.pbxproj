@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		048B29842632AB4400CA945A /* CHResolutionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B29832632AB4400CA945A /* CHResolutionView.m */; };
 		048B298E2635085600CA945A /* CHLiveRoomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B298D2635085600CA945A /* CHLiveRoomVC.m */; };
+		048B299126350BE300CA945A /* CHSuperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B299026350BE300CA945A /* CHSuperViewController.m */; };
+		048B29942635175700CA945A /* CHLiveRoomFrontView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B29932635175700CA945A /* CHLiveRoomFrontView.m */; };
+		048B2998263542FA00CA945A /* CHProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B2996263542FA00CA945A /* CHProgressHUD.m */; };
 		049D7138262D64DC002DC098 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D7137262D64DC002DC098 /* AppDelegate.m */; };
 		049D713E262D64DC002DC098 /* CHLiveListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D713D262D64DC002DC098 /* CHLiveListVC.m */; };
 		049D7143262D64DD002DC098 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 049D7142262D64DD002DC098 /* Assets.xcassets */; };
@@ -52,7 +55,7 @@
 		049D723326311189002DC098 /* CHVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D723126311189002DC098 /* CHVideoView.m */; };
 		04C8251A26315D8F004AE13C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04C8251C26315D8F004AE13C /* InfoPlist.strings */; };
 		04C8252726315F13004AE13C /* CHResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04C8252626315F13004AE13C /* CHResources.bundle */; };
-		04C8254826316B6C004AE13C /* CHCreatLiveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C8254726316B6C004AE13C /* CHCreatLiveView.m */; };
+		04C8254826316B6C004AE13C /* CHCreatLiveFrontView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C8254726316B6C004AE13C /* CHCreatLiveFrontView.m */; };
 		04C8263626318942004AE13C /* SDImageHEICCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C8256C26318941004AE13C /* SDImageHEICCoder.m */; };
 		04C8263726318942004AE13C /* NSImage+Compatibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C8256E26318941004AE13C /* NSImage+Compatibility.m */; };
 		04C8263826318942004AE13C /* SDAnimatedImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C8257026318941004AE13C /* SDAnimatedImageView+WebCache.m */; };
@@ -148,6 +151,12 @@
 		048B29832632AB4400CA945A /* CHResolutionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHResolutionView.m; sourceTree = "<group>"; };
 		048B298C2635085600CA945A /* CHLiveRoomVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHLiveRoomVC.h; sourceTree = "<group>"; };
 		048B298D2635085600CA945A /* CHLiveRoomVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHLiveRoomVC.m; sourceTree = "<group>"; };
+		048B298F26350BE300CA945A /* CHSuperViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHSuperViewController.h; sourceTree = "<group>"; };
+		048B299026350BE300CA945A /* CHSuperViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHSuperViewController.m; sourceTree = "<group>"; };
+		048B29922635175700CA945A /* CHLiveRoomFrontView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHLiveRoomFrontView.h; sourceTree = "<group>"; };
+		048B29932635175700CA945A /* CHLiveRoomFrontView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHLiveRoomFrontView.m; sourceTree = "<group>"; };
+		048B2996263542FA00CA945A /* CHProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHProgressHUD.m; sourceTree = "<group>"; };
+		048B2997263542FA00CA945A /* CHProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHProgressHUD.h; sourceTree = "<group>"; };
 		049D7133262D64DC002DC098 /* CloudHub Active.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CloudHub Active.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		049D7136262D64DC002DC098 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		049D7137262D64DC002DC098 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -239,8 +248,8 @@
 		04C8251D26315D93004AE13C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		04C8251E26315D94004AE13C /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		04C8252626315F13004AE13C /* CHResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHResources.bundle; sourceTree = "<group>"; };
-		04C8254626316B6C004AE13C /* CHCreatLiveView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHCreatLiveView.h; sourceTree = "<group>"; };
-		04C8254726316B6C004AE13C /* CHCreatLiveView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHCreatLiveView.m; sourceTree = "<group>"; };
+		04C8254626316B6C004AE13C /* CHCreatLiveFrontView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHCreatLiveFrontView.h; sourceTree = "<group>"; };
+		04C8254726316B6C004AE13C /* CHCreatLiveFrontView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHCreatLiveFrontView.m; sourceTree = "<group>"; };
 		04C8256B26318941004AE13C /* UIImage+ExtendedCacheData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ExtendedCacheData.h"; sourceTree = "<group>"; };
 		04C8256C26318941004AE13C /* SDImageHEICCoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDImageHEICCoder.m; sourceTree = "<group>"; };
 		04C8256D26318941004AE13C /* SDAnimatedImageRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAnimatedImageRep.h; sourceTree = "<group>"; };
@@ -410,8 +419,10 @@
 		048B29872632D5D400CA945A /* CHLiveFrontView */ = {
 			isa = PBXGroup;
 			children = (
-				04C8254626316B6C004AE13C /* CHCreatLiveView.h */,
-				04C8254726316B6C004AE13C /* CHCreatLiveView.m */,
+				04C8254626316B6C004AE13C /* CHCreatLiveFrontView.h */,
+				04C8254726316B6C004AE13C /* CHCreatLiveFrontView.m */,
+				048B29922635175700CA945A /* CHLiveRoomFrontView.h */,
+				048B29932635175700CA945A /* CHLiveRoomFrontView.m */,
 			);
 			path = CHLiveFrontView;
 			sourceTree = "<group>";
@@ -429,6 +440,15 @@
 				049D7148262D64DD002DC098 /* main.m */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		048B2995263542FA00CA945A /* CHProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				048B2996263542FA00CA945A /* CHProgressHUD.m */,
+				048B2997263542FA00CA945A /* CHProgressHUD.h */,
+			);
+			path = CHProgressHUD;
 			sourceTree = "<group>";
 		};
 		049D712A262D64DC002DC098 = {
@@ -457,6 +477,8 @@
 				04C826A126326B84004AE13C /* CHSetView */,
 				049D7206262FCDDC002DC098 /* CHLiveListVC */,
 				048B29872632D5D400CA945A /* CHLiveFrontView */,
+				048B298F26350BE300CA945A /* CHSuperViewController.h */,
+				048B299026350BE300CA945A /* CHSuperViewController.m */,
 				049D713C262D64DC002DC098 /* CHLiveListVC.h */,
 				049D713D262D64DC002DC098 /* CHLiveListVC.m */,
 				049D720D263009B7002DC098 /* CHCreatLiveVC.h */,
@@ -471,6 +493,7 @@
 		049D7159262D6625002DC098 /* CHCommon */ = {
 			isa = PBXGroup;
 			children = (
+				048B2995263542FA00CA945A /* CHProgressHUD */,
 				049D7235263114A7002DC098 /* appDefine */,
 				049D72342631124C002DC098 /* CHModel */,
 				049D723026311189002DC098 /* CHVideoView */,
@@ -892,7 +915,7 @@
 				04C8265126318942004AE13C /* SDWebImageError.m in Sources */,
 				049D71DB262EB82C002DC098 /* CHLiveListTableView.m in Sources */,
 				04C8267126318942004AE13C /* SDImageCachesManagerOperation.m in Sources */,
-				04C8254826316B6C004AE13C /* CHCreatLiveView.m in Sources */,
+				04C8254826316B6C004AE13C /* CHCreatLiveFrontView.m in Sources */,
 				04C8265D26318942004AE13C /* SDWebImageDownloaderOperation.m in Sources */,
 				049D71C0262E792B002DC098 /* UIDevice+CHCategory.m in Sources */,
 				04C8267526318942004AE13C /* SDInternalMacros.m in Sources */,
@@ -919,9 +942,11 @@
 				048B29842632AB4400CA945A /* CHResolutionView.m in Sources */,
 				04C8265F26318942004AE13C /* SDImageCachesManager.m in Sources */,
 				04C8265426318942004AE13C /* NSButton+WebCache.m in Sources */,
+				048B29942635175700CA945A /* CHLiveRoomFrontView.m in Sources */,
 				04C8266F26318942004AE13C /* SDWebImageDownloaderRequestModifier.m in Sources */,
 				049D7203262ED5DA002DC098 /* MASConstraint.m in Sources */,
 				04C8264226318942004AE13C /* SDImageAWebPCoder.m in Sources */,
+				048B299126350BE300CA945A /* CHSuperViewController.m in Sources */,
 				049D71E1262ED3AD002DC098 /* CHLiveModel.m in Sources */,
 				04C8263B26318942004AE13C /* SDWebImageDownloaderDecryptor.m in Sources */,
 				04C8267226318942004AE13C /* SDImageAssetManager.m in Sources */,
@@ -978,6 +1003,7 @@
 				04C8263726318942004AE13C /* NSImage+Compatibility.m in Sources */,
 				04C8264126318942004AE13C /* UIImage+ForceDecode.m in Sources */,
 				04C8266E26318942004AE13C /* UIButton+WebCache.m in Sources */,
+				048B2998263542FA00CA945A /* CHProgressHUD.m in Sources */,
 				04DF095E26329DEB006D4169 /* CHVideoSetView.m in Sources */,
 				04C8267826318942004AE13C /* SDDisplayLink.m in Sources */,
 				04C8265826318942004AE13C /* UIImage+ExtendedCacheData.m in Sources */,
