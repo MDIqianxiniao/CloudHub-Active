@@ -8,9 +8,9 @@
 #import "CHLiveRoomVC.h"
 #import "CHCloudHubUtil.h"
 #import "CHLiveRoomFrontView.h"
-
 #define VideoWidth 86
 #define VideoHeight 115
+#import "CHMusicView.h"
 
 static NSString *const kToken = nil;
 
@@ -27,6 +27,7 @@ static NSString *const kToken = nil;
 @property (nonatomic, weak) CHLiveRoomFrontView *liveRoomFrontView;
 
 @property (nonatomic, assign) BOOL isJoinChannel;
+@property (nonatomic, strong) CHMusicView *musicView;
 
 @end
 
@@ -49,6 +50,8 @@ static NSString *const kToken = nil;
     [self setupFrontViewUI];
     
     [self beginLiveJoinChannel];
+    
+    [self setupMusicView];
 }
 
 - (void)setupFrontViewUI
@@ -61,11 +64,19 @@ static NSString *const kToken = nil;
     CHWeakSelf
     liveRoomFrontView.liveRoomFrontViewButtonsClick = ^(UIButton * _Nonnull button) {
         [weakSelf frontViewButtonsClick:button];
-    };
     
+    };
     liveRoomFrontView.sendMessage = ^(NSString * _Nonnull message) {
         [weakSelf sendMessageWithText:message withMessageType:CHChatMessageType_Text withMemberModel:weakSelf.localUser];
     };
+}
+
+- (void)setupMusicView
+{
+    CHMusicView *musicView = [[CHMusicView alloc] init];
+    self.musicView = musicView;
+    musicView.frame = CGRectMake(0, self.view.ch_height, self.view.ch_width, 200.0f);
+    [self.view addSubview:musicView];
 }
 
 - (void)frontViewButtonsClick:(UIButton *)button
@@ -90,7 +101,11 @@ static NSString *const kToken = nil;
             break;
         case CHLiveRoomFrontButton_Music:
         {
+            [UIView animateWithDuration:0.25 animations:^{
+                self.musicView.ch_originY = self.view.ch_height - self.musicView.ch_height;
+            }];
             
+            [self.musicView ch_bringToFront];
         }
             break;
         case CHLiveRoomFrontButton_Beauty:
@@ -114,7 +129,7 @@ static NSString *const kToken = nil;
     
     [UIView animateWithDuration:0.25 animations:^{
         self.beautyView.ch_originY = self.view.ch_height;
-
+        self.musicView.ch_originY = self.view.ch_height;
     }];
 }
 

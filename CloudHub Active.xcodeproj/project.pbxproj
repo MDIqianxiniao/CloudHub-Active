@@ -135,6 +135,9 @@
 		04C826A026326ADD004AE13C /* NSNumber+CHCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C8269E26326ADC004AE13C /* NSNumber+CHCategory.m */; };
 		04DF095726327261006D4169 /* CHBeautySetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DF095626327261006D4169 /* CHBeautySetView.m */; };
 		04DF095E26329DEB006D4169 /* CHVideoSetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DF095D26329DEB006D4169 /* CHVideoSetView.m */; };
+		2657188026355776003C23CB /* CHMusicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2657187F26355776003C23CB /* CHMusicView.m */; };
+		26571887263566F9003C23CB /* CHMusicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26571886263566F9003C23CB /* CHMusicTableViewCell.m */; };
+		2657188A26356AAF003C23CB /* CHMusicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2657188926356AAF003C23CB /* CHMusicModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -416,6 +419,12 @@
 		04DF095626327261006D4169 /* CHBeautySetView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHBeautySetView.m; sourceTree = "<group>"; };
 		04DF095C26329DEB006D4169 /* CHVideoSetView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHVideoSetView.h; sourceTree = "<group>"; };
 		04DF095D26329DEB006D4169 /* CHVideoSetView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHVideoSetView.m; sourceTree = "<group>"; };
+		2657187E26355776003C23CB /* CHMusicView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHMusicView.h; sourceTree = "<group>"; };
+		2657187F26355776003C23CB /* CHMusicView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHMusicView.m; sourceTree = "<group>"; };
+		26571885263566F9003C23CB /* CHMusicTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHMusicTableViewCell.h; sourceTree = "<group>"; };
+		26571886263566F9003C23CB /* CHMusicTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHMusicTableViewCell.m; sourceTree = "<group>"; };
+		2657188826356AAF003C23CB /* CHMusicModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHMusicModel.h; sourceTree = "<group>"; };
+		2657188926356AAF003C23CB /* CHMusicModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHMusicModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -510,6 +519,7 @@
 				04C826A126326B84004AE13C /* CHSetView */,
 				049D7206262FCDDC002DC098 /* CHLiveListVC */,
 				048B29872632D5D400CA945A /* CHLiveFrontView */,
+				2657187D26355747003C23CB /* CHMusicView */,
 				048B298F26350BE300CA945A /* CHSuperViewController.h */,
 				048B299026350BE300CA945A /* CHSuperViewController.m */,
 				049D713C262D64DC002DC098 /* CHLiveListVC.h */,
@@ -859,6 +869,19 @@
 			path = CHBeautyView;
 			sourceTree = "<group>";
 		};
+		2657187D26355747003C23CB /* CHMusicView */ = {
+			isa = PBXGroup;
+			children = (
+				2657187E26355776003C23CB /* CHMusicView.h */,
+				2657187F26355776003C23CB /* CHMusicView.m */,
+				26571885263566F9003C23CB /* CHMusicTableViewCell.h */,
+				26571886263566F9003C23CB /* CHMusicTableViewCell.m */,
+				2657188826356AAF003C23CB /* CHMusicModel.h */,
+				2657188926356AAF003C23CB /* CHMusicModel.m */,
+			);
+			path = CHMusicView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -945,6 +968,7 @@
 				049D71FD262ED5DA002DC098 /* ViewController+MASAdditions.m in Sources */,
 				04C8267326318942004AE13C /* SDDeviceHelper.m in Sources */,
 				049D720F263009B7002DC098 /* CHCreatLiveVC.m in Sources */,
+				2657188026355776003C23CB /* CHMusicView.m in Sources */,
 				04C8266C26318942004AE13C /* UIView+WebCache.m in Sources */,
 				04C8265126318942004AE13C /* SDWebImageError.m in Sources */,
 				049D71DB262EB82C002DC098 /* CHLiveListTableView.m in Sources */,
@@ -1000,6 +1024,7 @@
 				049D7188262D6824002DC098 /* CHCloudHubUtil.m in Sources */,
 				04C8265726318942004AE13C /* SDAnimatedImageRep.m in Sources */,
 				049D7149262D64DD002DC098 /* main.m in Sources */,
+				26571887263566F9003C23CB /* CHMusicTableViewCell.m in Sources */,
 				04C8265C26318942004AE13C /* SDImageFrame.m in Sources */,
 				04C8266226318942004AE13C /* NSData+ImageContentType.m in Sources */,
 				04C8265026318942004AE13C /* SDWebImageDownloaderResponseModifier.m in Sources */,
@@ -1048,6 +1073,7 @@
 				04C8266826318942004AE13C /* SDWebImageCacheKeyFilter.m in Sources */,
 				04C8263F26318942004AE13C /* SDAnimatedImage.m in Sources */,
 				049D723326311189002DC098 /* CHVideoView.m in Sources */,
+				2657188A26356AAF003C23CB /* CHMusicModel.m in Sources */,
 				04C8265B26318942004AE13C /* SDImageGIFCoder.m in Sources */,
 				04C8264E26318942004AE13C /* SDWebImageCompat.m in Sources */,
 				04C8265226318942004AE13C /* SDWebImagePrefetcher.m in Sources */,
