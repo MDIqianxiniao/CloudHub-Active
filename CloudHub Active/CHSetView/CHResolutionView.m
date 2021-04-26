@@ -142,7 +142,7 @@
 - (void)buttonsClick:(UIButton *)button
 {
     if (button.tag == 1000)
-    {
+    {// 返回
         if (_resolutionViewButtonClick)
         {
             _resolutionViewButtonClick(nil);

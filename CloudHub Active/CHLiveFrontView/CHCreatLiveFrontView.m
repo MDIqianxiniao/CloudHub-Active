@@ -76,6 +76,7 @@
     NSAttributedString *placeholderStr = [[NSAttributedString alloc]initWithString:CH_Localized(@"Live_InputRoomNum") attributes:@{NSForegroundColorAttributeName:CHWhiteColor,NSFontAttributeName:CHFont12}];
     liveNumField.attributedPlaceholder = placeholderStr;
     liveNumField.returnKeyType = UIReturnKeyDone;
+//    liveNumField.keyboardType = UIKeyboardTypeNumberPad;
     self.liveNumField = liveNumField;
     [fieldBgView addSubview:liveNumField];
     [liveNumField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];

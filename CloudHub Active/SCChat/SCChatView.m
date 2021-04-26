@@ -91,7 +91,9 @@ UITextFieldDelegate
     {
         if (!model.cellHeight)
         {
-            model.cellHeight = 25;
+            model.messageSize = [model.message ch_sizeToFitWidth:self.ch_width - 2 * 10 withFont:[UIFont systemFontOfSize:12.0f]];
+            
+            model.cellHeight = 10 + model.messageSize.height + 5;
         }
         return model.cellHeight;
     }
@@ -101,7 +103,9 @@ UITextFieldDelegate
         {
             if (!model.messageSize.width)
             {
-                model.messageSize = [model.message ch_sizeToFitWidth:self.ch_width - 2 * 10 withFont:[UIFont systemFontOfSize:12]];
+                NSString *string = [NSString stringWithFormat:@"%@：%@",model.sendUser.nickName,model.message];
+                
+                model.messageSize = [string ch_sizeToFitWidth:self.ch_width - 2 * 10 withFont:[UIFont systemFontOfSize:12]];
             }
             model.cellHeight = 10 + model.messageSize.height + 5;
         }
@@ -147,6 +151,7 @@ UITextFieldDelegate
         self.SCChatTableView.backgroundColor = [UIColor clearColor];
         self.SCChatTableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
         self.SCChatTableView.showsHorizontalScrollIndicator = NO;
+        self.SCChatTableView.showsVerticalScrollIndicator = NO;
         self.SCChatTableView.estimatedRowHeight = 0;
         self.SCChatTableView.estimatedSectionHeaderHeight = 0;
         self.SCChatTableView.estimatedSectionFooterHeight = 0;

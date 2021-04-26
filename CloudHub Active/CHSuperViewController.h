@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "CHVideoView.h"
 #import "CHBeautySetView.h"
+#import "CHLiveModel.h"
 
 #define CellGap ([UIDevice ch_isiPad] ? 20.0f : 8.0f)
 
@@ -23,9 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) CHVideoView *largeVideoView;
 
-@property (nonatomic, copy) NSString *channelId;
-/// user nick name
-@property (nonatomic, copy) NSString *nickName;
+@property (nonatomic, strong) CHLiveModel *liveModel;
 
 @property (nonatomic, strong) CHBeautySetView *beautyView;
 

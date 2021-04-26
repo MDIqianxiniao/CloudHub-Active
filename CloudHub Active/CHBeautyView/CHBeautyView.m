@@ -256,6 +256,12 @@
         default:
             break;
     }
+    
+    if ([self.beautyViewDelegate respondsToSelector:@selector(beautyViewValueChange)])
+    {
+        [self.beautyViewDelegate beautyViewValueChange];
+    }
+    
 }
 
 @end

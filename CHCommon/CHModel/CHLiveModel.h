@@ -6,6 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CHBeautySetModel.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,9 +19,20 @@ NS_ASSUME_NONNULL_BEGIN
 /// channelId
 @property (nonatomic, copy) NSString *channelId;
 
-/// 人数
+/// number
 @property (nonatomic, assign) NSInteger memberNum;
 
+/// isMirror
+@property (nonatomic, assign) NSInteger isMirror;
+
+/// beauty
+@property (nonatomic, strong) CHBeautySetModel *beautySetModel;
+
+/// resolution
+@property (nonatomic, assign) NSString *resolution;
+
+/// rate
+@property (nonatomic, assign) NSInteger rate;
 
 @end
 

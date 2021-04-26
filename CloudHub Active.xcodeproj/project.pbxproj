@@ -16,6 +16,7 @@
 		048B29A426356C2500CA945A /* SCTipsMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B299D26356C2500CA945A /* SCTipsMessageCell.m */; };
 		048B29A526356C2500CA945A /* SCTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B29A026356C2500CA945A /* SCTextMessageCell.m */; };
 		048B29A826356C5800CA945A /* CHChatMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B29A726356C5800CA945A /* CHChatMessageModel.m */; };
+		048B29AB2636BB8000CA945A /* CHSetToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B29AA2636BB8000CA945A /* CHSetToolView.m */; };
 		049D7138262D64DC002DC098 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D7137262D64DC002DC098 /* AppDelegate.m */; };
 		049D713E262D64DC002DC098 /* CHLiveListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D713D262D64DC002DC098 /* CHLiveListVC.m */; };
 		049D7143262D64DD002DC098 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 049D7142262D64DD002DC098 /* Assets.xcassets */; };
@@ -175,6 +176,8 @@
 		048B29A126356C2500CA945A /* SCTipsMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTipsMessageCell.h; sourceTree = "<group>"; };
 		048B29A626356C5800CA945A /* CHChatMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHChatMessageModel.h; sourceTree = "<group>"; };
 		048B29A726356C5800CA945A /* CHChatMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatMessageModel.m; sourceTree = "<group>"; };
+		048B29A92636BB8000CA945A /* CHSetToolView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHSetToolView.h; sourceTree = "<group>"; };
+		048B29AA2636BB8000CA945A /* CHSetToolView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHSetToolView.m; sourceTree = "<group>"; };
 		049D7133262D64DC002DC098 /* CloudHub Active.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CloudHub Active.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		049D7136262D64DC002DC098 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		049D7137262D64DC002DC098 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -450,6 +453,8 @@
 				04C8254726316B6C004AE13C /* CHCreatLiveFrontView.m */,
 				048B29922635175700CA945A /* CHLiveRoomFrontView.h */,
 				048B29932635175700CA945A /* CHLiveRoomFrontView.m */,
+				048B29A92636BB8000CA945A /* CHSetToolView.h */,
+				048B29AA2636BB8000CA945A /* CHSetToolView.m */,
 			);
 			path = CHLiveFrontView;
 			sourceTree = "<group>";
@@ -658,8 +663,8 @@
 		049D723026311189002DC098 /* CHVideoView */ = {
 			isa = PBXGroup;
 			children = (
-				049D723126311189002DC098 /* CHVideoView.m */,
 				049D723226311189002DC098 /* CHVideoView.h */,
+				049D723126311189002DC098 /* CHVideoView.m */,
 			);
 			path = CHVideoView;
 			sourceTree = "<group>";
@@ -985,6 +990,7 @@
 				049D71C0262E792B002DC098 /* UIDevice+CHCategory.m in Sources */,
 				04C8267526318942004AE13C /* SDInternalMacros.m in Sources */,
 				049D71BF262E792B002DC098 /* UILabel+CHCategory.m in Sources */,
+				048B29AB2636BB8000CA945A /* CHSetToolView.m in Sources */,
 				04C826A026326ADD004AE13C /* NSNumber+CHCategory.m in Sources */,
 				049D720C262FD2D0002DC098 /* UIColor+CHCategory.m in Sources */,
 				049D71DE262ED20C002DC098 /* CHLiveListTableViewCell.m in Sources */,

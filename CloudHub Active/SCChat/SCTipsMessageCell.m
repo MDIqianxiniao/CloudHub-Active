@@ -24,6 +24,8 @@
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.backgroundColor = UIColor.clearColor;
+        
         [self setupView];
     }
     
@@ -38,30 +40,27 @@
     [self.contentView addSubview:self.backView];
     
     self.iMessageLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-//    self.iMessageLabel.backgroundColor = UIColor.clearColor;
-    self.iMessageLabel.textAlignment = NSTextAlignmentCenter;
-//    self.iMessageLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
     self.iMessageLabel.numberOfLines = 0;
     [self.iMessageLabel setFont:CHFont12];
     self.iMessageLabel.textColor = CHColor_24D3EE;
-//    self.iMessageLabel.textColor = [UIColor ch_colorWithHex:0x1C1D20];
     [self.backView addSubview:self.iMessageLabel];
 }
 
 - (void)setModel:(CHChatMessageModel *)model
 {
     _model = model;
-
-    self.iMessageLabel.text = [NSString stringWithFormat:@"%@ %@",model.timeStr,model.message];
-}
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
     
-    CGFloat width = 0.f;
-    width = [self.iMessageLabel.text ch_sizeToFitWidth:ChatViewWidth - 20 withFont:[UIFont systemFontOfSize:12.0f]].width;
-    self.backView.frame = CGRectMake((ChatViewWidth-width - 20)/2, 10, width + 20, 25);
-    self.iMessageLabel.frame = CGRectMake(10, 0, width, 25);
+    self.iMessageLabel.text = model.message;
+
+    model.messageSize = [self.iMessageLabel.text ch_sizeToFitWidth:self.ch_width - 2 * 10 withFont:[UIFont systemFontOfSize:12.0f]];
+    
+    self.backView.frame = CGRectMake(0, 0, model.messageSize.width + 20, model.messageSize.height + 10);
+    self.iMessageLabel.frame = CGRectMake(10, 0, model.messageSize.width, model.messageSize.height);
+    
+    self.backView.ch_centerY = self.ch_height * 0.5f;
+    self.iMessageLabel.ch_centerY = self.backView.ch_height * 0.5f;
+    
 }
+
+
 @end

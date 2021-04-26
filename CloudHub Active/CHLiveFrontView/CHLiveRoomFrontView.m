@@ -137,7 +137,6 @@
     beautySetButton.layer.cornerRadius = ButtonWidth * 0.5;
     [self addSubview:beautySetButton];
     
-    
     //输入框
     UITextView *inputView = [[UITextView alloc]initWithFrame:CGRectMake(leftMargin, backButton.ch_originY, self.ch_width - leftMargin - 4 * width - leftMargin * 0.5, ButtonWidth)];
     inputView.backgroundColor = [CHBlackColor ch_changeAlpha:0.5];
@@ -153,12 +152,12 @@
     
     UILabel *placeholderLable = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, inputView.ch_width - 20, ButtonWidth)];
     placeholderLable.text = CH_Localized(@"Live_ChatPlaceholder");
-//    placeholderLable.backgroundColor = CHBlackColor;
     placeholderLable.font = CHFont12;
     placeholderLable.textColor = CHColor_BBBBBB;
-//    placeholderLable.textAlignment = NSTextAlignmentCenter;
     self.placeholderLable = placeholderLable;
     [inputView addSubview:placeholderLable];
+    
+   
     
 }
 
@@ -167,8 +166,6 @@
     SCChatView * chatView = [[SCChatView alloc]initWithFrame:CGRectMake(leftMargin, ChatVieY, ChatViewWidth, ChatVieHeight)];
     self.chatView = chatView;
     [self addSubview:chatView];
-    
-    chatView.backgroundColor = UIColor.yellowColor;
 }
 
 -(void)textViewDidChange:(UITextView *)textView

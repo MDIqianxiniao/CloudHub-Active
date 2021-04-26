@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 美颜数据
 @property (nonatomic, weak) CHBeautySetModel *beautySetModel;
 
+@property (nonatomic, copy) void(^beautySetModelChange)(void);
+
 - (instancetype)initWithFrame:(CGRect)frame itemGap:(CGFloat)gap;
 
 @end

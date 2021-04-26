@@ -82,5 +82,14 @@
     [super setFrame:frame];
 }
 
+- (void)beautyViewValueChange
+{
+    self.beautySetModel = self.beautyView.beautySetModel;
+    
+    if (_beautySetModelChange)
+    {
+        _beautySetModelChange();
+    }
+}
 
 @end

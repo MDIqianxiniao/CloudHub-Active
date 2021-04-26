@@ -12,7 +12,7 @@
 #define CHVC_Localized          [NSBundle bundleWithPath:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:CH_VCBUNDLE_NAME]]
 #define CH_Localized(s)       [CHVC_Localized localizedStringForKey:s value:@"" table:nil]
 
-#define CHLiveActive_Server          @"demo.roadofcloud.net"
+#define CHLiveActive_Server          @"api.roadofcloud.net"
 
 
 /// 缓存key
