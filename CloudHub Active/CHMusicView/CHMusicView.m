@@ -70,8 +70,10 @@ static  NSString * const   CHMusicTableViewCellID     = @"CHMusicTableViewCell";
     for (NSUInteger i = 0; i < 3; i++)
     {
         CHMusicModel *model = [[CHMusicModel alloc] init];
-        model.name = [NSString stringWithFormat:@"测试音乐====%@===",@(i)];
+        model.name = [NSString stringWithFormat:@"背景音乐%@",@(i)];
         model.isPlay = NO;
+        model.path = [NSString stringWithFormat:@"background_music%@",@(i)];
+        model.soundId = i+1000;
         [self.musicList addObject:model];
     }
     [self.musicListTableView reloadData];
@@ -124,9 +126,21 @@ static  NSString * const   CHMusicTableViewCellID     = @"CHMusicTableViewCell";
         CHMusicModel * model = self.musicList[indexPath.row];
         model.isPlay = YES;
     }
-
     self.lastSelectIndex = indexPath;
     [tableView reloadData];
+    
+    for (CHMusicModel *musicModel in self.musicList)
+    {
+        
+        if (musicModel.isPlay == YES)
+        {
+            [RtcEngine playEffect:(int)musicModel.soundId filePath:musicModel.path loopCount:0 gain:0 publish:NO startTimeMS:0 endTimeMS:0];
+        }
+        else
+        {
+            [RtcEngine stopEffect:(int)musicModel.soundId];
+        }
+    }
 }
 
 @end
