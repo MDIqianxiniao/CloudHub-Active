@@ -96,8 +96,6 @@
     {
         textField.text = [textField.text substringToIndex:15];
     }
-    
-    self.nameString = textField.text;
 }
 
 - (void)buttonsClick:(UIButton *)sender
@@ -110,7 +108,10 @@
     {
         [self.nameField resignFirstResponder];
         
-        [[NSUserDefaults standardUserDefaults] setValue:self.nameString forKey:CHCacheAnchorName];
+        if ([self.nameField.text ch_isNotEmpty])
+        {
+            [[NSUserDefaults standardUserDefaults] setValue:self.nameField.text forKey:CHCacheAnchorName];
+        }
     }
     self.hidden = YES;
 }

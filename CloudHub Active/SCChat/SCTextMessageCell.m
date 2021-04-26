@@ -30,6 +30,7 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = UIColor.clearColor;
+        
         [self setupView];
     }
     
@@ -56,21 +57,24 @@
 - (void)setModel:(CHChatMessageModel *)model
 {
     _model = model;
+    
+    NSString *string = [NSString stringWithFormat:@"%@：%@",model.sendUser.nickName,model.message];
+    
+    NSMutableAttributedString * attributedString = [[NSMutableAttributedString alloc]initWithString:string attributes:@{NSFontAttributeName:CHFont12,NSForegroundColorAttributeName:CHWhiteColor}];
+    [attributedString addAttributes:@{NSFontAttributeName:CHFont12,NSForegroundColorAttributeName:CHColor_24D3EE} range:NSMakeRange(0, model.sendUser.nickName.length + 1)];
+    
+    self.msgLab.attributedText = attributedString;
 
-    if (!model.messageSize.width && [model.message ch_isNotEmpty]) {
-        
-        model.messageSize = [model.message ch_sizeToFitWidth:self.ch_width - 2 * 10 withFont:[UIFont systemFontOfSize:12]];
+    if (!model.messageSize.width && [string ch_isNotEmpty])
+    {
+        model.messageSize = [string ch_sizeToFitWidth:self.ch_width - 2 * 10 withFont:[UIFont systemFontOfSize:12]];
     }
     
-    self.msgLab.text = model.message;
-
-    self.backView.frame = CGRectMake(0, 0, model.messageSize.width + 2 * 10, model.messageSize.height + 10);
-        
+    self.backView.frame = CGRectMake(0, 0, model.messageSize.width + 2 * 10 , model.messageSize.height + 10);
     self.msgLab.frame = CGRectMake(10, 0, model.messageSize.width, model.messageSize.height);
     
     self.backView.ch_centerY = self.ch_height * 0.5f;
     self.msgLab.ch_centerY = self.backView.ch_height * 0.5f;
 }
-
 
 @end

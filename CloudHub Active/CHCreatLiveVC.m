@@ -20,6 +20,8 @@
 
 @property (nonatomic, weak) CHCreatLiveFrontView *liveFrontView;
 
+
+
 @property (nonatomic, weak) UIButton *startButton;
 
 @property (nonatomic, weak) CHVideoSetView *videoSetView;
@@ -34,15 +36,24 @@
 
 @implementation CHCreatLiveVC
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+        
+    [self.rtcEngine enableLocalAudio:YES];
+    [self.rtcEngine enableLocalVideo:YES];
+    
+    [self.rtcEngine startPlayingLocalVideo:self.largeVideoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.view.backgroundColor = UIColor.whiteColor;
-            
+    
     // 上层试图的View
     [self setupFrontViewUI];
 }
-
 
 - (void)setupFrontViewUI
 {
@@ -69,6 +80,8 @@
         {
             [RtcEngine switchCamera:button.selected];
             button.selected = !button.selected;
+            
+            self.liveModel.isMirror = button.selected;
         }
             break;
         case 3:
@@ -84,16 +97,18 @@
         case 4:
         {// 开始直播
             
-//            if (![self.liveFrontView.channelId ch_isNotEmpty])
-//            {
-//                [CHProgressHUD ch_showHUDAddedTo:self.view animated:YES withText:CH_Localized(@"Live_InputRoomNumPrompt") delay:2.0];
-//
-//                return;
-//            }
+            if (![self.liveFrontView.channelId ch_isNotEmpty])
+            {
+                [CHProgressHUD ch_showHUDAddedTo:self.view animated:YES withText:CH_Localized(@"Live_InputRoomNumPrompt") delay:2.0];
+                return;
+            }
+            
+            [self.rtcEngine stopPlayingLocalVideo];
+            
+            self.liveModel.channelId = self.liveFrontView.channelId;
             
             CHLiveRoomVC *liveRoomVC = [[CHLiveRoomVC alloc]init];
-            liveRoomVC.channelId = self.liveFrontView.channelId;
-            liveRoomVC.nickName = self.nickName;
+            liveRoomVC.liveModel = self.liveModel;
             liveRoomVC.roleType = CHUserType_Anchor;
             [self.navigationController pushViewController:liveRoomVC animated:YES];
         }
@@ -144,6 +159,7 @@
                 if ([value ch_isNotEmpty])
                 {
                     weakSelf.videoSetView.resolutionString = value;
+                    weakSelf.liveModel.resolution = value;
                 }
                 else
                 {
@@ -175,6 +191,7 @@
                 if ([value ch_isNotEmpty])
                 {
                     weakSelf.videoSetView.rateString = value;
+                    weakSelf.liveModel.rate = value.integerValue;
                 }
                 else
                 {

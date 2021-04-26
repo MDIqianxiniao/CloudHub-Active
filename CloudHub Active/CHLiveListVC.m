@@ -37,6 +37,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+        
+    [[NSUserDefaults standardUserDefaults] setValue:[UIDevice currentDevice].name forKey:CHCacheAnchorName];
     
     [self setupViews];
 }
@@ -79,13 +81,19 @@
     mineButton.ch_bottom = bgImageView.ch_height - 25;
     
     NSMutableArray *mutArray = [NSMutableArray array];
+    CHLiveModel *model = [[CHLiveModel alloc]init];
+    model.liveName = [NSString stringWithFormat:@"%@：测试的房间",CH_Localized(@"List_LiveName")];
+    model.memberNum = 10;
+    model.channelId = @"123456";
+    [mutArray addObject:model];
+    
     for (int i = 0; i<8; i++)
     {
-        CHLiveModel *model = [[CHLiveModel alloc]init];
-        model.liveName = [NSString stringWithFormat:@"%@：%d",CH_Localized(@"List_LiveName"), i];
-        model.memberNum = i+100;
+        CHLiveModel *model1 = [[CHLiveModel alloc]init];
+        model1.liveName = [NSString stringWithFormat:@"%@：%d",CH_Localized(@"List_LiveName"), i];
+        model1.memberNum = i+100;
         
-        [mutArray addObject:model];
+        [mutArray addObject:model1];
     }
     
     CGFloat leftMargin = 25.0f;
@@ -99,27 +107,18 @@
         
         CHLiveModel * model = mutArray[index.row];
         CHLiveRoomVC *vc = [[CHLiveRoomVC alloc]init];
-        vc.channelId = model.channelId;
+        vc.liveModel = model;
         vc.roleType = CHUserType_Audience;
         [weakSelf.navigationController pushViewController:vc animated:YES];
     };
     
     self.centreImageView.hidden = self.noLiveLable.hidden = (mutArray.count > 0);
-    
 }
 
 /// 创建新直播按钮点击
 - (void)clickToCreatLive
 {
-//    if (![self.minPopupView.nameString ch_isNotEmpty])
-//    {
-//        [CHProgressHUD ch_showHUDAddedTo:self.view animated:YES withText:CH_Localized(@"List_InpuYourNickName") delay:2.0];
-//        
-//        return;
-//    }
-    
     CHCreatLiveVC *liveVC = [[CHCreatLiveVC alloc]init];
-    liveVC.nickName = self.minPopupView.nameString;
     [self.navigationController pushViewController:liveVC animated:YES];
 }
 
@@ -136,7 +135,7 @@
         _minPopupView = [[CHMinePopupView alloc]initWithFrame:CGRectMake(0, 0, 240, 162)];
         _minPopupView.layer.cornerRadius = 10;
         _minPopupView.ch_centerX = self.view.ch_width *0.5;
-        _minPopupView.ch_centerY = self.view.ch_height *0.5;
+        _minPopupView.ch_centerY = self.view.ch_height *0.5 - 100;
         _minPopupView.hidden = YES;
         [self.view addSubview:_minPopupView];
     }

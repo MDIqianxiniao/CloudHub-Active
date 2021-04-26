@@ -63,9 +63,9 @@
     liveTitleLable.font = CHFont12;
     [bgView addSubview:liveTitleLable];
     self.liveTitleLable = liveTitleLable;
-    
+        
     UIButton *numberButton = [[UIButton alloc]init];
-    [numberButton setImage:[UIImage imageNamed:@"live_userList"] forState:UIControlStateNormal];
+    [numberButton setImage:[UIImage imageNamed:@"list_userNumber"] forState:UIControlStateNormal];
     [numberButton setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
     numberButton.titleLabel.font = CHFont12;
     numberButton.userInteractionEnabled = NO;
