@@ -126,38 +126,6 @@
             endingLineNumber = "216"
             landmarkName = "-rtcEngine:didJoinChannel:withUid:elapsed:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "493FF0FF-90C7-4579-A32F-75C0F4A2E090 - dfacd5daf78b5e24"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[CHLiveRoomVC rtcEngine:didReJoinChannel:withUid:elapsed:]"
-                  moduleName = "CloudHub Active"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/madi/Desktop/CloudHub-Active/CloudHub%20Active/CHLiveRoomVC.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "216"
-                  endingLineNumber = "216"
-                  offsetFromSymbolStart = "264">
-               </Location>
-               <Location
-                  uuid = "493FF0FF-90C7-4579-A32F-75C0F4A2E090 - dfacd5daf78b5e24"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[CHLiveRoomVC rtcEngine:didReJoinChannel:withUid:elapsed:]"
-                  moduleName = "CloudHub Active"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/madi/Desktop/CloudHub-Active/CloudHub%20Active/CHLiveRoomVC.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "216"
-                  endingLineNumber = "216"
-                  offsetFromSymbolStart = "288">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
