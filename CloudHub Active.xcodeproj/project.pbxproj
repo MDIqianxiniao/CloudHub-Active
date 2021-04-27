@@ -138,9 +138,9 @@
 		2657188026355776003C23CB /* CHMusicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2657187F26355776003C23CB /* CHMusicView.m */; };
 		26571887263566F9003C23CB /* CHMusicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26571886263566F9003C23CB /* CHMusicTableViewCell.m */; };
 		2657188A26356AAF003C23CB /* CHMusicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2657188926356AAF003C23CB /* CHMusicModel.m */; };
-		265718912636B530003C23CB /* background_music3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2657188E2636B530003C23CB /* background_music3.mp3 */; };
-		265718922636B530003C23CB /* background_music2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2657188F2636B530003C23CB /* background_music2.mp3 */; };
-		265718932636B530003C23CB /* background_music1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 265718902636B530003C23CB /* background_music1.mp3 */; };
+		2657189E2638032C003C23CB /* background_music1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2657189B2638032C003C23CB /* background_music1.mp3 */; };
+		2657189F2638032C003C23CB /* background_music3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2657189C2638032C003C23CB /* background_music3.mp3 */; };
+		265718A02638032C003C23CB /* background_music2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2657189D2638032C003C23CB /* background_music2.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -428,9 +428,9 @@
 		26571886263566F9003C23CB /* CHMusicTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHMusicTableViewCell.m; sourceTree = "<group>"; };
 		2657188826356AAF003C23CB /* CHMusicModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHMusicModel.h; sourceTree = "<group>"; };
 		2657188926356AAF003C23CB /* CHMusicModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHMusicModel.m; sourceTree = "<group>"; };
-		2657188E2636B530003C23CB /* background_music3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = background_music3.mp3; path = ../../../../Downloads/background_music3.mp3; sourceTree = "<group>"; };
-		2657188F2636B530003C23CB /* background_music2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = background_music2.mp3; path = ../../../../Downloads/background_music2.mp3; sourceTree = "<group>"; };
-		265718902636B530003C23CB /* background_music1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = background_music1.mp3; path = ../../../../Downloads/background_music1.mp3; sourceTree = "<group>"; };
+		2657189B2638032C003C23CB /* background_music1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background_music1.mp3; sourceTree = "<group>"; };
+		2657189C2638032C003C23CB /* background_music3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background_music3.mp3; sourceTree = "<group>"; };
+		2657189D2638032C003C23CB /* background_music2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = background_music2.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -462,9 +462,9 @@
 		048B29882632D62600CA945A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				265718902636B530003C23CB /* background_music1.mp3 */,
-				2657188F2636B530003C23CB /* background_music2.mp3 */,
-				2657188E2636B530003C23CB /* background_music3.mp3 */,
+				2657189B2638032C003C23CB /* background_music1.mp3 */,
+				2657189D2638032C003C23CB /* background_music2.mp3 */,
+				2657189C2638032C003C23CB /* background_music3.mp3 */,
 				049D715E262D66B3002DC098 /* PrefixHeader.pch */,
 				04C8251C26315D8F004AE13C /* InfoPlist.strings */,
 				049D7136262D64DC002DC098 /* AppDelegate.h */,
@@ -952,11 +952,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				04C8252726315F13004AE13C /* CHResources.bundle in Resources */,
-				265718932636B530003C23CB /* background_music1.mp3 in Resources */,
-				265718922636B530003C23CB /* background_music2.mp3 in Resources */,
 				049D7208262FCF0E002DC098 /* Launch Screen.storyboard in Resources */,
+				2657189E2638032C003C23CB /* background_music1.mp3 in Resources */,
 				04C8251A26315D8F004AE13C /* InfoPlist.strings in Resources */,
-				265718912636B530003C23CB /* background_music3.mp3 in Resources */,
+				2657189F2638032C003C23CB /* background_music3.mp3 in Resources */,
+				265718A02638032C003C23CB /* background_music2.mp3 in Resources */,
 				049D7143262D64DD002DC098 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
