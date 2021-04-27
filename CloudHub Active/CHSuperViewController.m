@@ -33,6 +33,16 @@
     
     // 主播视频
     [self setupLargeVideoView];
+    
+    if (![UIDevice currentDevice].generatesDeviceOrientationNotifications)
+    {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleDeviceOrientationDidChange:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
 }
 
 // 主播视频
@@ -60,6 +70,41 @@
     return _beautyView;
 }
 
+
+- (void)handleDeviceOrientationDidChange:(NSNotification *)notification
+{
+    UIDevice *device = [UIDevice currentDevice] ;
+    
+    switch (device.orientation)
+    {
+        case UIDeviceOrientationPortrait:
+            NSLog(@"Home Button On Bottom");
+            [self.rtcEngine setVideoRotation:CloudHubHomeButtonOnBottom];
+            break;
+            
+        case UIDeviceOrientationPortraitUpsideDown:
+            NSLog(@"Home Button On Top");
+            [self.rtcEngine setVideoRotation:CloudHubHomeButtonOnBottom];
+            break;
+            
+        case UIDeviceOrientationLandscapeLeft:
+            NSLog(@"Home Button On Right");
+            [self.rtcEngine setVideoRotation:CloudHubHomeButtonOnTop];
+            break;
+        case UIDeviceOrientationLandscapeRight:
+            NSLog(@"Home Button On Left");
+            [self.rtcEngine setVideoRotation:CloudHubHomeButtonOnTop];
+            break;
+        case UIDeviceOrientationUnknown:
+            NSLog(@"Unknown");
+        default:
+        {
+
+        }
+            break;
+    }
+}
+
 - (BOOL)shouldAutorotate
 {
     return YES;
@@ -67,7 +112,8 @@
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    return UIInterfaceOrientationMaskPortrait;
+//    return UIInterfaceOrientationMaskPortrait;
+    return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown;
 }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
