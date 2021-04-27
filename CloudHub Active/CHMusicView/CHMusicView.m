@@ -22,7 +22,7 @@ static  NSString * const   CHMusicTableViewCellID     = @"CHMusicTableViewCell";
 
 @property (nonatomic, strong) NSMutableArray *musicList;
 
-@property (nonatomic, strong) NSIndexPath *lastSelectIndex;
+@property (nonatomic, assign) NSInteger lastSelectIndex;
 
 @end
 
@@ -35,6 +35,7 @@ static  NSString * const   CHMusicTableViewCellID     = @"CHMusicTableViewCell";
     {
         self.backgroundColor = [CHWhiteColor ch_changeAlpha:0.8];
         self.musicList = [NSMutableArray new];
+        self.lastSelectIndex = -1;
         [self setupUI];
     }
     return self;
@@ -70,8 +71,10 @@ static  NSString * const   CHMusicTableViewCellID     = @"CHMusicTableViewCell";
     for (NSUInteger i = 0; i < 3; i++)
     {
         CHMusicModel *model = [[CHMusicModel alloc] init];
-        model.name = [NSString stringWithFormat:@"测试音乐====%@===",@(i)];
+        model.name = [NSString stringWithFormat:@"背景音乐%@",@(i+1)];
         model.isPlay = NO;
+        model.path = [NSString stringWithFormat:@"background_music%@.mp3",@(i+1)];
+        model.soundId = i+1000;
         [self.musicList addObject:model];
     }
     [self.musicListTableView reloadData];
@@ -115,17 +118,36 @@ static  NSString * const   CHMusicTableViewCellID     = @"CHMusicTableViewCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    CHMusicModel *lastModel = self.musicList[self.lastSelectIndex.row];
-    lastModel.isPlay = !lastModel.isPlay;
-    
-    if (self.lastSelectIndex.row != indexPath.row)
+    if (self.lastSelectIndex != -1)
     {
-        CHMusicModel * model = self.musicList[indexPath.row];
-        model.isPlay = YES;
+        CHMusicModel *lastModel = self.musicList[self.lastSelectIndex];
+        if (self.lastSelectIndex == indexPath.row)
+        {
+            if (lastModel.isPlay)
+            {
+                [RtcEngine stopEffect:(int)lastModel.soundId];
+                lastModel.isPlay = NO;
+                
+                [tableView reloadData];
+                
+                return;
+            }
+        }
+        else
+        {
+            lastModel.isPlay = NO;
+            [RtcEngine stopEffect:(int)lastModel.soundId];
+        }
     }
+    
+    self.lastSelectIndex = indexPath.row;
+    CHMusicModel *lastModel = self.musicList[self.lastSelectIndex];
+    
+    NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] resourcePath]];
+    NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:lastModel.path];
+    [RtcEngine playEffect:(int)lastModel.soundId filePath:filePath loopCount:0 gain:0 publish:NO startTimeMS:0 endTimeMS:0];
+    lastModel.isPlay = YES;
 
-    self.lastSelectIndex = indexPath;
     [tableView reloadData];
 }
 
