@@ -48,5 +48,6 @@ static NSString *const sCHUserDefaultSourceId       = @"default_source_id";
 static NSString *const sCHUserCameras               = @"cameras";
 static NSString *const sCHUserVideoFail             = @"vfail";
 static NSString *const sCHUserAudioFail             = @"afail";
+static NSString *const sCHUserPublishstate          = @"publishstate";
 
 #endif /* CHAppDefine_h */

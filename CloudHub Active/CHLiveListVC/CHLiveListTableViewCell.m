@@ -24,16 +24,15 @@
 
 + (instancetype)cellWithTableView:(UITableView *)tableView
 {
-    
     NSString *reuseIdentifier = NSStringFromClass([self class]);
     
     CHLiveListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (!cell)
     {
-        
         cell = [[CHLiveListTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     return cell;
 }
 
@@ -43,8 +42,6 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self)
     {
-//        self.contentView.layer.cornerRadius = 6;
-//        self.layer.masksToBounds = YES;
         self.backgroundColor = UIColor.clearColor;
         [self setupUI];
     }
@@ -90,7 +87,6 @@
         make.centerY.mas_equalTo(self);
         make.right.mas_equalTo(self.numberButton.mas_left).mas_offset(-10);
     }];
-    
 }
 
 - (void)setModel:(CHLiveModel *)model

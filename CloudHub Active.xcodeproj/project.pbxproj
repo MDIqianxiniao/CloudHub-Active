@@ -17,6 +17,7 @@
 		048B29A526356C2500CA945A /* SCTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B29A026356C2500CA945A /* SCTextMessageCell.m */; };
 		048B29A826356C5800CA945A /* CHChatMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B29A726356C5800CA945A /* CHChatMessageModel.m */; };
 		048B29AB2636BB8000CA945A /* CHSetToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B29AA2636BB8000CA945A /* CHSetToolView.m */; };
+		048B29AF2637A45A00CA945A /* CHImageTitleButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B29AE2637A45A00CA945A /* CHImageTitleButtonView.m */; };
 		049D7138262D64DC002DC098 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D7137262D64DC002DC098 /* AppDelegate.m */; };
 		049D713E262D64DC002DC098 /* CHLiveListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D713D262D64DC002DC098 /* CHLiveListVC.m */; };
 		049D7143262D64DD002DC098 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 049D7142262D64DD002DC098 /* Assets.xcassets */; };
@@ -58,6 +59,8 @@
 		049D720F263009B7002DC098 /* CHCreatLiveVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D720E263009B7002DC098 /* CHCreatLiveVC.m */; };
 		049D722F26311168002DC098 /* CHRoomUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D722D26311168002DC098 /* CHRoomUser.m */; };
 		049D723326311189002DC098 /* CHVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D723126311189002DC098 /* CHVideoView.m */; };
+		04B1F6942637E12200A9CDF2 /* CHUserListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B1F6932637E12200A9CDF2 /* CHUserListTableView.m */; };
+		04B1F6972637E1C100A9CDF2 /* CHUsetListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B1F6962637E1C100A9CDF2 /* CHUsetListCell.m */; };
 		04C8251A26315D8F004AE13C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04C8251C26315D8F004AE13C /* InfoPlist.strings */; };
 		04C8252726315F13004AE13C /* CHResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04C8252626315F13004AE13C /* CHResources.bundle */; };
 		04C8254826316B6C004AE13C /* CHCreatLiveFrontView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C8254726316B6C004AE13C /* CHCreatLiveFrontView.m */; };
@@ -175,6 +178,8 @@
 		048B29A726356C5800CA945A /* CHChatMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatMessageModel.m; sourceTree = "<group>"; };
 		048B29A92636BB8000CA945A /* CHSetToolView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHSetToolView.h; sourceTree = "<group>"; };
 		048B29AA2636BB8000CA945A /* CHSetToolView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHSetToolView.m; sourceTree = "<group>"; };
+		048B29AD2637A45A00CA945A /* CHImageTitleButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHImageTitleButtonView.h; sourceTree = "<group>"; };
+		048B29AE2637A45A00CA945A /* CHImageTitleButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHImageTitleButtonView.m; sourceTree = "<group>"; };
 		049D7133262D64DC002DC098 /* CloudHub Active.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CloudHub Active.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		049D7136262D64DC002DC098 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		049D7137262D64DC002DC098 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -262,6 +267,10 @@
 		049D7237263114A7002DC098 /* CHAppEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHAppEnum.h; sourceTree = "<group>"; };
 		049D7238263114A7002DC098 /* CHAppDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHAppDefine.h; sourceTree = "<group>"; };
 		049D7239263114A7002DC098 /* CHAppConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHAppConfig.h; sourceTree = "<group>"; };
+		04B1F6922637E12200A9CDF2 /* CHUserListTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHUserListTableView.h; sourceTree = "<group>"; };
+		04B1F6932637E12200A9CDF2 /* CHUserListTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHUserListTableView.m; sourceTree = "<group>"; };
+		04B1F6952637E1C100A9CDF2 /* CHUsetListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHUsetListCell.h; sourceTree = "<group>"; };
+		04B1F6962637E1C100A9CDF2 /* CHUsetListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHUsetListCell.m; sourceTree = "<group>"; };
 		04C8251B26315D8F004AE13C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		04C8251D26315D93004AE13C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		04C8251E26315D94004AE13C /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -440,17 +449,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		048B29872632D5D400CA945A /* CHLiveFrontView */ = {
+		048B29872632D5D400CA945A /* CHLiveRoomView */ = {
 			isa = PBXGroup;
 			children = (
-				04C8254626316B6C004AE13C /* CHCreatLiveFrontView.h */,
-				04C8254726316B6C004AE13C /* CHCreatLiveFrontView.m */,
 				048B29922635175700CA945A /* CHLiveRoomFrontView.h */,
 				048B29932635175700CA945A /* CHLiveRoomFrontView.m */,
 				048B29A92636BB8000CA945A /* CHSetToolView.h */,
 				048B29AA2636BB8000CA945A /* CHSetToolView.m */,
+				04B1F6922637E12200A9CDF2 /* CHUserListTableView.h */,
+				04B1F6932637E12200A9CDF2 /* CHUserListTableView.m */,
+				04B1F6952637E1C100A9CDF2 /* CHUsetListCell.h */,
+				04B1F6962637E1C100A9CDF2 /* CHUsetListCell.m */,
 			);
-			path = CHLiveFrontView;
+			path = CHLiveRoomView;
 			sourceTree = "<group>";
 		};
 		048B29882632D62600CA945A /* Supporting Files */ = {
@@ -492,6 +503,17 @@
 			path = SCChat;
 			sourceTree = "<group>";
 		};
+		048B29AC2637A35900CA945A /* CHTools */ = {
+			isa = PBXGroup;
+			children = (
+				049D71CA262E7C1E002DC098 /* CHNavigationController.h */,
+				049D71CB262E7C1E002DC098 /* CHNavigationController.m */,
+				048B29AD2637A45A00CA945A /* CHImageTitleButtonView.h */,
+				048B29AE2637A45A00CA945A /* CHImageTitleButtonView.m */,
+			);
+			path = CHTools;
+			sourceTree = "<group>";
+		};
 		049D712A262D64DC002DC098 = {
 			isa = PBXGroup;
 			children = (
@@ -514,11 +536,13 @@
 		049D7135262D64DC002DC098 /* CloudHub Active */ = {
 			isa = PBXGroup;
 			children = (
+				049D723026311189002DC098 /* CHVideoView */,
 				048B299926356C2500CA945A /* SCChat */,
 				04DF095826329C42006D4169 /* CHBeautyView */,
 				04C826A126326B84004AE13C /* CHSetView */,
 				049D7206262FCDDC002DC098 /* CHLiveListVC */,
-				048B29872632D5D400CA945A /* CHLiveFrontView */,
+				04B1F6912637E07200A9CDF2 /* CHCreatLiveView */,
+				048B29872632D5D400CA945A /* CHLiveRoomView */,
 				2657187D26355747003C23CB /* CHMusicView */,
 				048B298F26350BE300CA945A /* CHSuperViewController.h */,
 				048B299026350BE300CA945A /* CHSuperViewController.m */,
@@ -536,16 +560,13 @@
 		049D7159262D6625002DC098 /* CHCommon */ = {
 			isa = PBXGroup;
 			children = (
-				048B2995263542FA00CA945A /* CHProgressHUD */,
+				048B29AC2637A35900CA945A /* CHTools */,
 				049D7235263114A7002DC098 /* appDefine */,
 				049D72342631124C002DC098 /* CHModel */,
-				049D723026311189002DC098 /* CHVideoView */,
 				049D719F262E792B002DC098 /* Category */,
 				049D715A262D6641002DC098 /* CHCommon.h */,
 				049D7187262D6824002DC098 /* CHCloudHubUtil.h */,
 				049D7186262D6824002DC098 /* CHCloudHubUtil.m */,
-				049D71CA262E7C1E002DC098 /* CHNavigationController.h */,
-				049D71CB262E7C1E002DC098 /* CHNavigationController.m */,
 			);
 			path = CHCommon;
 			sourceTree = "<group>";
@@ -553,6 +574,7 @@
 		049D7182262D6753002DC098 /* CHLib */ = {
 			isa = PBXGroup;
 			children = (
+				048B2995263542FA00CA945A /* CHProgressHUD */,
 				04C8256926318941004AE13C /* SDWebImage */,
 				04C8252626315F13004AE13C /* CHResources.bundle */,
 				049D71E2262ED5DA002DC098 /* Masonry */,
@@ -679,6 +701,15 @@
 				049D7239263114A7002DC098 /* CHAppConfig.h */,
 			);
 			path = appDefine;
+			sourceTree = "<group>";
+		};
+		04B1F6912637E07200A9CDF2 /* CHCreatLiveView */ = {
+			isa = PBXGroup;
+			children = (
+				04C8254626316B6C004AE13C /* CHCreatLiveFrontView.h */,
+				04C8254726316B6C004AE13C /* CHCreatLiveFrontView.m */,
+			);
+			path = CHCreatLiveView;
 			sourceTree = "<group>";
 		};
 		04C8256926318941004AE13C /* SDWebImage */ = {
@@ -986,6 +1017,7 @@
 				049D71C7262E792B002DC098 /* NSArray+CHCategory.m in Sources */,
 				04C8266326318942004AE13C /* UIImageView+WebCache.m in Sources */,
 				04C8267626318942004AE13C /* SDFileAttributeHelper.m in Sources */,
+				04B1F6942637E12200A9CDF2 /* CHUserListTableView.m in Sources */,
 				04C8263626318942004AE13C /* SDImageHEICCoder.m in Sources */,
 				04C8267426318942004AE13C /* SDWeakProxy.m in Sources */,
 				04C8265626318942004AE13C /* SDDiskCache.m in Sources */,
@@ -1067,10 +1099,12 @@
 				04C8264126318942004AE13C /* UIImage+ForceDecode.m in Sources */,
 				04C8266E26318942004AE13C /* UIButton+WebCache.m in Sources */,
 				048B2998263542FA00CA945A /* CHProgressHUD.m in Sources */,
+				048B29AF2637A45A00CA945A /* CHImageTitleButtonView.m in Sources */,
 				04DF095E26329DEB006D4169 /* CHVideoSetView.m in Sources */,
 				04C8267826318942004AE13C /* SDDisplayLink.m in Sources */,
 				04C8265826318942004AE13C /* UIImage+ExtendedCacheData.m in Sources */,
 				04C8266826318942004AE13C /* SDWebImageCacheKeyFilter.m in Sources */,
+				04B1F6972637E1C100A9CDF2 /* CHUsetListCell.m in Sources */,
 				04C8263F26318942004AE13C /* SDAnimatedImage.m in Sources */,
 				049D723326311189002DC098 /* CHVideoView.m in Sources */,
 				2657188A26356AAF003C23CB /* CHMusicModel.m in Sources */,

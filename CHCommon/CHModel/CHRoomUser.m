@@ -92,10 +92,17 @@
     [self.properties ch_setUInteger:afail forKey:sCHUserAudioFail];
 }
 
+- (CHPublishState)publishState
+{
+    return [self.properties ch_uintForKey:sCHUserPublishstate];
+}
+
 - (NSDictionary *)sourceListDic
 {
     return [self.properties ch_dictionaryForKey:sCHUserCameras];
 }
+
+
 
 - (void)updateWithProperties:(NSDictionary *)properties
 {

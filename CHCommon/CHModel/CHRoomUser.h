@@ -40,6 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Turn off the video
 @property (nonatomic, assign) BOOL muteVideo;
 
+/// Post status
+@property (nonatomic, assign) CHPublishState publishState;
 
 - (instancetype)init NS_UNAVAILABLE;
 

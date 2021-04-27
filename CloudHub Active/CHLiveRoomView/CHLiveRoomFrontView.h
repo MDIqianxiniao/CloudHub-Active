@@ -10,7 +10,7 @@
 typedef enum : NSUInteger {
     CHLiveRoomFrontButton_userList,
     CHLiveRoomFrontButton_Back,
-    CHLiveRoomFrontButton_Chat,
+    CHLiveRoomFrontButton_Tools,
     CHLiveRoomFrontButton_Music,
     CHLiveRoomFrontButton_Beauty,
 } CHLiveRoomFrontButton;
@@ -27,10 +27,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSMutableArray <CHChatMessageModel *> *SCMessageList;
 
+/// 当前用户是否上台
+@property (nonatomic, assign) BOOL isUpStage;
 
 @property (nonatomic, copy) void(^liveRoomFrontViewButtonsClick)(UIButton *button);
 
 @property (nonatomic, copy) void(^sendMessage)(NSString *message);
+
 
 - (instancetype)initWithFrame:(CGRect)frame WithUserType:(CHUserRoleType)roleType;
 

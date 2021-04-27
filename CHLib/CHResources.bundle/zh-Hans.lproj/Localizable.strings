@@ -36,6 +36,19 @@
 "Live_ChatPlaceholder" = "我来说几句...";
 "Live_ChatTextNumber" = "文本最多输入 80 个字符";
 
+"Live_Tools" = "工具";
+"Live_Tools_LinkMic" = "连麦";
+"Live_Tools_DisMiv" = "断开连麦";
+"Live_Tools_MuteCam" = "关闭摄像头";
+"Live_Tools_UnMuteCam" = "打开摄像头";
+"Live_Tools_MuteMic" = "关闭麦克风";
+"Live_Tools_UnMuteMic" = "打开麦克风";
+"Live_Tools_SwitchCam" = "摄像头翻转";
+"Live_Tools_VideoSet" = "视频设置";
+
+"Live_UserList_Tittle" = "在线用户";
+"Live_UserList_Connect" = "邀请";
+"Live_UserList_Disconnect" = "断开";
 
 "BeautySet.Beauty" = "美 颜";
 "BeautySet.Whitening" = "美白";

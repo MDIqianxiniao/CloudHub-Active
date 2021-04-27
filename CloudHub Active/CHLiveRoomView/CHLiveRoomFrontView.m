@@ -21,13 +21,15 @@
     UITextViewDelegate
 >
 
+@property (nonatomic, assign) CHUserRoleType roleType;
+
 @property (nonatomic, weak) UILabel *nameLable;
 
 @property (nonatomic, weak) UIButton *userListButton;
 
-@property (nonatomic, assign) CHUserRoleType roleType;
-
 @property (nonatomic, weak) UIButton *backButton;
+
+@property (nonatomic, weak) UIButton *beautySetButton;
 
 @property (nonatomic, weak) UILabel *placeholderLable;
 
@@ -54,12 +56,6 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     }
     return self;
-}
-
-- (void)setSCMessageList:(NSMutableArray<CHChatMessageModel *> *)SCMessageList
-{
-    _SCMessageList = SCMessageList;
-    self.chatView.SCMessageList = SCMessageList;
 }
 
 // 顶部试图
@@ -96,7 +92,6 @@
     [userListButton setTitle:@"21" forState:UIControlStateNormal];
 }
 
-
 // 底部试图
 - (void)setBottomViews
 {
@@ -113,7 +108,7 @@
     [self addSubview:backButton];
     
     UIButton *moreToolsButton = [[UIButton alloc]initWithFrame:CGRectMake(backButton.ch_left - width, backButton.ch_originY, ButtonWidth, ButtonWidth)];
-    moreToolsButton.tag = CHLiveRoomFrontButton_Chat;
+    moreToolsButton.tag = CHLiveRoomFrontButton_Tools;
     moreToolsButton.ch_bottom = self.ch_height - 45;
     [moreToolsButton setImage:[UIImage imageNamed:@"live_moreTools"] forState:UIControlStateNormal];
     [moreToolsButton setBackgroundColor:CHBlackColor];
@@ -129,13 +124,24 @@
     musicButton.layer.cornerRadius = ButtonWidth * 0.5;
     [self addSubview:musicButton];
     
-    UIButton *beautySetButton = [[UIButton alloc]initWithFrame:CGRectMake(musicButton.ch_left - width, backButton.ch_originY, ButtonWidth, ButtonWidth)];
+    UIButton *beautySetButton = [[UIButton alloc]init];
     beautySetButton.tag = CHLiveRoomFrontButton_Beauty;
     beautySetButton.ch_bottom = self.ch_height - 45;
     [beautySetButton setImage:[UIImage imageNamed:@"live_beauty_set"] forState:UIControlStateNormal];
     [beautySetButton addTarget:self action:@selector(buttonsClick:) forControlEvents:UIControlEventTouchUpInside];
     beautySetButton.layer.cornerRadius = ButtonWidth * 0.5;
+    self.beautySetButton = beautySetButton;
     [self addSubview:beautySetButton];
+    
+    CGFloat beautySetButtonX = musicButton.ch_left - width;
+    if (self.roleType == CHUserType_Audience)
+    {
+        beautySetButtonX = moreToolsButton.ch_left - width;
+        beautySetButton.frame = CGRectMake(beautySetButtonX, backButton.ch_originY, ButtonWidth, ButtonWidth);
+        
+        musicButton.hidden = YES;
+        beautySetButton.hidden = YES;
+    }
     
     //输入框
     UITextView *inputView = [[UITextView alloc]initWithFrame:CGRectMake(leftMargin, backButton.ch_originY, self.ch_width - leftMargin - 4 * width - leftMargin * 0.5, ButtonWidth)];
@@ -156,9 +162,6 @@
     placeholderLable.textColor = CHColor_BBBBBB;
     self.placeholderLable = placeholderLable;
     [inputView addSubview:placeholderLable];
-    
-   
-    
 }
 
 - (void)addChatView
@@ -166,6 +169,18 @@
     SCChatView * chatView = [[SCChatView alloc]initWithFrame:CGRectMake(leftMargin, ChatVieY, ChatViewWidth, ChatVieHeight)];
     self.chatView = chatView;
     [self addSubview:chatView];
+}
+
+- (void)setIsUpStage:(BOOL)isUpStage
+{
+    _isUpStage = isUpStage;
+    self.beautySetButton.hidden = !isUpStage;
+}
+
+- (void)setSCMessageList:(NSMutableArray<CHChatMessageModel *> *)SCMessageList
+{
+    _SCMessageList = SCMessageList;
+    self.chatView.SCMessageList = SCMessageList;
 }
 
 -(void)textViewDidChange:(UITextView *)textView

@@ -8,9 +8,13 @@
 #import "CHLiveRoomVC.h"
 #import "CHCloudHubUtil.h"
 #import "CHLiveRoomFrontView.h"
+#import "CHMusicView.h"
+#import "CHSetToolView.h"
+#import "CHUserListTableView.h"
+
 #define VideoWidth 86
 #define VideoHeight 115
-#import "CHMusicView.h"
+
 
 static NSString *const kToken = nil;
 
@@ -19,15 +23,19 @@ static NSString *const kToken = nil;
 /// user nick name
 @property (nonatomic, copy) NSString *myNickName;
 
-/// current user
-@property (nonatomic, strong) CHRoomUser *localUser;
-
 @property (nonatomic, strong) NSMutableDictionary *smallVideoViews;
+
+@property (nonatomic, assign) BOOL isJoinChannel;
 
 @property (nonatomic, weak) CHLiveRoomFrontView *liveRoomFrontView;
 
-@property (nonatomic, assign) BOOL isJoinChannel;
+@property (nonatomic, strong) CHUserListTableView *userListTableView;
+
 @property (nonatomic, strong) CHMusicView *musicView;
+
+@property (nonatomic, strong) CHSetToolView *setToolView;
+
+@property (nonatomic, strong) CHVideoView *myVideoView;
 
 @end
 
@@ -91,12 +99,27 @@ static NSString *const kToken = nil;
         case CHLiveRoomFrontButton_Back:
         {
             [self leftChannel];
-            
         }
             break;
-        case CHLiveRoomFrontButton_Chat:
+        case CHLiveRoomFrontButton_Tools:
         {
+            if (!self.setToolView)
+            {
+                CHSetToolView *setToolView = [[CHSetToolView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 0) WithUserType:self.roleType];
+                self.setToolView = setToolView;
+                [self.view addSubview:setToolView];
+                
+                CHWeakSelf
+                setToolView.setToolViewButtonsClick = ^(UIButton * _Nonnull button) {
+                    [weakSelf setToolButtonsClick:button];
+                };
+            }
             
+            [UIView animateWithDuration:0.25 animations:^{
+                self.setToolView.ch_originY = self.view.ch_height - self.setToolView.ch_height;
+           }];
+            
+            [self.setToolView ch_bringToFront];
         }
             break;
         case CHLiveRoomFrontButton_Music:
@@ -123,12 +146,53 @@ static NSString *const kToken = nil;
     }
 }
 
+- (void)setToolButtonsClick:(UIButton *)sender
+{
+    switch (sender.tag)
+    {
+        case CHSetToolViewButton_LinkMic:
+        {
+            sender.selected = !sender.selected;
+        }
+            break;
+        case CHSetToolViewButton_Camera:
+        {
+            sender.selected = !sender.selected;
+            [self.rtcEngine muteLocalVideoStream:sender.selected];
+            
+            [self freshPlayVideo:self.localUser.peerID streamId:self.localUser.peerID sourceId:self.localUser.peerID mute:sender.selected];
+        }
+            break;
+        case CHSetToolViewButton_Mic:
+        {
+            sender.selected = !sender.selected;
+            [self.rtcEngine muteLocalAudioStream:sender.selected];
+        }
+            break;
+        case CHSetToolViewButton_SwitchCam:
+        {
+            [self.rtcEngine switchCamera:sender.selected];
+            sender.selected = !sender.selected;
+        }
+            break;
+        case CHSetToolViewButton_VideoSet:
+        {
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self.liveRoomFrontView.inputView resignFirstResponder];
     
     [UIView animateWithDuration:0.25 animations:^{
         self.beautyView.ch_originY = self.view.ch_height;
+        self.setToolView.ch_originY = self.view.ch_height;
         self.musicView.ch_originY = self.view.ch_height;
     }];
 }
@@ -236,6 +300,7 @@ static NSString *const kToken = nil;
         }
     }
     [self.smallVideoViews removeAllObjects];
+    self.myVideoView = nil;
     
     [self.userList removeAllObjects];
     [self.userList addObject:self.localUser];
@@ -269,17 +334,64 @@ static NSString *const kToken = nil;
     [self addRoomUserWithId:uid properties:propertDic];
 }
 
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine
+onSetPropertyOfUid:(NSString * _Nonnull)uid
+             from:(NSString * _Nullable)fromuid
+       properties:(NSString * _Nonnull)prop
+{
+    NSLog(@"rtcEngine onSetPropertyOfUid %@ %@ %@", uid, fromuid, prop);
+    
+
+    NSData *propData = [prop dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *properties = nil;
+    if (propData)
+    {
+        properties = [NSJSONSerialization JSONObjectWithData:propData options:NSJSONReadingMutableContainers error:nil];
+    }
+
+    if (!properties)
+    {
+        return;
+    }
+    NSArray *allKeys = [properties allKeys];
+    
+    if ([uid isEqualToString:self.localUser.peerID])
+    {
+        if ([properties ch_containsObjectForKey:sCHUserPublishstate])
+        {
+            CHPublishState publishState = [properties ch_intForKey:sCHUserPublishstate];
+            [self changeMyPublishState:publishState];
+        }
+        
+        return;
+    }
+    
+    if ([allKeys containsObject:sCHUserAudioFail] || [allKeys containsObject:sCHUserCameras])
+    {
+        CHRoomUser *roomUser = [self getRoomUserWithId:uid];
+        if (!roomUser)
+        {
+            return;
+        }
+        
+        NSArray *allValues = [self.smallVideoViews allValues];
+        for (CHVideoView *videoView in allValues)
+        {
+            if (videoView.roomUser == roomUser)
+            {
+                if ([videoView.sourceId ch_isNotEmpty])
+                {
+                    [videoView freshWithRoomUserProperty];
+                }
+                break;
+            }
+        }
+    }
+}
+
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine remoteVideoStateChangedOfUid:(NSString * _Nonnull)uid sourceID:(NSString * _Nonnull)sourceID streamID:(NSString * _Nonnull)streamID type:(CloudHubMediaType)type state:(CloudHubVideoRemoteState)state reason:(CloudHubVideoRemoteStateReason)reason
 {
     NSLog(@"rtcEngine remoteVideoStateChangedOfUid:%@ %@ %@ %@ %@", uid, sourceID, @(type), @(state), @(reason));
-        
-//    CHRoomUser *roomUser = [self getRoomUserWithId:uid];
-//
-//    if (roomUser.role == CHUserType_Anchor)
-//    {
-//        [self.rtcEngine startPlayingRemoteVideo:self.largeVideoView.contentView streamID:streamID renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled];
-//        return;
-//    }
     
     if (state == CloudHubVideoRemoteStateStarting)
     {
@@ -314,6 +426,32 @@ static NSString *const kToken = nil;
         }
     }
 }
+
+#pragma mark - 改变自己视频流发布状态
+
+- (void)changeMyPublishState:(CHPublishState)publishState
+{
+    CHRoomUser *roomUser = self.localUser;
+    
+    if (roomUser.publishState == publishState)
+    {
+        return;
+    }
+    
+    roomUser.publishState = publishState;
+    
+    if (publishState == CHUser_PublishState_UP)
+    {
+        [self.rtcEngine publishStream];//sCHUserDefaultSourceId
+        [self playVideo:roomUser.peerID streamId:roomUser.peerID sourceId:roomUser.peerID];
+    }
+    else
+    {
+        [self.rtcEngine unPublishStream];
+        [self unPlayVideo:roomUser.peerID streamId:roomUser.peerID];
+    }
+}
+
 
 - (void)unPlayVideo:(NSString*)uid streamId:(NSString *)streamId
 {
@@ -401,8 +539,12 @@ static NSString *const kToken = nil;
 
 - (void)playVideo:(NSString*)uid streamId:(NSString *)streamId sourceId:(NSString *)sourceId
 {
-    if ([uid isEqualToString:self.largeVideoView.roomUser.peerID])
+    CHRoomUser *roomUser = [self getRoomUserWithId:uid];
+    
+    if (roomUser.role == CHUserType_Anchor)
     {
+        self.largeVideoView.roomUser = roomUser;
+        [self freshPlayVideoView:self.largeVideoView streamId:streamId mute:NO];
         return;
     }
     
@@ -417,12 +559,16 @@ static NSString *const kToken = nil;
             view.streamId = streamId;
             view.sourceId = sourceId;
             
-            CHRoomUser *roomUser = [self getRoomUserWithId:uid];
             view.roomUser = roomUser;
             
             [self.smallVideoViews setObject:view forKey:streamId];
             
             [self arrangeVideoViews];
+            
+            if ([uid isEqualToString:self.localUser.peerID])
+            {
+                self.myVideoView = view;
+            }
         }
         
         [self freshPlayVideoView:view streamId:streamId mute:NO];
@@ -471,6 +617,7 @@ static NSString *const kToken = nil;
     {
         [self.rtcEngine stopPlayingLocalVideo];
         [self.smallVideoViews removeObjectForKey:self.localUser.peerID];
+        self.myVideoView = nil;
         
         [self.rtcEngine startPlayingLocalVideo:self.largeVideoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled];
         self.largeVideoView.roomUser = self.localUser;
@@ -580,5 +727,16 @@ static NSString *const kToken = nil;
     }
     return NO;
 }
+
+- (CHUserListTableView *)userListTableView
+{
+    if (!_userListTableView)
+    {
+        _userListTableView = [[CHUserListTableView alloc]initWithFrame:CGRectMake(0, 100, self.view.ch_width, 100)];
+        [self.view addSubview:_userListTableView];
+    }
+    return _userListTableView;
+}
+
 
 @end

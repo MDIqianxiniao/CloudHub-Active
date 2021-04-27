@@ -28,6 +28,14 @@ typedef NS_ENUM(NSUInteger, CHRoomUseType)
     CHRoomUseTypeLiveRoom = 4
 };
 
+/// CHPublishState 发布状态
+typedef NS_ENUM(NSUInteger, CHPublishState)
+{
+    /// 未上台
+    CHUser_PublishState_DOWN          = 0,
+    /// 已上台
+    CHUser_PublishState_UP            = 1,
+};
 
 #pragma mark - About media
 /// CHDeviceFaultType Type of equipment failure

@@ -22,6 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong,nullable) CloudHubRtcEngineKit *rtcEngine;
 
+/// current user
+@property (nonatomic, strong) CHRoomUser *localUser;
+
 @property (nonatomic, strong) CHVideoView *largeVideoView;
 
 @property (nonatomic, strong) CHLiveModel *liveModel;

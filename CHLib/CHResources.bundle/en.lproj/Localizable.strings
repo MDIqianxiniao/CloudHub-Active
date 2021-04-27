@@ -36,6 +36,20 @@
 "Live_ChatPlaceholder" = "Let me say something...";
 "Live_ChatTextNumber" = "Enter a maximum of 80 characters for text";
 
+"Live_Tools" = "Tools";
+"Live_Tools_inkMic " = "LinkMic";
+"Live_Tools_DisMiv " = "Disconnect";
+"Live_Tools_MuteCam" = "Turn off camera";
+"Live_Tools_UnMuteCam" = "Open camera";
+"Live_Tools_MuteMic" = "Turn off microphone";
+"Live_Tools_UnMuteMic" = "Microphone on";
+"Live_tools_SwitchCAM" = "Camera flip";
+"Live_tools_VideoSet" = "Video Settings";
+
+"Live_UserList_Tittle" = "Online user";
+"Live_userList_connect" = "Connect";
+"Live_userList_disconnect" = "Disconnect";
+
 "BeautySet.Beauty" = "Beauty";
 "BeautySet.Whitening" = "Whitening";
 "BeautySet.ThinFace" = "Thin Face";

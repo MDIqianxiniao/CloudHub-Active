@@ -25,8 +25,6 @@
     return _liveModel;
 }
 
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];

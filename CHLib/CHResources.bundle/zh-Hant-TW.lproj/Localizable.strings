@@ -35,6 +35,19 @@
 "Live_InputRoomNumPrompt" = "請輸入您的直播號";
 "Live_ChatPlaceholder" = "我來說幾句...";
 "Live_ChatTextNumber" = "文本最多輸入 80 個字符";
+"Live_Tools" = "工具";
+"Live_Tools_LinkMic" = "連麥";
+"Live_Tools_DisMiv" = "斷開連麥";
+"Live_Tools_MuteCam" = "關閉攝像頭";
+"Live_Tools_UnMuteCam" = "打開攝像頭";
+"Live_Tools_MuteMic" = "關閉麥克風";
+"Live_Tools_UnMuteMic" = "打開麥克風";
+"Live_Tools_SwitchCam" = "攝像頭翻轉";
+"Live_Tools_VideoSet" = "視頻設置";
+
+"Live_UserList_Tittle" = "在線用戶";
+"Live_userList_connect" = "邀請";
+"Live_userList_disconnect" = "斷開";
 
 "BeautySet.Beauty" = "美 顏";
 "BeautySet.Whitening" = "美白";
