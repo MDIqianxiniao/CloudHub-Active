@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// click callback
 - (void)clickViewToControlWithVideoView:(CHVideoView *)videoView;
 
+- (void)clickRemoveButtonToCloseVideoView:(CHVideoView *)videoView;
+
 @end
 
 @interface CHVideoView : UIView
@@ -41,6 +43,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CHRoomUseType roomType;
 /// big video view
 @property (nonatomic, assign) BOOL isBigView;
+
+/// Whether to display the remove button
+@property (nonatomic, assign) BOOL canRemove;
 
 /// refresh view by user properties
 - (void)freshWithRoomUserProperty;

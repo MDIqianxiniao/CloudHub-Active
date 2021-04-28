@@ -249,8 +249,6 @@ static NSString *const kToken = nil;
     
     if (self.roleType == CHUserType_Anchor)
     {
-        self.localUser.publishState = CHUser_PublishState_UP;
-        
         [self.rtcEngine enableAudio];
         [self.rtcEngine enableLocalAudio:YES];
         [self.rtcEngine enableVideo];
@@ -341,6 +339,18 @@ static NSString *const kToken = nil;
     [self addRoomUserWithId:uid properties:propertDic];
 }
 
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine didOfflineOfUid:(NSString *)uid
+{
+    NSLog(@"CHSessionManager didOfflineOfUid: %@", uid);
+    
+    CHRoomUser *roomUser = [self removeRoomUserWithId:uid];
+    
+    NSLog(@"rtcEngine %@ didOffline", roomUser.nickName);
+    
+    [self unPlayAllVideo:uid];
+}
+
+
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine
 onSetPropertyOfUid:(NSString * _Nonnull)uid
              from:(NSString * _Nullable)fromuid
@@ -359,19 +369,43 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
     {
         return;
     }
-    NSArray *allKeys = [properties allKeys];
     
-    if ([uid isEqualToString:self.localUser.peerID])
+    if ([properties ch_containsObjectForKey:sCHUserPublishstate])
     {
-        if ([properties ch_containsObjectForKey:sCHUserPublishstate])
+        CHPublishState publishState = [properties ch_intForKey:sCHUserPublishstate];
+        
+        CHRoomUser *roomUser = [self getRoomUserWithId:uid];
+        
+        if ([self.localUser.peerID isEqualToString:uid] && self.localUser.role == CHUserType_Audience)
         {
-            CHPublishState publishState = [properties ch_intForKey:sCHUserPublishstate];
             [self changeMyPublishState:publishState];
+
+            if (publishState == CHUser_PublishState_UP)
+            {
+                self.setToolView.isUpStage = YES;
+            }
+            else
+            {
+                self.setToolView.isUpStage = NO;
+            }
+        }
+        else if (self.localUser.role == CHUserType_Anchor)
+        {
+            if (![fromuid isEqualToString:self.localUser.peerID])
+            {
+                [roomUser.properties ch_setUInteger:publishState forKey:sCHUserPublishstate];
+            }
+                   
+            if (self.userListTableView.ch_originY < self.view.ch_height)
+            {
+                self.userListTableView.userListArray = self.userList;
+            }
         }
         
         return;
     }
-    
+
+    /*
     if ([allKeys containsObject:sCHUserAudioFail] || [allKeys containsObject:sCHUserCameras])
     {
         CHRoomUser *roomUser = [self getRoomUserWithId:uid];
@@ -393,6 +427,7 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
             }
         }
     }
+     */
 }
 
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine remoteVideoStateChangedOfUid:(NSString * _Nonnull)uid sourceID:(NSString * _Nonnull)sourceID streamID:(NSString * _Nonnull)streamID type:(CloudHubMediaType)type state:(CloudHubVideoRemoteState)state reason:(CloudHubVideoRemoteStateReason)reason
@@ -439,13 +474,6 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
 {
     CHRoomUser *roomUser = self.localUser;
     
-    if (roomUser.publishState == publishState)
-    {
-        return;
-    }
-    
-    roomUser.publishState = publishState;
-    
     if (publishState == CHUser_PublishState_UP)
     {
         [self.rtcEngine publishStream];//sCHUserDefaultSourceId
@@ -474,6 +502,22 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
     [self.smallVideoViews removeObjectForKey:streamId];
     
     [self arrangeVideoViews];
+}
+
+- (void)unPlayAllVideo:(NSString*)uid
+{
+    for (CHVideoView *view in self.smallVideoViews.allValues)
+    {
+        if ([view.roomUser.peerID isEqualToString:uid])
+        {
+            [self unPlayVideo:uid streamId:view.streamId];
+        }
+    }
+    
+    if ([uid isEqualToString:self.largeVideoView.roomUser.peerID])
+    {
+        [self unPlayVideo:uid streamId:self.largeVideoView.streamId];
+    }
 }
 
 - (void)freshPlayVideo:(NSString*)uid streamId:(NSString *)streamId sourceId:(NSString *)sourceId mute:(BOOL)mute
@@ -545,7 +589,7 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
 - (void)playVideo:(NSString*)uid streamId:(NSString *)streamId sourceId:(NSString *)sourceId
 {
     CHRoomUser *roomUser = [self getRoomUserWithId:uid];
-    
+
     if (roomUser.role == CHUserType_Anchor)
     {
         self.largeVideoView.roomUser = roomUser;
@@ -563,7 +607,6 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
             view.delegate = self;
             view.streamId = streamId;
             view.sourceId = sourceId;
-            
             view.roomUser = roomUser;
             
             [self.smallVideoViews setObject:view forKey:streamId];
@@ -574,6 +617,16 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
             {
                 self.myVideoView = view;
             }
+        }
+        
+        if (self.localUser.role == CHUserType_Anchor)
+        {
+            [self.userListTableView ch_bringToFront];
+            view.canRemove = YES;
+        }
+        else if ([self.localUser.peerID isEqualToString:uid])
+        {
+            view.canRemove = YES;
         }
         
         [self freshPlayVideoView:view streamId:streamId mute:NO];
@@ -652,6 +705,22 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
     [self playVideo:largeRoomUser.peerID streamId:streamId sourceId:sourceId];
 }
 
+- (void)clickRemoveButtonToCloseVideoView:(CHVideoView *)videoView
+{
+    if (self.localUser.role == CHUserType_Anchor)
+    {
+        [videoView.roomUser sendToChangePublishstate:CHUser_PublishState_DOWN];
+    }
+    else
+    {
+        [self.localUser sendToChangePublishstate:CHUser_PublishState_DOWN];
+        
+        [self.rtcEngine unPublishStream];
+        [self unPlayVideo:self.localUser.peerID streamId:self.localUser.peerID];
+    }
+}
+
+
 #pragma mark - userList
 
 - (CHRoomUser *)addRoomUserWithId:(NSString *)peerId properties:(NSDictionary *)properties
@@ -681,6 +750,11 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
         }
     }
     
+    if (self.localUser.role == CHUserType_Anchor && self.userListTableView.ch_originY < self.view.ch_height)
+    {
+        self.userListTableView.userListArray = self.userList;
+    }
+    
     return existRoomUser;
 }
 
@@ -702,6 +776,11 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
             [self.userList removeObject:roomUser];
             break;
         }
+    }
+    
+    if (self.localUser.role == CHUserType_Anchor && self.userListTableView.ch_originY < self.view.ch_height)
+    {
+        self.userListTableView.userListArray = self.userList;
     }
     
     return existRoomUser;
@@ -739,7 +818,12 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
     {
         _userListTableView = [[CHUserListTableView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 100)];
         [self.view addSubview:_userListTableView];
+        
+        _userListTableView.userListCellClick = ^(CHRoomUser * _Nonnull userModel) {
+            [userModel sendToChangePublishstate:!userModel.publishState];
+        };
     }
+    
     return _userListTableView;
 }
 

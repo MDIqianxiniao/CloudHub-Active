@@ -136,11 +136,11 @@
             
         case UIDeviceOrientationLandscapeLeft:
             NSLog(@"Home Button On Right");
-            [self.rtcEngine setVideoRotation:CloudHubHomeButtonOnTop];
+            [self.rtcEngine setVideoRotation:CloudHubHomeButtonOnBottom];
             break;
         case UIDeviceOrientationLandscapeRight:
             NSLog(@"Home Button On Left");
-            [self.rtcEngine setVideoRotation:CloudHubHomeButtonOnTop];
+            [self.rtcEngine setVideoRotation:CloudHubHomeButtonOnBottom];
             break;
         case UIDeviceOrientationUnknown:
             NSLog(@"Unknown");

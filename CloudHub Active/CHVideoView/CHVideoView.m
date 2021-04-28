@@ -18,6 +18,8 @@
 @property (nonatomic, strong) UILabel *nickNameLabel;
 @property (nonatomic, strong) UIImageView *volumeImageView;
 
+@property (nonatomic, strong) UIButton *removeButton;
+
 @property (nonatomic, assign) NSUInteger volumeStep;
 
 @end
@@ -73,12 +75,27 @@
 
         self.volumeStep = 0;
         
+        UIButton *removeButton = [[UIButton alloc]init];
+        [removeButton setImage:[UIImage imageNamed:@"video_remove"] forState:UIControlStateNormal];
+        [removeButton addTarget:self action:@selector(removeButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        removeButton.hidden = YES;
+        self.removeButton = removeButton;
+        [self.coverView addSubview:removeButton];
+        
         UITapGestureRecognizer *click = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAction:)];
         click.numberOfTapsRequired = 1;
         [self addGestureRecognizer:click];
     }
     
     return self;
+}
+
+- (void)removeButtonClick
+{
+    if ([self.delegate respondsToSelector:@selector(clickRemoveButtonToCloseVideoView:)])
+    {
+        [self.delegate clickRemoveButtonToCloseVideoView:self];
+    }
 }
 
 - (void)clickAction:(UITapGestureRecognizer *)tap
@@ -167,9 +184,18 @@
         self.volumeImageView.frame = CGRectMake(self.ch_width-5-volumeImageWidth, self.ch_height-4-height, volumeImageWidth, height);
     }
     
+    self.removeButton.frame = CGRectMake(self.ch_width - 22.0f, 0, 22.0f, 22.0f);
+    
     CGRect imageFrame = CGRectMake(0, 0, self.ch_width*0.3f, self.ch_width*0.4f);
     self.bgImageView.frame = imageFrame;
     [self.bgImageView ch_centerInSuperView];
+}
+
+- (void)setCanRemove:(BOOL)canRemove
+{
+    _canRemove = canRemove;
+    
+    self.removeButton.hidden = !canRemove;
 }
 
 - (void)setIsBigView:(BOOL)isBigView
