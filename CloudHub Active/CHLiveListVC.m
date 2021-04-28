@@ -115,14 +115,12 @@
     self.centreImageView.hidden = self.noLiveLable.hidden = (mutArray.count > 0);
 }
 
-/// 创建新直播按钮点击
 - (void)clickToCreatLive
 {
     CHCreatLiveVC *liveVC = [[CHCreatLiveVC alloc]init];
     [self.navigationController pushViewController:liveVC animated:YES];
 }
 
-/// 我的点击
 - (void)clickToSetName
 {
     self.minPopupView.hidden = !self.minPopupView.hidden;

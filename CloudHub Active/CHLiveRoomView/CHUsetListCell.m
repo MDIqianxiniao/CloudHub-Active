@@ -125,7 +125,7 @@
 {
     if (_connectButtonClick)
     {
-        _connectButtonClick(button);
+        _connectButtonClick();
     }
 }
 

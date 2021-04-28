@@ -50,7 +50,7 @@
     cell.userModel = self.userListArray[indexPath.row];
     
     CHWeakSelf
-    cell.connectButtonClick = ^(NSIndexPath * _Nonnull index) {
+    cell.connectButtonClick = ^ {
         
         CHRoomUser *user = weakSelf.userListArray[indexPath.row];
         

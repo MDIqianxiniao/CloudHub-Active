@@ -11,7 +11,8 @@
 @interface CHSuperViewController ()
 
 @property (strong, nonatomic) CMMotionManager *motionManager;
-@property (assign, nonatomic) BOOL isHeng;   // 判断横竖屏
+/// Judge horizontal and vertical
+@property (assign, nonatomic) BOOL isHeng;
 
 @end
 
@@ -31,8 +32,7 @@
     [super viewDidLoad];
     
     self.rtcEngine = RtcEngine;
-    
-    // 主播视频
+
     [self setupLargeVideoView];
     
     [self initMotionManager];
@@ -48,7 +48,6 @@
                                                object:nil];
 }
 
-// 主播视频
 - (void)setupLargeVideoView
 {
     CHVideoView *largeVideoView = [[CHVideoView alloc] initWithFrame:self.view.bounds];
@@ -73,9 +72,8 @@
     return _beautyView;
 }
 
-/**
- *  在真机关闭屏幕旋转功能时如何去判断屏幕方向
- */
+/// How to judge the direction of the screen when the screen rotation function is turned off
+
 - (void)initMotionManager
 {
     if (_motionManager == nil)

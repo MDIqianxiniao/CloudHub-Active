@@ -6,30 +6,23 @@
 //
 
 #import "CHCreatLiveVC.h"
-
 #import "CHCreatLiveFrontView.h"
-
 #import "CHVideoSetView.h"
 #import "CHResolutionView.h"
 #import "CHLiveRoomVC.h"
-
-
-
 
 @interface CHCreatLiveVC ()
 
 @property (nonatomic, weak) CHCreatLiveFrontView *liveFrontView;
 
-
-
 @property (nonatomic, weak) UIButton *startButton;
 
 @property (nonatomic, weak) CHVideoSetView *videoSetView;
 
-/// 分辨率
+/// resolution
 @property (nonatomic, weak) CHResolutionView *resolutionView;
 
-/// 帧率
+/// rate
 @property (nonatomic, weak) CHResolutionView *rateView;
 
 @end
@@ -51,7 +44,6 @@
     [super viewDidLoad];
     self.view.backgroundColor = UIColor.whiteColor;
     
-    // 上层试图的View
     [self setupFrontViewUI];
 }
 
