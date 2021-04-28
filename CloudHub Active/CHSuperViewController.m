@@ -6,11 +6,12 @@
 //
 
 #import "CHSuperViewController.h"
-
-
+#import <CoreMotion/CoreMotion.h>
 
 @interface CHSuperViewController ()
 
+@property (strong, nonatomic) CMMotionManager *motionManager;
+@property (assign, nonatomic) BOOL isHeng;   // 判断横竖屏
 
 @end
 
@@ -33,6 +34,8 @@
     
     // 主播视频
     [self setupLargeVideoView];
+    
+    [self initMotionManager];
     
     if (![UIDevice currentDevice].generatesDeviceOrientationNotifications)
     {
@@ -70,6 +73,50 @@
     return _beautyView;
 }
 
+/**
+ *  在真机关闭屏幕旋转功能时如何去判断屏幕方向
+ */
+- (void)initMotionManager
+{
+    if (_motionManager == nil)
+    {
+        _motionManager = [[CMMotionManager alloc] init];
+    }
+    _motionManager.deviceMotionUpdateInterval = .3;
+
+    if (_motionManager.deviceMotionAvailable)
+    {
+        [_motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMDeviceMotion *motion, NSError *error) {
+
+            [self performSelectorOnMainThread:@selector(handleDeviceMotion:) withObject:motion waitUntilDone:YES];
+        }];
+    }else
+    {
+        [self setMotionManager:nil];
+    }
+}
+- (void)handleDeviceMotion:(CMDeviceMotion *)deviceMotion
+{
+    double x = deviceMotion.gravity.x;
+    double y = deviceMotion.gravity.y;
+
+    if (fabs(y) >= fabs(x))
+    {
+        if (self.isHeng == YES) {
+            [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger:UIDeviceOrientationLandscapeLeft] forKey:@"orientation"];
+            [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger:UIDeviceOrientationPortrait] forKey:@"orientation"];
+            self.isHeng = NO;
+        }
+    }
+    else
+    {
+        if (self.isHeng == NO) {
+            [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger:UIDeviceOrientationPortrait] forKey:@"orientation"];
+            [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger:UIDeviceOrientationLandscapeLeft] forKey:@"orientation"];
+            self.isHeng = YES;
+        }
+    }
+}
 
 - (void)handleDeviceOrientationDidChange:(NSNotification *)notification
 {

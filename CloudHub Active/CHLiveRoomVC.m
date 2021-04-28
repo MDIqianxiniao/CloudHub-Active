@@ -93,6 +93,8 @@ static NSString *const kToken = nil;
     {
         case CHLiveRoomFrontButton_userList:
         {
+            self.userListTableView.userListArray = self.userList;
+            
             [UIView animateWithDuration:0.25 animations:^{
                 self.userListTableView.ch_originY = self.view.ch_height - self.userListTableView.ch_height;
            }];
@@ -196,6 +198,7 @@ static NSString *const kToken = nil;
         self.beautyView.ch_originY = self.view.ch_height;
         self.setToolView.ch_originY = self.view.ch_height;
         self.musicView.ch_originY = self.view.ch_height;
+        self.userListTableView.ch_originY = self.view.ch_height;
     }];
 }
 
@@ -228,9 +231,6 @@ static NSString *const kToken = nil;
         return;
     }
 
-//    self.rtcEngine.delegate = nil;
-//    self.rtcEngine = nil;
-    
     [self.rtcEngine stopPlayingLocalVideo];
     
     [self.navigationController popViewControllerAnimated:YES];
@@ -243,17 +243,19 @@ static NSString *const kToken = nil;
     CHRoomUser *roomUser = [[CHRoomUser alloc] initWithPeerId:uid];
     roomUser.nickName = self.myNickName;
     roomUser.cloudHubRtcEngineKit = self.rtcEngine;
+    roomUser.role = self.roleType;
     self.localUser = roomUser;
-    
     [self.userList addObject:self.localUser];
     
     if (self.roleType == CHUserType_Anchor)
     {
+        self.localUser.publishState = CHUser_PublishState_UP;
+        
         [self.rtcEngine enableAudio];
         [self.rtcEngine enableLocalAudio:YES];
         [self.rtcEngine enableVideo];
         [self.rtcEngine enableLocalVideo:YES];
-        [self.rtcEngine startPlayingLocalVideo:self.largeVideoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled];
+        [self.rtcEngine startPlayingLocalVideo:self.largeVideoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled];
         self.largeVideoView.roomUser = self.localUser;
         self.largeVideoView.sourceId = self.localUser.peerID;
         self.largeVideoView.streamId = self.localUser.peerID;
@@ -307,12 +309,15 @@ static NSString *const kToken = nil;
     [self.userList removeAllObjects];
     [self.userList addObject:self.localUser];
 
-    [self.rtcEngine startPlayingLocalVideo:self.largeVideoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled];
-    self.largeVideoView.roomUser = self.localUser;
-    self.largeVideoView.sourceId = self.localUser.peerID;
-    self.largeVideoView.streamId = self.localUser.peerID;
+    if (self.localUser.role == CHUserType_Anchor)
+    {
+        [self.rtcEngine startPlayingLocalVideo:self.largeVideoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled];
+        self.largeVideoView.roomUser = self.localUser;
+        self.largeVideoView.sourceId = self.localUser.peerID;
+        self.largeVideoView.streamId = self.localUser.peerID;
 
-    [self.rtcEngine publishStream];
+        [self.rtcEngine publishStream];
+    }
 }
 
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine didLeaveChannel:(CloudHubChannelStats * _Nonnull)stats;
@@ -342,7 +347,6 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
        properties:(NSString * _Nonnull)prop
 {
     NSLog(@"rtcEngine onSetPropertyOfUid %@ %@ %@", uid, fromuid, prop);
-    
 
     NSData *propData = [prop dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *properties = nil;
@@ -454,7 +458,6 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
     }
 }
 
-
 - (void)unPlayVideo:(NSString*)uid streamId:(NSString *)streamId
 {
     if ([self.largeVideoView.roomUser.peerID isEqualToString:uid])
@@ -485,7 +488,7 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
             }
             else
             {
-                [self.rtcEngine startPlayingLocalVideo:self.largeVideoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled];
+                [self.rtcEngine startPlayingLocalVideo:self.largeVideoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled];
             }
         }
         else
@@ -528,7 +531,7 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
     {
         if (videoView.roomUser == self.localUser)
         {
-            [self.rtcEngine startPlayingLocalVideo:videoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled];
+            [self.rtcEngine startPlayingLocalVideo:videoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled];
         }
         else
         {
@@ -621,7 +624,7 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
         [self.smallVideoViews removeObjectForKey:self.localUser.peerID];
         self.myVideoView = nil;
         
-        [self.rtcEngine startPlayingLocalVideo:self.largeVideoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled];
+        [self.rtcEngine startPlayingLocalVideo:self.largeVideoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled];
         self.largeVideoView.roomUser = self.localUser;
         self.largeVideoView.sourceId = self.localUser.peerID;
         self.largeVideoView.streamId = self.localUser.peerID;
@@ -734,7 +737,7 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
 {
     if (!_userListTableView)
     {
-        _userListTableView = [[CHUserListTableView alloc]initWithFrame:CGRectMake(0, 100, self.view.ch_width, 100)];
+        _userListTableView = [[CHUserListTableView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 100)];
         [self.view addSubview:_userListTableView];
     }
     return _userListTableView;

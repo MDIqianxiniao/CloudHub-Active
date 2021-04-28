@@ -43,7 +43,7 @@
     [self.rtcEngine enableLocalAudio:YES];
     [self.rtcEngine enableLocalVideo:YES];
     
-    [self.rtcEngine startPlayingLocalVideo:self.largeVideoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled];
+    [self.rtcEngine startPlayingLocalVideo:self.largeVideoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled];
 }
 
 - (void)viewDidLoad
