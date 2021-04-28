@@ -63,6 +63,7 @@
     titleLabel.text = CH_Localized(@"Live_UserList_Tittle");
     titleLabel.textColor = CHColor_6D7278;
     titleLabel.font = CHFont12;
+    titleLabel.textAlignment = NSTextAlignmentCenter;
     
     return titleLabel;
 }
@@ -82,7 +83,11 @@
     return FooterHeight;
 }
 
-
-
+- (void)setUserListArray:(NSMutableArray *)userListArray
+{
+    _userListArray = userListArray;
+    
+    self.frame = CGRectMake(0, 0, self.ch_width, HeaderHeight + userListArray.count *CellHeight +FooterHeight);
+}
 
 @end

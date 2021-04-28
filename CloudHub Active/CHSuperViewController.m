@@ -113,7 +113,7 @@
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
 //    return UIInterfaceOrientationMaskPortrait;
-    return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown;
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation

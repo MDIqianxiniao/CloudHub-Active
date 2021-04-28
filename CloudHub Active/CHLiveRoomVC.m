@@ -93,7 +93,9 @@ static NSString *const kToken = nil;
     {
         case CHLiveRoomFrontButton_userList:
         {
-            
+            [UIView animateWithDuration:0.25 animations:^{
+                self.userListTableView.ch_originY = self.view.ch_height - self.userListTableView.ch_height;
+           }];
         }
             break;
         case CHLiveRoomFrontButton_Back:
@@ -737,6 +739,8 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
     }
     return _userListTableView;
 }
+
+
 
 
 @end
