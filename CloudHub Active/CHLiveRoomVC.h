@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CHLiveRoomVC : CHSuperViewController
 
 /// isMirror
-@property (nonatomic, assign) NSInteger isMirror;
+//@property (nonatomic, assign) NSInteger isMirror;
 
 /// user list
 @property (nonatomic, strong) NSMutableArray <CHRoomUser *> *userList;

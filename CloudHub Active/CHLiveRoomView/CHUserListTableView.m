@@ -9,8 +9,8 @@
 #import "CHUsetListCell.h"
 
 #define CellHeight 40
-#define HeaderHeight 40
-#define FooterHeight 20
+#define HeaderHeight 50
+#define FooterHeight 30
 
 @interface CHUserListTableView ()
 <
@@ -65,10 +65,12 @@
     titleLabel.font = CHFont12;
     titleLabel.textAlignment = NSTextAlignmentCenter;
     
+//    titleLabel.backgroundColor = UIColor.yellowColor;
+    
     return titleLabel;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return HeaderHeight;
 }
@@ -78,7 +80,7 @@
     return [[UIView alloc] init];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return FooterHeight;
 }

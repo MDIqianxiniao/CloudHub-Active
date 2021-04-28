@@ -55,10 +55,11 @@
     nameLable.textColor = CHColor_6D7278;
     [self.contentView addSubview:nameLable];
     self.nameLable = nameLable;
+    nameLable.backgroundColor = UIColor.redColor;
         
     UIButton *connectButton = [[UIButton alloc]init];
-//    [connectButton setImage:[UIImage imageNamed:@"list_userNumber"] forState:UIControlStateNormal];
-//    [connectButton setImage:[UIImage imageNamed:@"list_userNumber"] forState:UIControlStateSelected];
+    [connectButton setBackgroundImage:[UIImage imageNamed:@"live_userList_connect"] forState:UIControlStateNormal];
+    [connectButton setBackgroundImage:[UIImage imageNamed:@"live_userList_disconnect"] forState:UIControlStateSelected];
     [connectButton setTitle:CH_Localized(@"Live_UserList_Connect") forState:UIControlStateNormal];
     [connectButton setTitle:CH_Localized(@"Live_UserList_Disconnect") forState:UIControlStateSelected];
     [connectButton setTitleColor:CHColor_24D3EE forState:UIControlStateNormal];
