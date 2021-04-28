@@ -55,7 +55,6 @@
     nameLable.textColor = CHColor_6D7278;
     [self.contentView addSubview:nameLable];
     self.nameLable = nameLable;
-    nameLable.backgroundColor = UIColor.redColor;
         
     UIButton *connectButton = [[UIButton alloc]init];
     [connectButton setBackgroundImage:[UIImage imageNamed:@"live_userList_connect"] forState:UIControlStateNormal];
@@ -65,6 +64,7 @@
     [connectButton setTitleColor:CHColor_24D3EE forState:UIControlStateNormal];
     [connectButton setTitleColor:CHWhiteColor forState:UIControlStateSelected];
     connectButton.titleLabel.font = CHFont12;
+    [connectButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:connectButton];
     self.connectButton = connectButton;
     
@@ -78,12 +78,12 @@
         make.height.mas_equalTo(22);
         make.centerY.mas_equalTo(self);
     }];
-    
-    [nameLable mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+    [self.nameLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(NameLeftMargin);
+        make.right.mas_equalTo(connectButton.mas_left).mas_offset(-10);
         make.height.mas_equalTo(22);
         make.centerY.mas_equalTo(self);
-        make.width.mas_lessThanOrEqualTo(connectButton.ch_left - NameLeftMargin);
     }];
     
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -100,6 +100,15 @@
     
     self.nameLable.text = userModel.nickName;
     
+    if (userModel.role == CHUserType_Anchor)
+    {
+        self.connectButton.hidden = YES;
+    }
+    else
+    {
+        self.connectButton.hidden = NO;
+    }
+    
     if (userModel.publishState)
     {
         self.nameLable.textColor = CHColor_24D3EE;
@@ -109,6 +118,14 @@
     {
         self.nameLable.textColor = CHColor_6D7278;
         self.connectButton.selected = NO;
+    }
+}
+
+- (void)buttonClick:(UIButton *)button
+{
+    if (_connectButtonClick)
+    {
+        _connectButtonClick(button);
     }
 }
 

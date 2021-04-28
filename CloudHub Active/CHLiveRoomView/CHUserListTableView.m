@@ -28,7 +28,7 @@
 {
     if (self = [super initWithFrame:frame style:style])
     {
-        self.backgroundColor = [CHWhiteColor ch_changeAlpha:0.8];;
+        self.backgroundColor = [CHWhiteColor ch_changeAlpha:0.9];;
         self.dataSource = self;
         self.delegate = self;
         self.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -48,6 +48,20 @@
     CHUsetListCell *cell = [CHUsetListCell cellWithTableView:tableView];
 
     cell.userModel = self.userListArray[indexPath.row];
+    
+    CHWeakSelf
+    cell.connectButtonClick = ^(NSIndexPath * _Nonnull index) {
+        
+        CHRoomUser *user = weakSelf.userListArray[indexPath.row];
+        
+        if (user.role != CHUserType_Anchor)
+        {
+            if (self->_userListCellClick)
+            {
+                self->_userListCellClick(user);
+            }
+        }
+    };
     
     return cell;
 }
@@ -89,7 +103,11 @@
 {
     _userListArray = userListArray;
     
-    self.frame = CGRectMake(0, 0, self.ch_width, HeaderHeight + userListArray.count *CellHeight +FooterHeight);
+    [self reloadData];
+    
+    CGFloat height = HeaderHeight + userListArray.count *CellHeight +FooterHeight;
+    
+    self.frame = CGRectMake(0, CHUI_SCREEN_HEIGHT - height, self.ch_width, HeaderHeight + userListArray.count *CellHeight +FooterHeight);
 }
 
 @end

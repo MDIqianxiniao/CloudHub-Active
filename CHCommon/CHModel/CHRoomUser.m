@@ -103,7 +103,6 @@
 }
 
 
-
 - (void)updateWithProperties:(NSDictionary *)properties
 {
     if ([properties ch_isNotEmptyDictionary])
@@ -117,6 +116,13 @@
     [self.properties ch_setUInteger:afail forKey:sCHUserAudioFail];
 
     [self sendToChangeProperty:@(afail) forKey:sCHUserAudioFail tellWhom:CHRoomPubMsgTellAll];
+}
+
+- (void)sendToChangePublishstate:(CHPublishState)publishstate
+{
+    [self.properties ch_setUInteger:publishstate forKey:sCHUserPublishstate];
+
+    [self sendToChangeProperty:@(publishstate) forKey:sCHUserPublishstate tellWhom:CHRoomPubMsgTellAll];
 }
 
 - (NSDictionary *)getVideoSourceWithSourceId:(NSString *)sourceId

@@ -63,6 +63,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param afail Audio device failure
 - (void)sendToChangeAfail:(CHDeviceFaultType)afail;
 
+- (void)sendToChangePublishstate:(CHPublishState)publishstate;
+
 /// Get video device fault
 /// @param sourceId Source Id
 /// @return CHDeviceFaultType
