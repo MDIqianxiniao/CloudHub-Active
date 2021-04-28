@@ -54,12 +54,7 @@
     titleLable.textAlignment = NSTextAlignmentCenter;
     
     [self addSubview:titleLable];
-    if (self.roleType == CHUserType_Audience)
-    {
-        CHImageTitleButtonView * linkMicButton = [self creatButtonWithTitle:CH_Localized(@"Live_Tools_LinkMic") selectTitle:CH_Localized(@"Live_Tools_DisMiv") image:[UIImage imageNamed:@"live_tools_linkMic"] selectImage:[UIImage imageNamed:@"live_tools_disMic"]];
-        linkMicButton.tag = CHSetToolViewButton_LinkMic;
-        self.linkMicButton = linkMicButton;
-    }
+    
     
     CHImageTitleButtonView * cameraButton = [self creatButtonWithTitle:CH_Localized(@"Live_Tools_MuteCam") selectTitle:CH_Localized(@"Live_Tools_UnMuteCam") image:[UIImage imageNamed:@"live_tools_cameraOpen"] selectImage:[UIImage imageNamed:@"live_tools_cameraClose"]];
     cameraButton.tag = CHSetToolViewButton_Camera;
@@ -76,6 +71,18 @@
     CHImageTitleButtonView * setButton = [self creatButtonWithTitle:CH_Localized(@"Live_Tools_VideoSet") selectTitle:nil image:[UIImage imageNamed:@"live_tools_set"] selectImage:nil];
     setButton.tag = CHSetToolViewButton_VideoSet;
     self.setButton = setButton;
+    
+    if (self.roleType == CHUserType_Audience)
+    {
+        CHImageTitleButtonView * linkMicButton = [self creatButtonWithTitle:CH_Localized(@"Live_Tools_LinkMic") selectTitle:CH_Localized(@"Live_Tools_DisMiv") image:[UIImage imageNamed:@"live_tools_linkMic"] selectImage:[UIImage imageNamed:@"live_tools_disMic"]];
+        linkMicButton.tag = CHSetToolViewButton_LinkMic;
+        self.linkMicButton = linkMicButton;
+        
+        cameraButton.hidden = YES;
+        micButton.hidden = YES;
+        switchCamButton.hidden = YES;
+        setButton.hidden = YES;
+    }
 }
 
 ///创建button
@@ -130,6 +137,8 @@
 - (void)setIsUpStage:(BOOL)isUpStage
 {
     _isUpStage = isUpStage;
+    
+    self.linkMicButton.selected = isUpStage;
     
     self.cameraButton.hidden = !isUpStage;
     self.micButton.hidden = !isUpStage;

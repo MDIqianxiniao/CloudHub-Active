@@ -157,6 +157,22 @@ static NSString *const kToken = nil;
         case CHSetToolViewButton_LinkMic:
         {
             sender.selected = !sender.selected;
+            if (sender.selected)
+            {
+                
+                [self.localUser sendToChangePublishstate:CHUser_PublishState_UP];
+                
+//                [self changeMyPublishState:CHUser_PublishState_UP];
+//
+//                self.setToolView.isUpStage = YES;
+
+            }
+            else
+            {
+                [self clickRemoveButtonToCloseVideoView:self.myVideoView];
+            }
+            
+            
         }
             break;
         case CHSetToolViewButton_Camera:
@@ -627,6 +643,11 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
         else if ([self.localUser.peerID isEqualToString:uid])
         {
             view.canRemove = YES;
+            
+            if (self.setToolView.ch_originY < self.view.ch_height)
+            {
+                [self.setToolView ch_bringToFront];
+            }
         }
         
         [self freshPlayVideoView:view streamId:streamId mute:NO];
