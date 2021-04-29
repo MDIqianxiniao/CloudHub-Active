@@ -78,7 +78,7 @@
         UILabel *titleLabel = [[UILabel alloc]init];
         titleLabel.font = CHFont12;
         titleLabel.textColor = CHColor_6D7278;
-        titleLabel.textAlignment  = NSTextAlignmentCenter;
+        titleLabel.textAlignment  = NSTextAlignmentLeft;
         [self addSubview:titleLabel];
 
         
@@ -122,22 +122,22 @@
         
     for (int i = 0; i<self.titleArray.count; i++)
     {
-        UILabel *titleLabel = self.titleArray[i];
-        titleLabel.frame = CGRectMake(leftMargin, self.titleLable.ch_height + i *self.cellHeight, 100, CHSetView_LabelHeight);
+        UILabel *nameLabel = self.titleArray[i];
+        nameLabel.frame = CGRectMake(leftMargin, self.titleLable.ch_height + self.gap + i *self.cellHeight , 100, CHSetView_LabelHeight);
         
         UIButton *arrowButton = self.arrowArray[i];
-        arrowButton.frame = CGRectMake(frame.size.width - leftMargin - CHSetView_LabelHeight - 5, titleLabel.ch_originY, CHSetView_LabelHeight, CHSetView_LabelHeight);
+        arrowButton.frame = CGRectMake(frame.size.width - leftMargin - self.cellHeight + 5, nameLabel.ch_originY - self.gap, self.cellHeight, self.cellHeight-1);
         
         UILabel *valueLable = self.valueArray[i];
-        valueLable.frame = CGRectMake(leftMargin, self.titleLable.ch_height + i *self.cellHeight, 100, CHSetView_LabelHeight);
+        valueLable.frame = CGRectMake(leftMargin, nameLabel.ch_originY, 100, CHSetView_LabelHeight);
         valueLable.ch_right = arrowButton.ch_left - 5;
         
         UIView *lineLable = self.lineArray[i];
-        lineLable.frame = CGRectMake(leftMargin, titleLabel.ch_bottom + CHSetView_SGap, frame.size.width - 2 * leftMargin, CHSetView_LineHeight);
+        lineLable.frame = CGRectMake(leftMargin, nameLabel.ch_bottom + CHSetView_SGap, frame.size.width - 2 * leftMargin, CHSetView_LineHeight);
         
         if (i == self.titleArray.count - 1)
         {
-            frame.size.height = lineLable.ch_bottom + self.gap + 20.0f;
+            frame.size.height = lineLable.ch_bottom + 40.0f;
         }
     }
     

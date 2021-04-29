@@ -7,8 +7,8 @@
 
 #import "CHCreatLiveVC.h"
 #import "CHCreatLiveFrontView.h"
-#import "CHVideoSetView.h"
-#import "CHResolutionView.h"
+
+
 #import "CHLiveRoomVC.h"
 
 @interface CHCreatLiveVC ()
@@ -16,14 +16,6 @@
 @property (nonatomic, weak) CHCreatLiveFrontView *liveFrontView;
 
 @property (nonatomic, weak) UIButton *startButton;
-
-@property (nonatomic, weak) CHVideoSetView *videoSetView;
-
-/// resolution
-@property (nonatomic, weak) CHResolutionView *resolutionView;
-
-/// rate
-@property (nonatomic, weak) CHResolutionView *rateView;
 
 @end
 
@@ -107,18 +99,7 @@
             break;
         case 5:
         {// 设置
-            if (!self.videoSetView)
-            {
-                CHVideoSetView *videoSetView = [[CHVideoSetView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 0) itemGap:CellGap];
-                [self.view addSubview:videoSetView];
-                self.videoSetView = videoSetView;
-                
-                CHWeakSelf
-                videoSetView.setArrowButtonClick = ^(UIButton * _Nonnull button) {
-                    [weakSelf setViewArrowButtonClick:button];
-                };
-            }
-            
+
             [UIView animateWithDuration:0.25 animations:^{
                 self.videoSetView.ch_originY = self.view.ch_height - self.videoSetView.ch_height;
            }];
@@ -133,83 +114,32 @@
 }
 
 
-- (void)setViewArrowButtonClick:(UIButton *)button
-{
-    if (button.tag == 100)
-    {
-        if (!self.resolutionView)
-        {
-            NSArray * dataArray = @[@"240 × 240",@"360 × 360",@"480 × 848",@"720 × 1080",@"1080 × 1920"];
-            
-            CHResolutionView *resolutionView = [[CHResolutionView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 0) itemGap:CellGap type:CHVideoSetViewType_Resolution withData:dataArray];
-            [self.view addSubview:resolutionView];
-            self.resolutionView = resolutionView;
-            
-            CHWeakSelf
-            __weak CHResolutionView *weakResolutionView = self.resolutionView;
-            resolutionView.resolutionViewButtonClick = ^(NSString * _Nullable value) {
-                if ([value ch_isNotEmpty])
-                {
-                    weakSelf.videoSetView.resolutionString = value;
-                    weakSelf.liveModel.resolution = value;
-                }
-                else
-                {
-                    weakSelf.videoSetView.ch_originY = weakSelf.view.ch_height - weakSelf.videoSetView.ch_height;
-                    weakResolutionView.ch_originY = weakSelf.view.ch_height;
-                }
-            };
-        }
-                
-        [self.resolutionView ch_bringToFront];
-        
-        [UIView animateWithDuration:0.25 animations:^{
-            self.resolutionView.ch_originY = self.view.ch_height - self.resolutionView.ch_height;
-       }];
-        
-    }
-    else if (button.tag == 101)
-    {
-        if (!self.rateView)
-        {
-            NSArray * dataArray = @[@"240 × 240",@"360 × 360",@"480 × 848"];
-            CHResolutionView *rateView = [[CHResolutionView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 0) itemGap:CellGap type:CHVideoSetViewType_Rate withData:dataArray];
-            [self.view addSubview:rateView];
-            self.rateView = rateView;
-            
-            CHWeakSelf
-            __weak CHResolutionView *weakRateView = self.rateView;
-            rateView.resolutionViewButtonClick = ^(NSString * _Nullable value) {
-                if ([value ch_isNotEmpty])
-                {
-                    weakSelf.videoSetView.rateString = value;
-                    weakSelf.liveModel.rate = value.integerValue;
-                }
-                else
-                {
-                    weakSelf.videoSetView.ch_originY = weakSelf.view.ch_height - weakSelf.videoSetView.ch_height;
-                    weakRateView.ch_originY = weakSelf.view.ch_height;
-                }
-            };
-        }
-        
-        [self.rateView ch_bringToFront];
-        
-         [UIView animateWithDuration:0.25 animations:^{
-             self.rateView.ch_originY = self.view.ch_height - self.rateView.ch_height;
-        }];
-    }
-}
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self.liveFrontView.liveNumField resignFirstResponder];
     
+    if (self.resolutionView && self.resolutionView.ch_originY < self.view.ch_height)
+    {
+        [UIView animateWithDuration:0.25 animations:^{
+            self.resolutionView.ch_originY = self.view.ch_height;
+            self.videoSetView.ch_originY = self.view.ch_height - self.videoSetView.ch_height;
+        }];
+        return;
+    }
+    
+    if (self.rateView && self.rateView.ch_originY < self.view.ch_height)
+    {
+        [UIView animateWithDuration:0.25 animations:^{
+            self.rateView.ch_originY = self.view.ch_height;
+            self.videoSetView.ch_originY = self.view.ch_height - self.videoSetView.ch_height;
+        }];
+        return;
+    }
+        
     [UIView animateWithDuration:0.25 animations:^{
         self.beautyView.ch_originY = self.view.ch_height;
         self.videoSetView.ch_originY = self.view.ch_height;
-        self.resolutionView.ch_originY = self.view.ch_height;
-        self.rateView.ch_originY = self.view.ch_height;
     }];
 }
 

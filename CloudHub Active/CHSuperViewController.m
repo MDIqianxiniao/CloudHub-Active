@@ -72,8 +72,108 @@
     return _beautyView;
 }
 
-/// How to judge the direction of the screen when the screen rotation function is turned off
+- (CHVideoSetView *)videoSetView
+{
+    if (!_videoSetView)
+    {
+        _videoSetView = [[CHVideoSetView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 0) itemGap:CellGap];
+        [self.view addSubview:_videoSetView];
+        
+        CHWeakSelf
+        _videoSetView.setArrowButtonClick = ^(UIButton * _Nonnull button) {
+            [weakSelf setViewArrowButtonClick:button];
+        };
+    }
+    return _videoSetView;
+}
 
+- (void)setViewArrowButtonClick:(UIButton *)button
+{
+    if (button.tag == 100)
+    {
+        if (!self.resolutionView)
+        {
+            NSArray * dataArray = @[@"240 × 240",@"360 × 360",@"480 × 848",@"720 × 1080",@"1080 × 1920"];
+            
+            CHResolutionView *resolutionView = [[CHResolutionView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 0) itemGap:CellGap type:CHVideoSetViewType_Resolution withData:dataArray];
+            [self.view addSubview:resolutionView];
+            self.resolutionView = resolutionView;
+            
+            CHWeakSelf
+            __weak CHResolutionView *weakResolutionView = self.resolutionView;
+            resolutionView.resolutionViewButtonClick = ^(NSString * _Nullable value) {
+                if ([value ch_isNotEmpty])
+                {
+                    weakSelf.videoSetView.resolutionString = value;
+                    weakSelf.liveModel.resolution = value;
+                    
+                    NSArray *array = [value componentsSeparatedByString:@" × "];
+                    
+                    weakSelf.liveModel.videowidth = [array.firstObject integerValue];
+                    weakSelf.liveModel.videoheight = [array.lastObject integerValue];
+                    
+                    CloudHubVideoEncoderConfiguration *config = [[CloudHubVideoEncoderConfiguration alloc] initWithWidth:weakSelf.liveModel.videowidth height:weakSelf.liveModel.videoheight frameRate:weakSelf.liveModel.rate];
+                    [self.rtcEngine setVideoEncoderConfiguration:config];
+                    
+                }
+                else
+                {// back
+                    
+                    [UIView animateWithDuration:0.25 animations:^{
+                        weakSelf.videoSetView.ch_originY = weakSelf.view.ch_height - weakSelf.videoSetView.ch_height;
+                        weakResolutionView.ch_originY = weakSelf.view.ch_height;
+                   }];
+                }
+            };
+        }
+                
+        [self.resolutionView ch_bringToFront];
+        
+        [UIView animateWithDuration:0.25 animations:^{
+            self.videoSetView.ch_originY = self.view.ch_height;
+            self.resolutionView.ch_originY = self.view.ch_height - self.resolutionView.ch_height;
+       }];
+    }
+    else if (button.tag == 101)
+    {
+        if (!self.rateView)
+        {
+            NSArray * dataArray = @[@"5",@"10",@"15"];
+            CHResolutionView *rateView = [[CHResolutionView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 0) itemGap:CellGap type:CHVideoSetViewType_Rate withData:dataArray];
+            [self.view addSubview:rateView];
+            self.rateView = rateView;
+            
+            CHWeakSelf
+            __weak CHResolutionView *weakRateView = self.rateView;
+            rateView.resolutionViewButtonClick = ^(NSString * _Nullable value) {
+                if ([value ch_isNotEmpty])
+                {
+                    weakSelf.videoSetView.rateString = value;
+                    weakSelf.liveModel.rate = value.integerValue;
+                    
+                    CloudHubVideoEncoderConfiguration *config = [[CloudHubVideoEncoderConfiguration alloc] initWithWidth:weakSelf.liveModel.videowidth height:weakSelf.liveModel.videoheight frameRate:weakSelf.liveModel.rate];
+                    [self.rtcEngine setVideoEncoderConfiguration:config];
+                }
+                else
+                {
+                    [UIView animateWithDuration:0.25 animations:^{
+                        weakSelf.videoSetView.ch_originY = weakSelf.view.ch_height - weakSelf.videoSetView.ch_height;
+                        weakRateView.ch_originY = weakSelf.view.ch_height;
+                   }];
+                }
+            };
+        }
+        
+        [self.rateView ch_bringToFront];
+        
+         [UIView animateWithDuration:0.25 animations:^{
+             self.videoSetView.ch_originY = self.view.ch_height;
+             self.rateView.ch_originY = self.view.ch_height - self.rateView.ch_height;
+        }];
+    }
+}
+
+/// How to judge the direction of the screen when the screen rotation function is turned off
 - (void)initMotionManager
 {
     if (_motionManager == nil)

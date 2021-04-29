@@ -29,7 +29,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) CHBeautySetModel *beautySetModel;
 
 /// resolution
-@property (nonatomic, assign) NSString *resolution;
+@property (nonatomic, copy) NSString *resolution;
+
+/// resolution Width
+@property (nonatomic, assign) NSUInteger videowidth;
+/// resolution Height
+@property (nonatomic, assign) NSUInteger videoheight;
 
 /// rate
 @property (nonatomic, assign) NSInteger rate;

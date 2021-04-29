@@ -90,7 +90,6 @@
     // 旋转图片
     CGAffineTransform transform= CGAffineTransformMakeRotation(M_PI);
     backButton.imageView.transform = transform;//旋转
-    [backButton setBackgroundColor: UIColor.redColor];
     
     for (int i = 0 ; i < self.dataArray.count; i++)
     {
@@ -132,8 +131,7 @@
     [button setTitle:title forState:UIControlStateNormal];
     button.titleLabel.font = CHFont12;
     [button setTitleColor:CHColor_6D7278 forState:UIControlStateNormal];
-    [button setTitleColor:UIColor.redColor forState:UIControlStateSelected];
-//    lable.textAlignment  = NSTextAlignmentCenter;
+    [button setTitleColor:CHColor_24D3EE forState:UIControlStateSelected];
     [button addTarget:self action:@selector(buttonsClick:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:button];
     return button;
