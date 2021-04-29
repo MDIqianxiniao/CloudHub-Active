@@ -8,6 +8,8 @@
 #import <UIKit/UIKit.h>
 #import "CHVideoView.h"
 #import "CHBeautySetView.h"
+#import "CHVideoSetView.h"
+#import "CHResolutionView.h"
 #import "CHLiveModel.h"
 
 #define CellGap ([UIDevice ch_isiPad] ? 20.0f : 8.0f)
@@ -30,6 +32,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) CHLiveModel *liveModel;
 
 @property (nonatomic, strong) CHBeautySetView *beautyView;
+
+@property (nonatomic, strong) CHVideoSetView *videoSetView;
+
+/// resolution
+@property (nonatomic, weak) CHResolutionView *resolutionView;
+
+/// rate
+@property (nonatomic, weak) CHResolutionView *rateView;
 
 @property (nonatomic, assign) CHUserRoleType roleType;
 

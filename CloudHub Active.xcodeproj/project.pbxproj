@@ -61,6 +61,7 @@
 		049D723326311189002DC098 /* CHVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D723126311189002DC098 /* CHVideoView.m */; };
 		04B1F6942637E12200A9CDF2 /* CHUserListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B1F6932637E12200A9CDF2 /* CHUserListTableView.m */; };
 		04B1F6972637E1C100A9CDF2 /* CHUsetListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B1F6962637E1C100A9CDF2 /* CHUsetListCell.m */; };
+		04B1F6A3263A638B00A9CDF2 /* CHChatInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B1F6A2263A638B00A9CDF2 /* CHChatInputView.m */; };
 		04C8251A26315D8F004AE13C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04C8251C26315D8F004AE13C /* InfoPlist.strings */; };
 		04C8252726315F13004AE13C /* CHResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04C8252626315F13004AE13C /* CHResources.bundle */; };
 		04C8254826316B6C004AE13C /* CHCreatLiveFrontView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C8254726316B6C004AE13C /* CHCreatLiveFrontView.m */; };
@@ -274,6 +275,8 @@
 		04B1F6932637E12200A9CDF2 /* CHUserListTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHUserListTableView.m; sourceTree = "<group>"; };
 		04B1F6952637E1C100A9CDF2 /* CHUsetListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHUsetListCell.h; sourceTree = "<group>"; };
 		04B1F6962637E1C100A9CDF2 /* CHUsetListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHUsetListCell.m; sourceTree = "<group>"; };
+		04B1F6A1263A638B00A9CDF2 /* CHChatInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHChatInputView.h; sourceTree = "<group>"; };
+		04B1F6A2263A638B00A9CDF2 /* CHChatInputView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHChatInputView.m; sourceTree = "<group>"; };
 		04C8251B26315D8F004AE13C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		04C8251D26315D93004AE13C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		04C8251E26315D94004AE13C /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -460,6 +463,8 @@
 			children = (
 				048B29922635175700CA945A /* CHLiveRoomFrontView.h */,
 				048B29932635175700CA945A /* CHLiveRoomFrontView.m */,
+				04B1F6A1263A638B00A9CDF2 /* CHChatInputView.h */,
+				04B1F6A2263A638B00A9CDF2 /* CHChatInputView.m */,
 				048B29A92636BB8000CA945A /* CHSetToolView.h */,
 				048B29AA2636BB8000CA945A /* CHSetToolView.m */,
 				04B1F6922637E12200A9CDF2 /* CHUserListTableView.h */,
@@ -1097,6 +1102,7 @@
 				04C8266626318942004AE13C /* UIImage+MemoryCacheCost.m in Sources */,
 				04C8266726318942004AE13C /* SDImageCacheConfig.m in Sources */,
 				049D71C2262E792B002DC098 /* NSAttributedString+CHCategory.m in Sources */,
+				04B1F6A3263A638B00A9CDF2 /* CHChatInputView.m in Sources */,
 				048B29A226356C2500CA945A /* SCChatView.m in Sources */,
 				04C8264326318942004AE13C /* SDAnimatedImagePlayer.m in Sources */,
 				049D71C5262E792B002DC098 /* UIImage+CHCategory.m in Sources */,

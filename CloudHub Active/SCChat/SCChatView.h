@@ -12,9 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SCChatView : UIView
 
-@property (nonatomic, strong) UITableView *SCChatTableView;
+@property (nonatomic, strong) UITableView *chatTableView;
 
-@property (nonatomic, strong) NSMutableArray <CHChatMessageModel *> *SCMessageList;
+@property (nonatomic, strong) NSMutableArray <CHChatMessageModel *> *messageList;
 
 @property (nonatomic, copy)void(^textBtnClick)(void);
 

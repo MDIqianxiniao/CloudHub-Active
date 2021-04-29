@@ -7,14 +7,90 @@
 
 #import "CHChatInputView.h"
 
+#define TopMargin  5
+
+#define LeftMargin  10
+//#define ButtonWidth  32
+
+@interface CHChatInputView ()
+<
+    UITextViewDelegate
+>
+
+
+
+@property (nonatomic, weak) UILabel *placeholderLable;
+
+@end
+
 @implementation CHChatInputView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (instancetype)initWithFrame:(CGRect)frame;
+{
+    if (self = [super initWithFrame:frame])
+    {
+        self.backgroundColor = CHWhiteColor;
+        
+        [self setupUI];
+    }
+    return self;
 }
-*/
+
+- (void)setupUI
+{
+    UIView *inputBgView = [[UIView alloc]initWithFrame:CGRectMake(LeftMargin, TopMargin, self.ch_width - LeftMargin * 2, self.ch_height - 2 * TopMargin)];
+    inputBgView.backgroundColor = CHColor_DBDBDB;
+    [self addSubview:inputBgView];
+    inputBgView.layer.cornerRadius = inputBgView.ch_height * 0.5;
+    
+    //输入框
+    UITextView *inputView = [[UITextView alloc]initWithFrame:CGRectMake(LeftMargin, 0, self.ch_width - LeftMargin * 3, inputBgView.ch_height)];
+    inputView.backgroundColor = UIColor.clearColor;
+    inputView.returnKeyType = UIReturnKeySend;
+    inputView.font = CHFont12;
+    inputView.textColor = CHWhiteColor;
+    inputView.delegate = self;
+        //当textview的字符串为0时发送（rerurn）键无效
+    self.inputView.enablesReturnKeyAutomatically = YES;
+    [inputBgView addSubview:inputView];
+    self.inputView = inputView;
+    
+    UILabel *placeholderLable = [[UILabel alloc]initWithFrame:inputBgView.bounds];
+    placeholderLable.text = CH_Localized(@"Live_ChatPlaceholder");
+    placeholderLable.font = CHFont12;
+    placeholderLable.textColor = CHColor_BBBBBB;
+    self.placeholderLable = placeholderLable;
+    [inputView addSubview:placeholderLable];
+}
+
+-(void)textViewDidChange:(UITextView *)textView
+{
+    self.placeholderLable.hidden = [textView.text ch_isNotEmpty];
+    
+    UITextRange *selectedRange = [textView markedTextRange];
+    if (!selectedRange)
+    {//拼音全部输入完成
+        if (textView.text.length > 80)
+        {
+            textView.text = [textView.text substringToIndex:80];
+            [CHProgressHUD ch_showHUDAddedTo:self animated:YES withText:CH_Localized(@"Live_ChatTextNumber") delay:1.5];
+        }
+    }
+}
+
+#pragma mark - 发送消息（键盘的return按钮点击事件）
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if([text isEqualToString:@"\n"] && [self.inputView.text ch_isNotEmpty])
+    {
+        if (_sendMessage)
+        {
+            _sendMessage(self.inputView.text);
+            self.inputView.text = nil;
+        }
+        return NO;
+    }
+    return YES;
+}
 
 @end

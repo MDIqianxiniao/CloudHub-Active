@@ -14,9 +14,6 @@
 
 @interface SCTextMessageCell()
 
-//@property (nonatomic, strong) UILabel *nickNameLab;
-
-//@property (nonatomic, strong) UIImageView * bubbleView;
 @property (nonatomic, strong) UIView *backView;
 
 @property (nonatomic, strong) UILabel * msgLab;
@@ -52,7 +49,7 @@
     msgLab.textAlignment = NSTextAlignmentLeft;;
     self.msgLab = msgLab;
     [self.contentView addSubview:msgLab];
-    
+        
 }
 - (void)setModel:(CHChatMessageModel *)model
 {
@@ -74,7 +71,7 @@
     self.msgLab.frame = CGRectMake(10, 0, model.messageSize.width, model.messageSize.height);
     
     self.backView.ch_centerY = self.ch_height * 0.5f;
-    self.msgLab.ch_centerY = self.backView.ch_height * 0.5f;
+    self.msgLab.ch_centerY = self.ch_height * 0.5f;
 }
 
 @end

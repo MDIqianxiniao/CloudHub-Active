@@ -11,6 +11,7 @@
 #import "CHMusicView.h"
 #import "CHSetToolView.h"
 #import "CHUserListTableView.h"
+#import "CHChatInputView.h"
 
 #define VideoWidth 86
 #define VideoHeight 115
@@ -33,9 +34,13 @@ static NSString *const kToken = nil;
 
 @property (nonatomic, strong) CHMusicView *musicView;
 
+@property (nonatomic, strong) CHChatInputView *chatInputView;
+
 @property (nonatomic, strong) CHSetToolView *setToolView;
 
 @property (nonatomic, strong) CHVideoView *myVideoView;
+
+@property (nonatomic, strong) NSMutableArray<CHChatMessageModel *> *messageArray;
 
 @end
 
@@ -51,15 +56,22 @@ static NSString *const kToken = nil;
     
     self.userList = [NSMutableArray array];
     
+    self.messageArray = [NSMutableArray array];
+    
     self.smallVideoViews = [NSMutableDictionary dictionary];
     
     self.myNickName = [[NSUserDefaults standardUserDefaults] objectForKey:CHCacheAnchorName];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
     [self setupFrontViewUI];
     
     [self beginLiveJoinChannel];
     
     [self setupMusicView];
+    
+    [self setupChatInputView];
 }
 
 - (void)setupFrontViewUI
@@ -72,10 +84,6 @@ static NSString *const kToken = nil;
     CHWeakSelf
     liveRoomFrontView.liveRoomFrontViewButtonsClick = ^(UIButton * _Nonnull button) {
         [weakSelf frontViewButtonsClick:button];
-    
-    };
-    liveRoomFrontView.sendMessage = ^(NSString * _Nonnull message) {
-        [weakSelf sendMessageWithText:message withMessageType:CHChatMessageType_Text withMemberModel:weakSelf.localUser];
     };
 }
 
@@ -87,6 +95,17 @@ static NSString *const kToken = nil;
     [self.view addSubview:musicView];
 }
 
+- (void)setupChatInputView
+{
+    CHChatInputView *chatInputView = [[CHChatInputView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 45)];
+    self.chatInputView = chatInputView;
+    [self.view addSubview:chatInputView];
+    CHWeakSelf
+    chatInputView.sendMessage = ^(NSString * _Nonnull message) {
+            [weakSelf sendMessageWithText:message withMessageType:CHChatMessageType_Text withMemberModel:weakSelf.localUser];
+        };
+}
+
 - (void)frontViewButtonsClick:(UIButton *)button
 {
     switch (button.tag)
@@ -96,8 +115,17 @@ static NSString *const kToken = nil;
             self.userListTableView.userListArray = self.userList;
             
             [UIView animateWithDuration:0.25 animations:^{
+                self.setToolView.ch_originY = self.view.ch_height;
+                self.beautyView.ch_originY = self.view.ch_height;
+                self.musicView.ch_originY = self.view.ch_height;
+                self.videoSetView.ch_originY = self.view.ch_height;
+                self.resolutionView.ch_originY = self.view.ch_height;
+                self.rateView.ch_originY = self.view.ch_height;
+                
                 self.userListTableView.ch_originY = self.view.ch_height - self.userListTableView.ch_height;
            }];
+            
+            [self.userListTableView ch_bringToFront];
         }
             break;
         case CHLiveRoomFrontButton_Back:
@@ -145,6 +173,12 @@ static NSString *const kToken = nil;
         }
             break;
             
+        case CHLiveRoomFrontButton_Chat:
+        {
+            [self.chatInputView.inputView becomeFirstResponder];
+        }
+            break;
+            
         default:
             break;
     }
@@ -159,20 +193,12 @@ static NSString *const kToken = nil;
             sender.selected = !sender.selected;
             if (sender.selected)
             {
-                
                 [self.localUser sendToChangePublishstate:CHUser_PublishState_UP];
-                
-//                [self changeMyPublishState:CHUser_PublishState_UP];
-//
-//                self.setToolView.isUpStage = YES;
-
             }
             else
             {
                 [self clickRemoveButtonToCloseVideoView:self.myVideoView];
             }
-            
-            
         }
             break;
         case CHSetToolViewButton_Camera:
@@ -197,7 +223,12 @@ static NSString *const kToken = nil;
             break;
         case CHSetToolViewButton_VideoSet:
         {
+            [UIView animateWithDuration:0.25 animations:^{
+                self.setToolView.ch_originY = self.view.ch_height;
+                self.videoSetView.ch_originY = self.view.ch_height - self.videoSetView.ch_height;
+           }];
             
+            [self.videoSetView ch_bringToFront];
         }
             break;
             
@@ -210,12 +241,44 @@ static NSString *const kToken = nil;
 {
     [self.liveRoomFrontView.inputView resignFirstResponder];
     
+    if (self.resolutionView && self.resolutionView.ch_originY < self.view.ch_height)
+    {
+        [UIView animateWithDuration:0.25 animations:^{
+            self.resolutionView.ch_originY = self.view.ch_height;
+            self.videoSetView.ch_originY = self.view.ch_height - self.videoSetView.ch_height;
+        }];
+        return;
+    }
+    
+    if (self.rateView && self.rateView.ch_originY < self.view.ch_height)
+    {
+        [UIView animateWithDuration:0.25 animations:^{
+            self.rateView.ch_originY = self.view.ch_height;
+            self.videoSetView.ch_originY = self.view.ch_height - self.videoSetView.ch_height;
+        }];
+        return;
+    }
+    
+    if (self.videoSetView && self.videoSetView.ch_originY < self.view.ch_height)
+    {
+        [UIView animateWithDuration:0.25 animations:^{
+            self.videoSetView.ch_originY = self.view.ch_height;
+            self.setToolView.ch_originY = self.view.ch_height - self.setToolView.ch_height;
+        }];
+        return;
+    }
+    
     [UIView animateWithDuration:0.25 animations:^{
         self.beautyView.ch_originY = self.view.ch_height;
         self.setToolView.ch_originY = self.view.ch_height;
         self.musicView.ch_originY = self.view.ch_height;
         self.userListTableView.ch_originY = self.view.ch_height;
     }];
+    
+    if (self.chatInputView.ch_originY < self.view.ch_height)
+    {
+        [self.chatInputView.inputView resignFirstResponder];
+    }
 }
 
 #pragma mark - Join Channel
@@ -277,32 +340,32 @@ static NSString *const kToken = nil;
         [self.rtcEngine publishStream];
     }
    
-    CHChatMessageModel *model2 = [[CHChatMessageModel alloc]init];
-    model2.sendUser = self.localUser;
-    model2.message = @"花名册：主播可以通过花名册邀请观众连麦（主播邀请->观众同意->观众上麦）、断开正在连麦的观众，以及查看/同意/拒绝观众的连麦申请；";
-    
-    CHChatMessageModel *model3 = [[CHChatMessageModel alloc]init];
-    model3.sendUser = self.localUser;
-    model3.message = @"美颜功能（待定）";
-    
-    CHChatMessageModel *model4 = [[CHChatMessageModel alloc]init];
-    model4.sendUser = self.localUser;
-    model4.message = @"播放背景音乐：从系统内预置的几段音乐中选择一段播放；";
-    model4.chatMessageType = CHChatMessageType_Tips;
-    
-    
-    CHChatMessageModel *model5 = [[CHChatMessageModel alloc]init];
-    model5.sendUser = self.localUser;
-    model5.message = @"更多功能：查看实时数据（当前房间视频参数、接收码率和丢包率、发送码率和丢";
-        
-    NSMutableArray * mutArray = [NSMutableArray array];
+//    CHChatMessageModel *model2 = [[CHChatMessageModel alloc]init];
+//    model2.sendUser = self.localUser;
+//    model2.message = @"花名册：主播可以通过花名册邀请观众连麦（主播邀请->观众同意->观众上麦）、断开正在连麦的观众，以及查看/同意/拒绝观众的连麦申请；";
+//
+//    CHChatMessageModel *model3 = [[CHChatMessageModel alloc]init];
+//    model3.sendUser = self.localUser;
+//    model3.message = @"美颜功能（待定）";
+//
+//    CHChatMessageModel *model4 = [[CHChatMessageModel alloc]init];
+//    model4.sendUser = self.localUser;
+//    model4.message = @"播放背景音乐：从系统内预置的几段音乐中选择一段播放；";
+//    model4.chatMessageType = CHChatMessageType_Tips;
+//
+//
+//    CHChatMessageModel *model5 = [[CHChatMessageModel alloc]init];
+//    model5.sendUser = self.localUser;
+//    model5.message = @"更多功能：查看实时数据（当前房间视频参数、接收码率和丢包率、发送码率和丢";
+//
+//    NSMutableArray * mutArray = [NSMutableArray array];
+//
+//    [mutArray addObject:model2];
+//    [mutArray addObject:model3];
+//    [mutArray addObject:model4];
+//    [mutArray addObject:model5];
 
-    [mutArray addObject:model2];
-    [mutArray addObject:model3];
-    [mutArray addObject:model4];
-    [mutArray addObject:model5];
-
-    self.liveRoomFrontView.SCMessageList = mutArray;
+    
     
 }
 
@@ -482,6 +545,55 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
             [self unPlayVideo:uid streamId:streamID];
         }
     }
+}
+
+#pragma mark - Message 即时消息
+
+/// 即时消息
+// 收到聊天消息
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine
+onChatMessageArrival:(NSString *)message
+             from:(NSString *)fromuid
+    withExtraData:(NSString *)extraData
+{
+//    BMLog(@"CHSessionManager onChatMessageArrival: %@ from: %@ withExtraData: %@", message, fromuid, extraData);
+    
+    if (![message ch_isNotEmpty] || ![fromuid ch_isNotEmpty])
+    {
+        return;
+    }
+        
+//    NSDictionary *messageDic = [BMCloudHubUtil convertWithData:extraData];
+    
+    NSData *propData = [extraData dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *messageDic = nil;
+    if (propData)
+    {
+        messageDic = [NSJSONSerialization JSONObjectWithData:propData options:NSJSONReadingMutableContainers error:nil];
+    }
+
+    if (!messageDic)
+    {
+        return;
+    }
+
+    NSDictionary *sender = [messageDic ch_dictionaryForKey:@"sender"];
+    
+    CHRoomUser *user = [[CHRoomUser alloc] initWithPeerId:fromuid properties:sender];
+    
+    CHChatMessageModel *messageModel = [[CHChatMessageModel alloc] init];
+    messageModel.sendUser = user;
+    
+    if ([[messageDic ch_stringForKey:@"msgtype"] isEqualToString:@"text"])
+    {
+        messageModel.chatMessageType = CHChatMessageType_Text;
+    }
+    
+    messageModel.message = message;
+    
+    [self.messageArray addObject:messageModel];
+    
+    self.liveRoomFrontView.messageList = self.messageArray;
 }
 
 #pragma mark - 改变自己视频流发布状态
@@ -824,8 +936,8 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
     {
         NSMutableDictionary *messageDic = [[NSMutableDictionary alloc] init];
         // 0 消息
-        [messageDic setObject:@(0) forKey:@"type"];
-        NSDictionary *senderDic = @{ @"role" : @(self.roleType), @"nickname" : self.myNickName };
+        [messageDic setObject:@(CHChatMessageType_Text) forKey:@"type"];
+        NSDictionary *senderDic = @{ sCHUserRole : @(self.roleType), sCHUserNickname : self.myNickName };
         [messageDic setObject:senderDic forKey:@"sender"];
 
         return ([self.rtcEngine sendChatMsg:message to:CHRoomPubMsgTellAll withExtraData:[messageDic ch_toJSON]] == 0);
@@ -848,7 +960,28 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
     return _userListTableView;
 }
 
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    CGFloat duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    CGRect keyboardF = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    [UIView animateWithDuration:duration animations:^{
+        self.chatInputView.ch_originY = self.view.ch_height - keyboardF.size.height - self.chatInputView.ch_height;
+    }];
+}
 
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    CGFloat duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    [UIView animateWithDuration:duration animations:^{
+        self.chatInputView.ch_originY = self.view.ch_height;
+    }];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 
 @end

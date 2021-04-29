@@ -11,6 +11,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CHChatInputView : UIView
 
+@property (nonatomic, weak) UITextView *inputView;
+
+@property (nonatomic, copy) void(^sendMessage)(NSString *message);
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -17,9 +17,7 @@
 #define InputViewY self.backButton.ch_originY
 
 @interface CHLiveRoomFrontView ()
-<
-    UITextViewDelegate
->
+
 
 @property (nonatomic, assign) CHUserRoleType roleType;
 
@@ -51,9 +49,6 @@
         [self setBottomViews];
         
         [self addChatView];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     }
     return self;
 }
@@ -142,26 +137,18 @@
         musicButton.hidden = YES;
         beautySetButton.hidden = YES;
     }
-    
-    //输入框
-    UITextView *inputView = [[UITextView alloc]initWithFrame:CGRectMake(leftMargin, backButton.ch_originY, self.ch_width - leftMargin - 4 * width - leftMargin * 0.5, ButtonWidth)];
-    inputView.backgroundColor = [CHBlackColor ch_changeAlpha:0.5];
-    inputView.returnKeyType = UIReturnKeySend;
-    inputView.font = CHFont12;
-    inputView.textColor = CHWhiteColor;
-    inputView.delegate = self;
-    inputView.layer.cornerRadius = ButtonWidth * 0.5;
-    //当textview的字符串为0时发送（rerurn）键无效
-    self.inputView.enablesReturnKeyAutomatically = YES;
-    [self addSubview:inputView];
-    self.inputView = inputView;
-    
-    UILabel *placeholderLable = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, inputView.ch_width - 20, ButtonWidth)];
-    placeholderLable.text = CH_Localized(@"Live_ChatPlaceholder");
-    placeholderLable.font = CHFont12;
-    placeholderLable.textColor = CHColor_BBBBBB;
-    self.placeholderLable = placeholderLable;
-    [inputView addSubview:placeholderLable];
+
+    UIButton *inputButton = [[UIButton alloc]initWithFrame:CGRectMake(leftMargin, backButton.ch_originY, self.ch_width - leftMargin - 4 * width - leftMargin * 0.5, ButtonWidth)];
+    inputButton.tag = CHLiveRoomFrontButton_Chat;
+    [inputButton setBackgroundColor:[CHBlackColor ch_changeAlpha:0.5]];
+    [inputButton setTitle:CH_Localized(@"Live_ChatPlaceholder") forState:UIControlStateNormal];
+    [inputButton setTitleColor:CHColor_BBBBBB forState:UIControlStateNormal];
+    inputButton.titleLabel.font = CHFont12;
+    [inputButton addTarget:self action:@selector(buttonsClick:) forControlEvents:UIControlEventTouchUpInside];
+    inputButton.layer.cornerRadius = ButtonWidth * 0.5;
+    inputButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    inputButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    [self addSubview:inputButton];
 }
 
 - (void)addChatView
@@ -177,40 +164,22 @@
     self.beautySetButton.hidden = !isUpStage;
 }
 
-- (void)setSCMessageList:(NSMutableArray<CHChatMessageModel *> *)SCMessageList
+- (void)setMessageList:(NSMutableArray<CHChatMessageModel *> *)messageList
 {
-    _SCMessageList = SCMessageList;
-    self.chatView.SCMessageList = SCMessageList;
-}
-
--(void)textViewDidChange:(UITextView *)textView
-{
-    self.placeholderLable.hidden = [textView.text ch_isNotEmpty];
+    _messageList = messageList;
     
-    UITextRange *selectedRange = [textView markedTextRange];
-    if (!selectedRange)
-    {//拼音全部输入完成
-        if (textView.text.length > 80)
-        {
-            textView.text = [textView.text substringToIndex:80];
-            [CHProgressHUD ch_showHUDAddedTo:self animated:YES withText:CH_Localized(@"Live_ChatTextNumber") delay:1.5];
-        }
+    if ([messageList ch_isNotEmpty])
+    {
+        self.chatView.hidden = NO;
+        self.chatView.messageList = messageList;
+    }
+    else
+    {
+        self.chatView.hidden = YES;
     }
 }
 
-#pragma mark - 发送消息（键盘的return按钮点击事件）
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    if([text isEqualToString:@"\n"] && [text ch_isNotEmpty])
-    {
-        if (_sendMessage)
-        {
-            _sendMessage(text);
-        }
-        return NO;
-    }
-    return YES;
-}
+
 
 - (void)buttonsClick:(UIButton *)button
 {
@@ -236,30 +205,7 @@
     [self.userListButton setTitle:[NSString stringWithFormat:@"%ld",userList.count] forState:UIControlStateNormal];
 }
 
-- (void)keyboardWillShow:(NSNotification *)notification
-{
-    CGFloat duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    CGRect keyboardF = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    
-    [UIView animateWithDuration:duration animations:^{
-        self.chatView.ch_originY = ChatVieY - keyboardF.size.height + (self.ch_height - self.backButton.ch_bottom);
-        self.inputView.ch_originY = InputViewY - keyboardF.size.height + (self.ch_height - self.backButton.ch_bottom);
-    }];
-}
 
-- (void)keyboardWillHide:(NSNotification *)notification
-{
-    CGFloat duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    [UIView animateWithDuration:duration animations:^{
-        self.chatView.ch_originY = ChatVieY;
-        self.inputView.ch_originY = InputViewY;
-    }];
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
 
 
 @end

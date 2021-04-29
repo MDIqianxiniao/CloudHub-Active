@@ -35,19 +35,19 @@ UITextFieldDelegate
     {
         self.backgroundColor = UIColor.clearColor;
         
-        self.SCChatTableView.frame = CGRectMake(0, 0, self.ch_width, self.ch_height);
-        [self addSubview:self.SCChatTableView];
+        self.chatTableView.frame = CGRectMake(0, 0, self.ch_width, self.ch_height);
+        [self addSubview:self.chatTableView];
     }
     
     return self;
 }
 
-- (void)setSCMessageList:(NSMutableArray<CHChatMessageModel *> *)SCMessageList
+- (void)setMessageList:(NSMutableArray<CHChatMessageModel *> *)messageList
 {
-    _SCMessageList = SCMessageList;
+    _messageList = messageList;
         
-    [self.SCChatTableView reloadData];
-    [self.SCChatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:SCMessageList.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    [self.chatTableView reloadData];
+    [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:messageList.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
 }
 
 #pragma mark - tableViewDelegate
@@ -58,12 +58,12 @@ UITextFieldDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.SCMessageList.count;
+    return self.messageList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CHChatMessageModel *model = _SCMessageList[indexPath.row];
+    CHChatMessageModel *model = _messageList[indexPath.row];
     
     if (model.chatMessageType == CHChatMessageType_Tips)
     {
@@ -85,7 +85,7 @@ UITextFieldDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CHChatMessageModel * model = _SCMessageList[indexPath.row];
+    CHChatMessageModel * model = _messageList[indexPath.row];
     
     if (model.chatMessageType == CHChatMessageType_Tips)
     {
@@ -138,34 +138,34 @@ UITextFieldDelegate
     }
 }
 
-- (UITableView *)SCChatTableView
+- (UITableView *)chatTableView
 {
-    if (!_SCChatTableView)
+    if (!_chatTableView)
     {
-        self.SCChatTableView = [[UITableView alloc]initWithFrame:CGRectZero style: UITableViewStyleGrouped];
+        self.chatTableView = [[UITableView alloc]initWithFrame:CGRectZero style: UITableViewStyleGrouped];
         
-        self.SCChatTableView.delegate   = self;
-        self.SCChatTableView.dataSource = self;
-        self.SCChatTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+        self.chatTableView.delegate   = self;
+        self.chatTableView.dataSource = self;
+        self.chatTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         
-        self.SCChatTableView.backgroundColor = [UIColor clearColor];
-        self.SCChatTableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
-        self.SCChatTableView.showsHorizontalScrollIndicator = NO;
-        self.SCChatTableView.showsVerticalScrollIndicator = NO;
-        self.SCChatTableView.estimatedRowHeight = 0;
-        self.SCChatTableView.estimatedSectionHeaderHeight = 0;
-        self.SCChatTableView.estimatedSectionFooterHeight = 0;
+        self.chatTableView.backgroundColor = [UIColor clearColor];
+        self.chatTableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
+        self.chatTableView.showsHorizontalScrollIndicator = NO;
+        self.chatTableView.showsVerticalScrollIndicator = NO;
+        self.chatTableView.estimatedRowHeight = 0;
+        self.chatTableView.estimatedSectionHeaderHeight = 0;
+        self.chatTableView.estimatedSectionFooterHeight = 0;
         
-        [self.SCChatTableView registerClass:[SCTipsMessageCell class] forCellReuseIdentifier:NSStringFromClass([SCTipsMessageCell class])];
-        [self.SCChatTableView registerClass:[SCTextMessageCell class] forCellReuseIdentifier:NSStringFromClass([SCTextMessageCell class])];
+        [self.chatTableView registerClass:[SCTipsMessageCell class] forCellReuseIdentifier:NSStringFromClass([SCTipsMessageCell class])];
+        [self.chatTableView registerClass:[SCTextMessageCell class] forCellReuseIdentifier:NSStringFromClass([SCTextMessageCell class])];
                     
         if (@available(iOS 11.0, *))
         {
-            self.SCChatTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            self.SCChatTableView.insetsContentViewsToSafeArea = NO;
+            self.chatTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+            self.chatTableView.insetsContentViewsToSafeArea = NO;
         }
     }
     
-    return _SCChatTableView;
+    return _chatTableView;
 }
 @end
