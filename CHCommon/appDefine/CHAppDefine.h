@@ -63,8 +63,7 @@ static NSString *const sCHGetChannelList         = @"https://cna-dorado-user-api
 static NSString *const sCHJoinChannelRecord         = @"https://cna-dorado-user-api.cloudhub.vip/record";
 
 /// Gets a list of users for the specified channel
-static NSString *const sCHGetUserList        = @"https://cna-dorado-user-api.cloudhub.vip/channel_users?channel=live";
-
+static NSString *const sCHGetUserList        = @"https://cna-dorado-user-api.cloudhub.vip/channel_users";
 
 /// Query individual Channel details
 static NSString *const sCHGetShowChannelDate     = @"https://cna-dorado-user-api.cloudhub.vip/channels/live";
