@@ -29,9 +29,9 @@
 
 "Live_InputRoomNum" = "Enter channel id(Only numbers & letters allowed)";
 "Live_StartLive" = "Start";
-"Live_EntLive" = "End of Live";
-"Live_EntLiveNow" = "Is the live now finished?";
-"Live_Sure" = "enter";
+"Live_EntLive" = "Exit live";
+"Live_EntLiveNow" = "Confirm to exit live？";
+"Live_Sure" = "Confirm";
 "Live_Set" = "Setting";
 "Live_Set_Resolution" = "Resolution";
 "Live_Set_Rate" = "Frame rate";

@@ -29,8 +29,8 @@
 
 "Live_InputRoomNum" = "輸入您的直播號（直播號只允許輸入數字+字母）";
 "Live_StartLive" = "開始直播";
-"Live_EntLive" = "結束直播";
-"Live_EntLiveNow" = "是否現在立即結束直播";
+"Live_EntLive" = "退出直播";
+"Live_EntLiveNow" = "是否退出直播";
 "Live_Sure" = "確認";
 "Live_Set" = "設置";
 "Live_Set_Resolution" = "分辨率";
