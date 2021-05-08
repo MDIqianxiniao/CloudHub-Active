@@ -48,14 +48,14 @@
     CGFloat buttonY = StatusBarH + 15;
     
     UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(leftMargin, buttonY, ButtonWidth, ButtonWidth)];
-    backButton.tag = 1;
+    backButton.tag = CHCreateRoomFrontButton_Back;
     [backButton setImage:[UIImage imageNamed:@"live_backButton"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(liveButtonsClick:) forControlEvents:UIControlEventTouchUpInside];
     backButton.layer.cornerRadius = ButtonWidth * 0.5;
     [self addSubview:backButton];
     
     UIButton *cameraButton = [[UIButton alloc]initWithFrame:CGRectMake(self.ch_width - leftMargin - ButtonWidth, buttonY, ButtonWidth, ButtonWidth)];
-    cameraButton.tag = 2;
+    cameraButton.tag = CHCreateRoomFrontButton_Camera;
     [cameraButton setImage:[UIImage imageNamed:@"live_cameraChange"] forState:UIControlStateNormal];
     [cameraButton setBackgroundColor:CHBlackColor];
     [cameraButton addTarget:self action:@selector(liveButtonsClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -130,7 +130,7 @@
 {
     CGFloat leftMargin = 80;
     UIButton *beautySetButton = [[UIButton alloc]initWithFrame:CGRectMake(leftMargin, 0, ButtonWidth, ButtonWidth)];
-    beautySetButton.tag = 3;
+    beautySetButton.tag = CHCreateRoomFrontButton_Beauty;
     beautySetButton.ch_bottom = self.ch_height - 45;
     [beautySetButton setImage:[UIImage imageNamed:@"live_beauty_set"] forState:UIControlStateNormal];
     [beautySetButton addTarget:self action:@selector(liveButtonsClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -139,7 +139,7 @@
     
     UIButton *startButton = [[UIButton alloc]initWithFrame:CGRectMake(0, beautySetButton.ch_originY, 100, ButtonWidth)];
     startButton.ch_centerX = self.ch_width * 0.5;
-    startButton.tag = 4;
+    startButton.tag = CHCreateRoomFrontButton_Start;
     [startButton setBackgroundImage:[UIImage imageNamed:@"live_enterButton"] forState:UIControlStateNormal];
     [startButton setTitle:CH_Localized(@"Live_StartLive") forState:UIControlStateNormal];
     startButton.titleLabel.font = CHFont12;
@@ -149,7 +149,7 @@
     [self addSubview:startButton];
     
     UIButton *setButton = [[UIButton alloc]initWithFrame:CGRectMake(self.ch_width - leftMargin - ButtonWidth, beautySetButton.ch_originY, ButtonWidth, ButtonWidth)];
-    setButton.tag = 5;
+    setButton.tag = CHCreateRoomFrontButton_Setting;
     [setButton setImage:[UIImage imageNamed:@"live_set"] forState:UIControlStateNormal];
     [setButton addTarget:self action:@selector(liveButtonsClick:) forControlEvents:UIControlEventTouchUpInside];
     setButton.layer.cornerRadius = ButtonWidth * 0.5;

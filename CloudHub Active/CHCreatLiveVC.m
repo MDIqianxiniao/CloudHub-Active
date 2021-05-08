@@ -54,12 +54,12 @@
 {
     switch (button.tag)
     {
-        case 1:
+        case CHCreateRoomFrontButton_Back:
         {
             [self.navigationController popViewControllerAnimated:YES];
         }
             break;
-        case 2:
+        case CHCreateRoomFrontButton_Camera:
         {
             [RtcEngine switchCamera:button.selected];
             button.selected = !button.selected;
@@ -67,7 +67,7 @@
             self.liveModel.isMirror = button.selected;
         }
             break;
-        case 3:
+        case CHCreateRoomFrontButton_Beauty:
         {// 美颜设置
             
             [UIView animateWithDuration:0.25 animations:^{
@@ -77,7 +77,7 @@
             [self.beautyView ch_bringToFront];
         }
             break;
-        case 4:
+        case CHCreateRoomFrontButton_Start:
         {// 开始直播
             
             if (![self.liveFrontView.channelId ch_isNotEmpty])
@@ -87,7 +87,6 @@
             }
             
             [CHProgressHUD ch_showHUDAddedTo:self.view animated:YES];
-//            [CHProgressHUD ch_HUDForView:self.view];
             CHWeakSelf
             [CHNetworkRequest getWithURLString:sCHGetConfig params:@{@"channel":self.liveFrontView.channelId} progress:nil success:^(NSDictionary * _Nonnull dictionary) {
                 NSDictionary *dict = dictionary[@"data"];
@@ -107,10 +106,9 @@
             } failure:^(NSError * _Nonnull error) {
                 [CHProgressHUD ch_hideHUDForView:weakSelf.view animated:YES];
             }];
-            
         }
             break;
-        case 5:
+        case CHCreateRoomFrontButton_Setting:
         {// 设置
 
             [UIView animateWithDuration:0.25 animations:^{

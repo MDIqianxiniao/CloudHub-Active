@@ -7,6 +7,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    CHCreateRoomFrontButton_Back,
+    CHCreateRoomFrontButton_Camera,
+    CHCreateRoomFrontButton_Beauty,
+    CHCreateRoomFrontButton_Start,
+    CHCreateRoomFrontButton_Setting,
+} CHCreateRoomFrontButton;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CHCreatLiveFrontView : UIView
