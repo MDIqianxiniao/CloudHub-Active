@@ -128,10 +128,17 @@
                 
                 for (NSDictionary *dict in array)
                 {
-                    CHRoomUser *user = [[CHRoomUser alloc]initWithPeerId:dict[@"user_id"]];
+                    NSString * peerId = dict[@"user_id"];
+                    
+                    CHRoomUser *user = [[CHRoomUser alloc]initWithPeerId:peerId];
                     user.nickName = dict[@"username"];
                     
-                    if ([self.platformUserArray containsObject:dict[@"user_id"]])
+                    if ( [self.localUser.peerID isEqualToString:peerId] && self.localUser.role == CHUserType_Anchor )
+                    {
+                        user.role = CHUserType_Anchor;
+                    }
+                    
+                    if ([self.platformUserArray containsObject:peerId])
                     {
                         user.publishState = CHUser_PublishState_UP;
                     }

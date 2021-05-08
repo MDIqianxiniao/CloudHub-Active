@@ -82,8 +82,6 @@
     self.userListButton = userListButton;
     [self addSubview:userListButton];
     userListButton.imageEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0 );
-    
-    [userListButton setTitle:@"1" forState:UIControlStateNormal];
 }
 
 // 底部试图

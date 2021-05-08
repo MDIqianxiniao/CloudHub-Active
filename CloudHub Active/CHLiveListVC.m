@@ -144,8 +144,6 @@
         vc.roleType = CHUserType_Audience;
         [weakSelf.navigationController pushViewController:vc animated:YES];
     };
-    
-    
 }
 
 - (void)clickToCreatLive
