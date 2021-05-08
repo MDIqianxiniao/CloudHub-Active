@@ -36,6 +36,8 @@ static NSString *const kAppkey = @"cjdoHSFdOzrpXs0Y";
     NSDictionary *rtcEngineKitConfig = @{ @"server": CHLiveActive_Server, @"port":@(80), @"secure":@(NO) };
     self.rtcEngine = [CloudHubRtcEngineKit sharedEngineWithAppId:kAppkey config:[rtcEngineKitConfig ch_toJSON]];
     
+    [self.rtcEngine setChannelProfile:CloudHubChannelProfileLiveBroadcasting];
+    
     return YES;
 }
 
