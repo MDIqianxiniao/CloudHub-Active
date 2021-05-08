@@ -15,7 +15,7 @@
 #define CHLiveActive_Server          @"api.roadofcloud.net"
 
 
-/// 缓存key
+/// The cache key
 static NSString *const CHCacheAnchorName                  = @"AnchorName";
 
 /// Send a message to everyone on the channel
@@ -50,7 +50,7 @@ static NSString *const sCHUserVideoFail             = @"vfail";
 static NSString *const sCHUserAudioFail             = @"afail";
 static NSString *const sCHUserPublishstate          = @"publishstate";
 
-/// 大房间用户数
+/// Number of large room users
 static NSString *const sCHSignal_Notice_BigRoom_Usernum     = @"Notice_BigRoom_Usernum";
 
 /// Gets the configuration information before creating the channel

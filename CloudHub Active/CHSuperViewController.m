@@ -93,7 +93,7 @@
     {
         if (!self.resolutionView)
         {
-            NSArray * dataArray = @[@"240 × 240",@"360 × 360",@"480 × 848",@"720 × 1080",@"1080 × 1920"];
+            NSArray * dataArray = @[@"200 × 150",@"320 × 180",@"320 × 240",@"640 × 360",@"640 × 480",@"1280 × 720",@"1920 × 1080"];
             
             CHResolutionView *resolutionView = [[CHResolutionView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 0) itemGap:CellGap type:CHVideoSetViewType_Resolution withData:dataArray];
             [self.view addSubview:resolutionView];
