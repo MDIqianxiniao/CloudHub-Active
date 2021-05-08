@@ -12,6 +12,8 @@
 "Login.Channel.Placeholder" = "请输入您的房间号";
 "Login.NickName.Placeholder" = "请输入您的昵称";
 "Login.Enter" = "进入";
+"Login.EnterRoom" = "进入房间";
+"Login.LeaveRoom" = "离开房间";
 
 "VideoProfilePopup.Title" = "设置分辨率";
 
@@ -25,8 +27,11 @@
 "List_LiveName" = "直播间名";
 "List_InpuYourNickName" = "请输入您的昵称";
 
-"Live_InputRoomNum" = "输入您的直播号";
+"Live_InputRoomNum" = "输入您的直播号（直播号只允许输入数字+字母）";
 "Live_StartLive" = "开始直播";
+"Live_EntLive" = "结束直播";
+"Live_EntLiveNow" = "是否现在立即结束直播";
+"Live_Sure" = "确认";
 "Live_Set" = "设置";
 "Live_Set_Resolution" = "分辨率";
 "Live_Set_Rate" = "帧率";
@@ -59,4 +64,4 @@
 
 "Music.Background_music" = "背景音乐";
 
-//"LiveRoom_Rate" = "帧率";
+"PK.EnterPKNow" = "是否结束 PK";

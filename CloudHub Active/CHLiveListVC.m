@@ -10,14 +10,22 @@
 #import "CHMinePopupView.h"
 #import "CHCreatLiveVC.h"
 #import "CHLiveRoomVC.h"
+#import "AFNetworking.h"
+#import "CHLiveChannelModel.h"
 
 @interface CHLiveListVC ()
+
+@property (nonatomic, strong) NSMutableArray *channelListArray;
 
 @property (nonatomic, strong) UIImageView *centreImageView;
 
 @property (nonatomic, strong) UILabel *noLiveLable;
 
+@property (nonatomic, strong) CHLiveListTableView *liveListTableView;
+
 @property (nonatomic, strong) CHMinePopupView *minPopupView;
+
+@property (nonatomic, weak) UIRefreshControl *refresh;
 
 @end
 
@@ -33,6 +41,8 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
+    
+    [self getChannelListArray];
 }
 
 - (void)viewDidLoad {
@@ -40,7 +50,46 @@
         
     [[NSUserDefaults standardUserDefaults] setValue:[UIDevice currentDevice].name forKey:CHCacheAnchorName];
     
+    self.channelListArray = [NSMutableArray array];
+    
     [self setupViews];
+
+    UIRefreshControl *refresh = [[UIRefreshControl alloc]init];
+    [refresh addTarget:self action:@selector(getChannelListArray) forControlEvents:UIControlEventValueChanged];
+    [self.liveListTableView addSubview:refresh];
+    [refresh beginRefreshing];
+    self.refresh = refresh;
+}
+
+- (void)getChannelListArray
+{
+    CHWeakSelf
+    [CHNetworkRequest getWithURLString:sCHGetChannelList params:nil progress:nil success:^(NSDictionary * _Nonnull dictionary) {
+        
+        NSArray *array = dictionary[@"data"];
+        [weakSelf.channelListArray removeAllObjects];
+        for (NSDictionary *dict in array)
+        {
+            CHLiveChannelModel *model = [[CHLiveChannelModel alloc]init];
+            model.channelId = dict[@"channel"];
+            model.memberNum = [dict[@"online_num"] integerValue];
+            
+            [weakSelf.channelListArray addObject:model];
+        }
+        weakSelf.liveListTableView.dataArray = weakSelf.channelListArray;
+        
+        [weakSelf.liveListTableView reloadData];
+        weakSelf.centreImageView.hidden = weakSelf.noLiveLable.hidden = (weakSelf.channelListArray.count > 0);
+        
+        [weakSelf.refresh endRefreshing];
+    } failure:^(NSError * _Nonnull error) {
+        
+        weakSelf.liveListTableView.dataArray = nil;
+        [weakSelf.liveListTableView reloadData];
+        weakSelf.centreImageView.hidden = weakSelf.noLiveLable.hidden = NO;
+        
+        [weakSelf.refresh endRefreshing];
+    }];
 }
 
 - (void)setupViews
@@ -80,39 +129,23 @@
     mineButton.ch_right = bgImageView.ch_width - 20;
     mineButton.ch_bottom = bgImageView.ch_height - 25;
     
-    NSMutableArray *mutArray = [NSMutableArray array];
-    CHLiveModel *model = [[CHLiveModel alloc]init];
-    model.liveName = [NSString stringWithFormat:@"%@：测试的房间",CH_Localized(@"List_LiveName")];
-    model.memberNum = 10;
-    model.channelId = @"123456";
-    [mutArray addObject:model];
-    
-    for (int i = 0; i<8; i++)
-    {
-        CHLiveModel *model1 = [[CHLiveModel alloc]init];
-        model1.liveName = [NSString stringWithFormat:@"%@：%d",CH_Localized(@"List_LiveName"), i];
-        model1.memberNum = i+100;
-        
-        [mutArray addObject:model1];
-    }
-    
     CGFloat leftMargin = 25.0f;
     
     CHLiveListTableView *liveListTableView = [[CHLiveListTableView alloc]initWithFrame:CGRectMake(leftMargin, StatusBarH + 30, bgImageView.ch_width - 2*leftMargin, creatLiveButton.ch_originY - (StatusBarH + 30) - 10)];
-    liveListTableView.dataArray = mutArray;
+    self.liveListTableView = liveListTableView;
     [bgImageView addSubview:liveListTableView];
     
     CHWeakSelf
     liveListTableView.liveListCellClick = ^(NSIndexPath * _Nonnull index) {
         
-        CHLiveModel * model = mutArray[index.row];
+        CHLiveChannelModel * model = weakSelf.channelListArray[index.row];
         CHLiveRoomVC *vc = [[CHLiveRoomVC alloc]init];
         vc.liveModel = model;
         vc.roleType = CHUserType_Audience;
         [weakSelf.navigationController pushViewController:vc animated:YES];
     };
     
-    self.centreImageView.hidden = self.noLiveLable.hidden = (mutArray.count > 0);
+    
 }
 
 - (void)clickToCreatLive

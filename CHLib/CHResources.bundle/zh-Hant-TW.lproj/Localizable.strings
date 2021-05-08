@@ -10,14 +10,14 @@
 
 "Login.Channel" = "頻道";
 "Login.Channel.Placeholder" = "請輸入您的房間號";
-"Login.NickName" = "昵稱";
 "Login.NickName.Placeholder" = "請輸入您的昵稱";
 "Login.Enter" = "進入";
+"Login.EnterRoom" = "進入房間";
+"Login.LeaveRoom" = "離開房間";
 
 "VideoProfilePopup.Title" = "設定分辯率";
 
 "Chart.Input.Placeholder" = "請輸入您的消息";
-
 
 "List_Popup_Mine" = "我的";
 "List_Popup_Nickname" = "昵稱";
@@ -27,14 +27,20 @@
 "List_LiveName" = "直播間名";
 "List_InpuYourNickName" = "請輸入您的昵稱";
 
-"Live_InputRoomNum" = "輸入您的直播號";
+"Live_InputRoomNum" = "輸入您的直播號（直播號只允許輸入數字+字母）";
 "Live_StartLive" = "開始直播";
+"Live_EntLive" = "結束直播";
+"Live_EntLiveNow" = "是否現在立即結束直播";
+"Live_Sure" = "確認";
 "Live_Set" = "設置";
 "Live_Set_Resolution" = "分辨率";
 "Live_Set_Rate" = "幀率";
+"Live_Prompt_Title" = "溫馨提示";
+"Live_Prompt_Content" = "本應用為測試產品，請勿商用，\n單次直播最多10分鐘，每個通道最多10人";
 "Live_InputRoomNumPrompt" = "請輸入您的直播號";
 "Live_ChatPlaceholder" = "我來說幾句...";
 "Live_ChatTextNumber" = "文本最多輸入 80 個字符";
+
 "Live_Tools" = "工具";
 "Live_Tools_LinkMic" = "連麥";
 "Live_Tools_DisMiv" = "斷開連麥";
@@ -57,3 +63,5 @@
 "BeautySet.Ruddy" = "紅潤";
 
 "Music.Background_music" = "背景音樂";
+
+"PK.EnterPKNow" = "是否結束 PK";

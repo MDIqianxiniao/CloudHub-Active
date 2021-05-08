@@ -98,4 +98,6 @@
 #define CHVideoViewW 86
 #define CHVideoViewH 115
 
+#define CHProgressDelay 1.5f
+
 #endif /* CHCommon_h */

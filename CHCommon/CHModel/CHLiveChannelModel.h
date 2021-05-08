@@ -1,5 +1,5 @@
 //
-//  CHLiveModel.h
+//  CHLiveChannelModel.h
 //  CloudHub Active
 //
 //  Created by 马迪 on 2021/4/20.
@@ -11,10 +11,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CHLiveModel : NSObject
+@interface CHLiveChannelModel : NSObject
 
 /// name
-@property (nonatomic, copy) NSString *liveName;
+//@property (nonatomic, copy) NSString *liveName;
 
 /// channelId
 @property (nonatomic, copy) NSString *channelId;

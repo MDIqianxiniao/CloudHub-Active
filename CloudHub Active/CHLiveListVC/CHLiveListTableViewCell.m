@@ -89,11 +89,11 @@
     }];
 }
 
-- (void)setModel:(CHLiveModel *)model
+- (void)setModel:(CHLiveChannelModel *)model
 {
     _model = model;
     
-    self.liveTitleLable.text = model.liveName;
+    self.liveTitleLable.text = model.channelId;
     
     [self.numberButton setTitle:[NSString stringWithFormat:@"%ld",(long)model.memberNum] forState:UIControlStateNormal];
 }

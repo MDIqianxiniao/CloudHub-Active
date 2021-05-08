@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *nickName;
 
-@property (nonatomic, strong) NSMutableArray *userList;
+@property (nonatomic, assign) NSInteger userNum;
 
 //@property (nonatomic, weak) UITextView *inputView;
 
@@ -32,8 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isUpStage;
 
 @property (nonatomic, copy) void(^liveRoomFrontViewButtonsClick)(UIButton *button);
-
-
 
 
 - (instancetype)initWithFrame:(CGRect)frame WithUserType:(CHUserRoleType)roleType;

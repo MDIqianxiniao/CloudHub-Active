@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CHLiveListTableView : UITableView
 
-@property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, strong, nullable) NSMutableArray *dataArray;
 
 @property (nonatomic, copy) void(^liveListCellClick)(NSIndexPath *index);
 

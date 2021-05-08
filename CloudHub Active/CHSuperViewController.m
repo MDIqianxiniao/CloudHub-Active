@@ -18,11 +18,11 @@
 
 @implementation CHSuperViewController
 
-- (CHLiveModel *)liveModel
+- (CHLiveChannelModel *)liveModel
 {
     if (!_liveModel)
     {
-        _liveModel = [[CHLiveModel alloc]init];
+        _liveModel = [[CHLiveChannelModel alloc]init];
     }
     return _liveModel;
 }
@@ -32,7 +32,7 @@
     [super viewDidLoad];
     
     self.rtcEngine = RtcEngine;
-
+    
     [self setupLargeVideoView];
     
     [self initMotionManager];

@@ -18,11 +18,12 @@
 
 #import "CHAppDefine.h"
 
-#import "CHLiveModel.h"
+#import "CHLiveChannelModel.h"
 
 #import "CHRoomUser.h"
 
 #import "CHChatMessageModel.h"
 
+#import "CHNetworkRequest.h"
 
 #endif /* PrefixHeader_pch */

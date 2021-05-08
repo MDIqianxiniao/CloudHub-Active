@@ -78,13 +78,12 @@
     userListButton.titleLabel.font = CHFont12;
     [userListButton addTarget:self action:@selector(buttonsClick:) forControlEvents:UIControlEventTouchUpInside];
     userListButton.layer.cornerRadius = ButtonWidth * 0.5f;
-//    userListButton.contentHorizontalAlignment =UIControlContentHorizontalAlignmentRight;
     userListButton.hidden = self.roleType;
     self.userListButton = userListButton;
     [self addSubview:userListButton];
     userListButton.imageEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0 );
     
-    [userListButton setTitle:@"21" forState:UIControlStateNormal];
+    [userListButton setTitle:@"1" forState:UIControlStateNormal];
 }
 
 // 底部试图
@@ -179,8 +178,6 @@
     }
 }
 
-
-
 - (void)buttonsClick:(UIButton *)button
 {
     if (_liveRoomFrontViewButtonsClick)
@@ -199,10 +196,10 @@
     self.nameLable.ch_width = nameWidth.width + 25;
 }
 
-- (void)setUserList:(NSMutableArray *)userList
+- (void)setUserNum:(NSInteger)userNum
 {
-    _userList = userList;
-    [self.userListButton setTitle:[NSString stringWithFormat:@"%ld",userList.count] forState:UIControlStateNormal];
+    _userNum = userNum;
+    [self.userListButton setTitle:[NSString stringWithFormat:@"%ld",userNum] forState:UIControlStateNormal];
 }
 
 

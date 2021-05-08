@@ -50,4 +50,25 @@ static NSString *const sCHUserVideoFail             = @"vfail";
 static NSString *const sCHUserAudioFail             = @"afail";
 static NSString *const sCHUserPublishstate          = @"publishstate";
 
+/// 大房间用户数
+static NSString *const sCHSignal_Notice_BigRoom_Usernum     = @"Notice_BigRoom_Usernum";
+
+/// Gets the configuration information before creating the channel
+static NSString *const sCHGetConfig              = @"https://cna-dorado-user-api.cloudhub.vip/config";
+
+/// Get lists of channels
+static NSString *const sCHGetChannelList         = @"https://cna-dorado-user-api.cloudhub.vip/channels";
+
+/// User Entry and Exit Record
+static NSString *const sCHJoinChannelRecord         = @"https://cna-dorado-user-api.cloudhub.vip/record";
+
+/// Gets a list of users for the specified channel
+static NSString *const sCHGetUserList        = @"https://cna-dorado-user-api.cloudhub.vip/channel_users?channel=live";
+
+
+/// Query individual Channel details
+static NSString *const sCHGetShowChannelDate     = @"https://cna-dorado-user-api.cloudhub.vip/channels/live";
+/// deleteChannel
+static NSString *const sCHDeleteTheChannel       = @"https://cna-dorado-user-api.cloudhub.vip/channels/live";
+
 #endif /* CHAppDefine_h */

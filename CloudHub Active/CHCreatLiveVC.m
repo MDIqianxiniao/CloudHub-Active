@@ -8,8 +8,8 @@
 #import "CHCreatLiveVC.h"
 #import "CHCreatLiveFrontView.h"
 
-
 #import "CHLiveRoomVC.h"
+
 
 @interface CHCreatLiveVC ()
 
@@ -35,7 +35,6 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = UIColor.whiteColor;
-    
     [self setupFrontViewUI];
 }
 
@@ -83,18 +82,32 @@
             
             if (![self.liveFrontView.channelId ch_isNotEmpty])
             {
-                [CHProgressHUD ch_showHUDAddedTo:self.view animated:YES withText:CH_Localized(@"Live_InputRoomNumPrompt") delay:2.0];
+                [CHProgressHUD ch_showHUDAddedTo:self.view animated:YES withText:CH_Localized(@"Live_InputRoomNumPrompt") delay:CHProgressDelay];
                 return;
             }
             
-            [self.rtcEngine stopPlayingLocalVideo];
+            [CHProgressHUD ch_showHUDAddedTo:self.view animated:YES];
+//            [CHProgressHUD ch_HUDForView:self.view];
+            CHWeakSelf
+            [CHNetworkRequest getWithURLString:sCHGetConfig params:@{@"channel":self.liveFrontView.channelId} progress:nil success:^(NSDictionary * _Nonnull dictionary) {
+                NSDictionary *dict = dictionary[@"data"];
+                            
+                [self.rtcEngine stopPlayingLocalVideo];
+                
+                self.liveModel.channelId = self.liveFrontView.channelId;
+                
+                CHLiveRoomVC *liveRoomVC = [[CHLiveRoomVC alloc]init];
+                liveRoomVC.liveModel = self.liveModel;
+                liveRoomVC.roleType = CHUserType_Anchor;
+                liveRoomVC.chToken = dict[@"token"];
+                [self.navigationController pushViewController:liveRoomVC animated:YES];
+                
+                [CHProgressHUD ch_hideHUDForView:weakSelf.view animated:YES];
+                
+            } failure:^(NSError * _Nonnull error) {
+                [CHProgressHUD ch_hideHUDForView:weakSelf.view animated:YES];
+            }];
             
-            self.liveModel.channelId = self.liveFrontView.channelId;
-            
-            CHLiveRoomVC *liveRoomVC = [[CHLiveRoomVC alloc]init];
-            liveRoomVC.liveModel = self.liveModel;
-            liveRoomVC.roleType = CHUserType_Anchor;
-            [self.navigationController pushViewController:liveRoomVC animated:YES];
         }
             break;
         case 5:

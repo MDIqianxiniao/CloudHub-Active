@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CHLiveListTableViewCell : UITableViewCell
 
 ///
-@property (nonatomic, strong) CHLiveModel *model;
+@property (nonatomic, strong) CHLiveChannelModel *model;
 
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;

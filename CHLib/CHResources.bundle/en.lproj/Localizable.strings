@@ -10,51 +10,58 @@
 
 "Login.Channel" = "Channel";
 "Login.Channel.Placeholder" = "Please enter your channel id";
-"Login.NickName" = "NickName";
 "Login.NickName.Placeholder" = "Please enter your nick name";
 "Login.Enter" = "Enter";
+"Login.EnterRoom" = "join room";
+"Login.LeaveRoom" = "Leave the room";
 
 "VideoProfilePopup.Title" = "Set resolution";
 
 "Chart.Input.Placeholder" = "Please enter your message";
 
-
 "List_Popup_Mine" = "Mine";
 "List_Popup_Nickname" = "Nickname";
-"List_Popup_DefaultNick" = "Default nickname ";
-"List_Popup_Finish" = "Finish";
-"List_NoLive" = "There is no live stream currently, please create one";
-"List_LiveName" = "Name of broadcast room ";
+"List_Popup_DefaultNick" = "Default Nickname";
+"List_Popup_Finish" = "Done";
+"List_NoLive" = "No live broadcast in progress,Try to creat...";
+"List_LiveName" = "Channel Name";
 "List_InpuYourNickName" = "Please enter your nickname";
 
-"Live_InputRoomNum" = "Enter your live number";
-"Live_StartLive" = "Start live";
-"Live_Set" = "Set";
+"Live_InputRoomNum" = "Enter channel id(Only numbers & letters allowed)";
+"Live_StartLive" = "Start";
+"Live_EntLive" = "End of Live";
+"Live_EntLiveNow" = "Is the live now finished?";
+"Live_Sure" = "enter";
+"Live_Set" = "Setting";
 "Live_Set_Resolution" = "Resolution";
-"Live_Set_Rate" = "Rate";
-"Live_InputRoomNumPrompt" = "Please enter your live stream number";
-"Live_ChatPlaceholder" = "Let me say something...";
+"Live_Set_Rate" = "Frame rate";
+"Live_Prompt_Title" = "Tips";
+"Live_Prompt_Content" = "This application only for test and experience, each channel up to 10 minutes and 10 mumbers";
+"Live_InputRoomNumPrompt" = "Enter channel id";
+"Live_ChatPlaceholder" = "Say something...";
 "Live_ChatTextNumber" = "Enter a maximum of 80 characters for text";
 
 "Live_Tools" = "Tools";
-"Live_Tools_inkMic " = "LinkMic";
+"Live_Tools_linkMic " = "LinkMic";
 "Live_Tools_DisMiv " = "Disconnect";
-"Live_Tools_MuteCam" = "Turn off camera";
-"Live_Tools_UnMuteCam" = "Open camera";
-"Live_Tools_MuteMic" = "Turn off microphone";
-"Live_Tools_UnMuteMic" = "Microphone on";
-"Live_tools_SwitchCAM" = "Camera flip";
-"Live_tools_VideoSet" = "Video Settings";
+"Live_Tools_MuteCam" = "camera off";
+"Live_Tools_UnMuteCam" = "camera on";
+"Live_Tools_MuteMic" = "mic off";
+"Live_Tools_UnMuteMic" = "mic on";
+"Live_tools_SwitchCAM" = "camera switch";
+"Live_tools_VideoSet" = "video settings";
 
-"Live_UserList_Tittle" = "Online user";
+"Live_UserList_Tittle" = "Online users";
 "Live_userList_connect" = "Connect";
 "Live_userList_disconnect" = "Disconnect";
 
 "BeautySet.Beauty" = "Beauty";
 "BeautySet.Whitening" = "Whitening";
-"BeautySet.ThinFace" = "Thin Face";
+"BeautySet.ThinFace" = "Face slimming";
 "BeautySet.BigEyes" = "Big Eyes";
-"BeautySet.Exfoliating" = "Exfoliating";
+"BeautySet.Exfoliating" = "Peeling";
 "BeautySet.Ruddy" = "Ruddy";
 
 "Music.Background_music" = "Background music";
+
+"PK.EnterPKNow" = "Is the live now finished?";

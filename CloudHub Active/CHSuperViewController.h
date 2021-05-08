@@ -10,7 +10,7 @@
 #import "CHBeautySetView.h"
 #import "CHVideoSetView.h"
 #import "CHResolutionView.h"
-#import "CHLiveModel.h"
+
 
 #define CellGap ([UIDevice ch_isiPad] ? 20.0f : 8.0f)
 
@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) CHVideoView *largeVideoView;
 
-@property (nonatomic, strong) CHLiveModel *liveModel;
+@property (nonatomic, strong) CHLiveChannelModel *liveModel;
 
 @property (nonatomic, strong) CHBeautySetView *beautyView;
 
@@ -43,6 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) CHUserRoleType roleType;
 
+@property (nonatomic, copy) NSString *chToken;
 
 - (BOOL)sendMessageWithText:(NSString *)message withMessageType:(CHChatMessageType)messageType withMemberModel:(CHRoomUser *)memberModel;
 

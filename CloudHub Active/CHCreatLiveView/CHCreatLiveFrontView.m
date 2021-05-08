@@ -11,7 +11,9 @@
 
 
 @interface CHCreatLiveFrontView ()
-
+<
+    UITextFieldDelegate
+>
 
 
 @property (nonatomic, weak) UITextField *liveNumField;
@@ -76,10 +78,11 @@
     NSAttributedString *placeholderStr = [[NSAttributedString alloc]initWithString:CH_Localized(@"Live_InputRoomNum") attributes:@{NSForegroundColorAttributeName:CHWhiteColor,NSFontAttributeName:CHFont12}];
     liveNumField.attributedPlaceholder = placeholderStr;
     liveNumField.returnKeyType = UIReturnKeyDone;
-//    liveNumField.keyboardType = UIKeyboardTypeNumberPad;
+    liveNumField.keyboardType = UIKeyboardTypeURL;
     self.liveNumField = liveNumField;
     [fieldBgView addSubview:liveNumField];
     [liveNumField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
+    liveNumField.delegate = self;
 
 }
 
@@ -94,13 +97,34 @@
         return;
     }
     
-    if (textField.text.length > 15)
+    if (textField.text.length > 10)
     {
-        textField.text = [textField.text substringToIndex:15];
+        textField.text = [textField.text substringToIndex:10];
     }
     
     self.channelId = textField.text;
 }
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    NSUInteger lengthOfString = string.length;  //lengthOfString的值始终为1
+    for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
+        unichar character = [string characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
+        // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}
+        if (character < 48) return NO; // 48 unichar for 0
+        if (character > 57 && character < 65) return NO; //
+        if (character > 90 && character < 97) return NO;
+        if (character > 122) return NO;
+    }
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
 // 底部试图
 - (void)setBottomViews
 {

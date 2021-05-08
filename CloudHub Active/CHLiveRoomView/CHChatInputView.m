@@ -73,7 +73,7 @@
         if (textView.text.length > 80)
         {
             textView.text = [textView.text substringToIndex:80];
-            [CHProgressHUD ch_showHUDAddedTo:self animated:YES withText:CH_Localized(@"Live_ChatTextNumber") delay:1.5];
+            [CHProgressHUD ch_showHUDAddedTo:self animated:YES withText:CH_Localized(@"Live_ChatTextNumber") delay:CHProgressDelay];
         }
     }
 }

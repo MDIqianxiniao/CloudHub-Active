@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CHUserListTableView : UITableView
 
-@property (nonatomic, strong) NSMutableArray *userListArray;
+@property (nonatomic, strong, nullable) NSMutableArray *userListArray;
 
 @property (nonatomic, copy) void(^userListCellClick)(CHRoomUser *userModel);
 

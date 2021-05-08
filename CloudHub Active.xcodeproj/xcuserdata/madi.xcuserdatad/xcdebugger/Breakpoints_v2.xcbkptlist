@@ -19,32 +19,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E91790C3-FF8C-4A04-948D-B031367FB286"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CHCommon/Category/NSString+CHCategory.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
-            landmarkName = "-ch_sizeToFit:withFont:lineBreakMode:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6524799A-4445-4FD6-B2FA-66AD9E00AC4A"
+            uuid = "BF5FF051-6958-415C-A6AC-581BF412767A"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CloudHub Active/SCChat/SCChatView.m"
+            filePath = "CloudHub Active/CHLiveRoomVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
-            landmarkName = "-tableView:heightForRowAtIndexPath:"
+            startingLineNumber = "581"
+            endingLineNumber = "581"
+            landmarkName = "-rtcEngine:onPubMsg:msgId:from:withData:associatedWithUser:associatedWithMsg:ts:withExtraData:isHistory:seq:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

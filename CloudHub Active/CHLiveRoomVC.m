@@ -16,9 +16,6 @@
 #define VideoWidth 86
 #define VideoHeight 115
 
-
-static NSString *const kToken = nil;
-
 @interface CHLiveRoomVC ()
 
 /// user nick name
@@ -41,6 +38,10 @@ static NSString *const kToken = nil;
 @property (nonatomic, strong) CHVideoView *myVideoView;
 
 @property (nonatomic, strong) NSMutableArray<CHChatMessageModel *> *messageArray;
+
+@property (nonatomic, assign) NSTimeInterval timeInterval;
+
+@property (nonatomic, strong) NSTimer *timer;
 
 @end
 
@@ -72,6 +73,8 @@ static NSString *const kToken = nil;
     [self setupMusicView];
     
     [self setupChatInputView];
+    
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(getNewUserJoinChannel) userInfo:nil repeats:YES];
 }
 
 - (void)setupFrontViewUI
@@ -112,8 +115,27 @@ static NSString *const kToken = nil;
     {
         case CHLiveRoomFrontButton_userList:
         {
-            self.userListTableView.userListArray = self.userList;
-            
+            CHWeakSelf
+            [CHNetworkRequest getWithURLString:sCHGetUserList params:@{@"channel":self.liveModel.channelId} progress:nil success:^(NSDictionary * _Nonnull dictionary) {
+                
+                NSArray *array = dictionary[@"data"];
+                
+                [weakSelf.userList removeAllObjects];
+                
+                for (NSDictionary *dict in array)
+                {
+                    CHRoomUser *user = [[CHRoomUser alloc]initWithPeerId:dict[@"user_id"]];
+                    user.nickName = dict[@"nickname"];
+                    [weakSelf.userList addObject:user];
+                }
+                weakSelf.userListTableView.userListArray = weakSelf.userList;
+                
+            } failure:^(NSError * _Nonnull error) {
+                [weakSelf.userList removeAllObjects];
+                weakSelf.userListTableView.userListArray = nil;
+                [CHProgressHUD ch_showHUDAddedTo:weakSelf.view animated:YES withText:@"获取用户列表失败" delay:CHProgressDelay];
+            }];
+                        
             [UIView animateWithDuration:0.25 animations:^{
                 self.setToolView.ch_originY = self.view.ch_height;
                 self.beautyView.ch_originY = self.view.ch_height;
@@ -237,6 +259,41 @@ static NSString *const kToken = nil;
     }
 }
 
+- (void)getNewUserJoinChannel
+{
+    //在这里执行事件
+    CHWeakSelf
+    [CHNetworkRequest getWithURLString:sCHJoinChannelRecord params:@{@"name":self.liveModel.channelId,@"point":@(self.timeInterval)} progress:nil success:^(NSDictionary * _Nonnull dictionary) {
+        
+        weakSelf.timeInterval = [dictionary[@"point"] doubleValue];
+        
+        NSArray *array = dictionary[@"data"];
+        
+        if ([array ch_isNotEmpty])
+        {
+            for (NSDictionary *dict in array)
+            {
+                CHChatMessageModel *messageModel = [[CHChatMessageModel alloc] init];
+                messageModel.chatMessageType = CHChatMessageType_Tips;
+                if ([dict[@"status"] integerValue])
+                {
+                    messageModel.message = [NSString stringWithFormat:@"%@ %@",dict[@"username"],CH_Localized(@"Login.EnterRoom")];
+                }
+                else
+                {
+                    messageModel.message = [NSString stringWithFormat:@"%@ %@",dict[@"username"],CH_Localized(@"Login.LeaveRoom")];
+                }
+                
+                [weakSelf.messageArray addObject:messageModel];
+                
+                weakSelf.liveRoomFrontView.messageList = weakSelf.messageArray;
+            }
+        }
+    } failure:^(NSError * _Nonnull error) {
+        
+    }];
+}
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self.liveRoomFrontView.inputView resignFirstResponder];
@@ -286,7 +343,6 @@ static NSString *const kToken = nil;
 /// Join Channel
 - (void)beginLiveJoinChannel
 {
-    // user property
     NSMutableDictionary *userProperty = [NSMutableDictionary dictionary];
     [userProperty ch_setString:self.myNickName forKey:sCHUserNickname];
     NSMutableDictionary *userCameras = [NSMutableDictionary dictionary];
@@ -297,22 +353,38 @@ static NSString *const kToken = nil;
 
     NSString *str = [userProperty ch_toJSON];
 
-    BOOL dskj =  [self.rtcEngine joinChannelByToken:kToken channelId:self.liveModel.channelId properties:str uid:nil joinSuccess:nil];
-    
-    NSLog(@"%@,%d",self.rtcEngine,dskj);
+    [self.rtcEngine joinChannelByToken:self.chToken channelId:self.liveModel.channelId properties:str uid:nil joinSuccess:nil];
 }
 
 - (void)leftChannel
 {
-    if (self.isJoinChannel)
+    if (!self.isJoinChannel)
     {
-        [self.rtcEngine leaveChannel:nil];
-        return;
+        [self.rtcEngine stopPlayingLocalVideo];
+        [self.navigationController popViewControllerAnimated:YES];
     }
-
-    [self.rtcEngine stopPlayingLocalVideo];
-    
-    [self.navigationController popViewControllerAnimated:YES];
+    else
+    {
+        if (self.localUser.role == CHUserType_Anchor)
+        {
+            CHWeakSelf
+            UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:CH_Localized(@"Live_EntLive") message:CH_Localized(@"Live_EntLiveNow") preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *sure = [UIAlertAction actionWithTitle:CH_Localized(@"Live_Sure") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                [self.rtcEngine leaveChannel:nil];
+            }];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:CH_Localized(@"Cancel") style:UIAlertActionStyleCancel handler:nil];
+            
+            [alertVc addAction:sure];
+            [alertVc addAction:cancel];
+            
+            [self presentViewController:alertVc animated:YES completion:nil];
+        }
+        else
+        {
+            [self.rtcEngine leaveChannel:nil];
+        }
+    }
 }
 
 - (void)rtcEngine:(CloudHubRtcEngineKit *)engine didJoinChannel:(NSString *)channel withUid:(NSString *)uid elapsed:(NSInteger)elapsed
@@ -339,34 +411,6 @@ static NSString *const kToken = nil;
 
         [self.rtcEngine publishStream];
     }
-   
-//    CHChatMessageModel *model2 = [[CHChatMessageModel alloc]init];
-//    model2.sendUser = self.localUser;
-//    model2.message = @"花名册：主播可以通过花名册邀请观众连麦（主播邀请->观众同意->观众上麦）、断开正在连麦的观众，以及查看/同意/拒绝观众的连麦申请；";
-//
-//    CHChatMessageModel *model3 = [[CHChatMessageModel alloc]init];
-//    model3.sendUser = self.localUser;
-//    model3.message = @"美颜功能（待定）";
-//
-//    CHChatMessageModel *model4 = [[CHChatMessageModel alloc]init];
-//    model4.sendUser = self.localUser;
-//    model4.message = @"播放背景音乐：从系统内预置的几段音乐中选择一段播放；";
-//    model4.chatMessageType = CHChatMessageType_Tips;
-//
-//
-//    CHChatMessageModel *model5 = [[CHChatMessageModel alloc]init];
-//    model5.sendUser = self.localUser;
-//    model5.message = @"更多功能：查看实时数据（当前房间视频参数、接收码率和丢包率、发送码率和丢";
-//
-//    NSMutableArray * mutArray = [NSMutableArray array];
-//
-//    [mutArray addObject:model2];
-//    [mutArray addObject:model3];
-//    [mutArray addObject:model4];
-//    [mutArray addObject:model5];
-
-    
-    
 }
 
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine didReJoinChannel:(NSString * _Nonnull)channel withUid:(NSString * _Nonnull)uid elapsed:(NSInteger) elapsed
@@ -397,15 +441,15 @@ static NSString *const kToken = nil;
     }
 }
 
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine didLeaveChannel:(CloudHubChannelStats * _Nonnull)stats;
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine didLeaveChannel:(CloudHubChannelStats * _Nonnull)stats
 {
-    NSLog(@"rtcEngine didLeaveChannel");
-
     [self.rtcEngine enableLocalAudio:NO];
     [self.rtcEngine enableLocalVideo:NO];
     [self.rtcEngine disableAudio];
     [self.rtcEngine disableVideo];
     
+    [self.timer invalidate];
+    [self.rtcEngine stopPlayingLocalVideo];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -483,36 +527,10 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
         
         return;
     }
-
-    /*
-    if ([allKeys containsObject:sCHUserAudioFail] || [allKeys containsObject:sCHUserCameras])
-    {
-        CHRoomUser *roomUser = [self getRoomUserWithId:uid];
-        if (!roomUser)
-        {
-            return;
-        }
-        
-        NSArray *allValues = [self.smallVideoViews allValues];
-        for (CHVideoView *videoView in allValues)
-        {
-            if (videoView.roomUser == roomUser)
-            {
-                if ([videoView.sourceId ch_isNotEmpty])
-                {
-                    [videoView freshWithRoomUserProperty];
-                }
-                break;
-            }
-        }
-    }
-     */
 }
 
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine remoteVideoStateChangedOfUid:(NSString * _Nonnull)uid sourceID:(NSString * _Nonnull)sourceID streamID:(NSString * _Nonnull)streamID type:(CloudHubMediaType)type state:(CloudHubVideoRemoteState)state reason:(CloudHubVideoRemoteStateReason)reason
 {
-    NSLog(@"rtcEngine remoteVideoStateChangedOfUid:%@ %@ %@ %@ %@", uid, sourceID, @(type), @(state), @(reason));
-    
     if (state == CloudHubVideoRemoteStateStarting)
     {
         if (type & CloudHub_MEDIA_TYPE_AUDIO_AND_VIDEO || type & CloudHub_MEDIA_TYPE_AUDIO_ONLY)
@@ -547,6 +565,39 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
     }
 }
 
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine
+         onPubMsg:(NSString *)msgName
+            msgId:(NSString *)msgId
+             from:(NSString *)fromuid
+         withData:(NSString *)data
+associatedWithUser:(NSString *)uid
+associatedWithMsg:(NSString *)assMsgID
+               ts:(NSUInteger)ts
+    withExtraData:(NSString *)extraData
+        isHistory:(BOOL)isHistory
+              seq:(NSInteger)seq
+{
+    // 房间用户数
+    if ([msgName isEqualToString:sCHSignal_Notice_BigRoom_Usernum])
+    {
+        NSDictionary *dataDic = [CHCloudHubUtil convertWithData:data];
+        NSUInteger count = [dataDic ch_uintForKey:@"num"];
+        
+        self.liveRoomFrontView.userNum = count;
+    }
+}
+
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine
+         onDelMsg:(NSString *)msgName
+            msgId:(NSString *)msgId
+             from:(NSString *)fromuid
+         withData:(NSString *)data
+{
+//    NSDictionary *dataDic = [CHCloudHubUtil convertWithData:data];
+    
+  
+}
+
 #pragma mark - Message 即时消息
 
 /// 即时消息
@@ -556,15 +607,11 @@ onChatMessageArrival:(NSString *)message
              from:(NSString *)fromuid
     withExtraData:(NSString *)extraData
 {
-//    BMLog(@"CHSessionManager onChatMessageArrival: %@ from: %@ withExtraData: %@", message, fromuid, extraData);
-    
     if (![message ch_isNotEmpty] || ![fromuid ch_isNotEmpty])
     {
         return;
     }
-        
-//    NSDictionary *messageDic = [BMCloudHubUtil convertWithData:extraData];
-    
+            
     NSData *propData = [extraData dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *messageDic = nil;
     if (propData)
