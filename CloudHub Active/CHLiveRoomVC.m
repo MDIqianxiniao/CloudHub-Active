@@ -39,8 +39,6 @@
 
 @property (nonatomic, strong) CHSetToolView *setToolView;
 
-
-
 @property (nonatomic, strong) NSMutableArray<CHChatMessageModel *> *messageArray;
 
 @property (nonatomic, assign) NSTimeInterval timeInterval;
@@ -339,9 +337,18 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
+    UITouch *touch = nil;
+    
+    for (UITouch *cc in touches)
+    {
+        touch = cc;
+        break;
+    }
+    CGPoint point = [touch locationInView:self.view];
+    
     [self.liveRoomFrontView.inputView resignFirstResponder];
     
-    if (self.resolutionView && self.resolutionView.ch_originY < self.view.ch_height)
+    if (point.y < self.resolutionView.ch_originY && self.resolutionView && self.resolutionView.ch_originY < self.view.ch_height)
     {
         [UIView animateWithDuration:0.25 animations:^{
             self.resolutionView.ch_originY = self.view.ch_height;
@@ -350,7 +357,7 @@
         return;
     }
     
-    if (self.rateView && self.rateView.ch_originY < self.view.ch_height)
+    if (point.y < self.rateView.ch_originY && self.rateView && self.rateView.ch_originY < self.view.ch_height)
     {
         [UIView animateWithDuration:0.25 animations:^{
             self.rateView.ch_originY = self.view.ch_height;
@@ -359,7 +366,7 @@
         return;
     }
     
-    if (self.videoSetView && self.videoSetView.ch_originY < self.view.ch_height)
+    if (point.y < self.videoSetView.ch_originY && self.videoSetView && self.videoSetView.ch_originY < self.view.ch_height)
     {
         [UIView animateWithDuration:0.25 animations:^{
             self.videoSetView.ch_originY = self.view.ch_height;
@@ -368,19 +375,41 @@
         return;
     }
     
-    [UIView animateWithDuration:0.25 animations:^{
-        self.beautyView.ch_originY = self.view.ch_height;
-        self.setToolView.ch_originY = self.view.ch_height;
-        self.musicView.ch_originY = self.view.ch_height;
-        
-        if (self.userListTableView.ch_originY < self.view.ch_height)
-        {
-            [self.userListTimer invalidate];
-            self.userListTimer = nil;
-            self.userListTableView.ch_originY = self.view.ch_height;
-        }
-    }];
+    if (point.y < self.beautyView.ch_originY && self.beautyView && self.beautyView.ch_originY < self.view.ch_height)
+    {
+        [UIView animateWithDuration:0.25 animations:^{
+            self.beautyView.ch_originY = self.view.ch_height;
+        }];
+        return;
+    }
     
+    if (point.y < self.setToolView.ch_originY && self.setToolView && self.setToolView.ch_originY < self.view.ch_height)
+    {
+        [UIView animateWithDuration:0.25 animations:^{
+            self.setToolView.ch_originY = self.view.ch_height;
+        }];
+        return;
+    }
+    
+    if (point.y < self.musicView.ch_originY && self.musicView && self.musicView.ch_originY < self.view.ch_height)
+    {
+        [UIView animateWithDuration:0.25 animations:^{
+            self.musicView.ch_originY = self.view.ch_height;
+        }];
+        return;
+    }
+    
+    if (point.y < self.userListTableView.ch_originY && self.userListTableView && self.userListTableView.ch_originY < self.view.ch_height)
+    {
+        [self.userListTimer invalidate];
+        self.userListTimer = nil;
+        
+        [UIView animateWithDuration:0.25 animations:^{
+            self.userListTableView.ch_originY = self.view.ch_height;
+        }];
+        return;
+    }
+
     if (self.chatInputView.ch_originY < self.view.ch_height)
     {
         [self.chatInputView.inputView resignFirstResponder];

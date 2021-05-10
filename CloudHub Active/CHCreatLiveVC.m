@@ -124,13 +124,20 @@
     }
 }
 
-
-
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    [self.liveFrontView.liveNumField resignFirstResponder];
+    UITouch *touch = nil;
     
-    if (self.resolutionView && self.resolutionView.ch_originY < self.view.ch_height)
+    for (UITouch *cc in touches)
+    {
+        touch = cc;
+        break;
+    }
+    CGPoint point = [touch locationInView:self.view];
+    
+    [self.liveFrontView.liveNumField resignFirstResponder];
+        
+    if (point.y < self.resolutionView.ch_originY && self.resolutionView && self.resolutionView.ch_originY < self.view.ch_height)
     {
         [UIView animateWithDuration:0.25 animations:^{
             self.resolutionView.ch_originY = self.view.ch_height;
@@ -139,7 +146,7 @@
         return;
     }
     
-    if (self.rateView && self.rateView.ch_originY < self.view.ch_height)
+    if (point.y < self.rateView.ch_originY && self.rateView && self.rateView.ch_originY < self.view.ch_height)
     {
         [UIView animateWithDuration:0.25 animations:^{
             self.rateView.ch_originY = self.view.ch_height;
@@ -147,11 +154,22 @@
         }];
         return;
     }
-        
-    [UIView animateWithDuration:0.25 animations:^{
-        self.beautyView.ch_originY = self.view.ch_height;
-        self.videoSetView.ch_originY = self.view.ch_height;
-    }];
+      
+    if (point.y < self.videoSetView.ch_originY && self.videoSetView && self.videoSetView.ch_originY < self.view.ch_height)
+    {
+        [UIView animateWithDuration:0.25 animations:^{
+            self.videoSetView.ch_originY = self.view.ch_height;
+        }];
+        return;
+    }
+    
+    if (point.y < self.beautyView.ch_originY && self.beautyView && self.beautyView.ch_originY < self.view.ch_height)
+    {
+        [UIView animateWithDuration:0.25 animations:^{
+            self.beautyView.ch_originY = self.view.ch_height;
+        }];
+        return;
+    }
 }
 
 

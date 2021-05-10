@@ -16,14 +16,12 @@
 
 @interface CHResolutionView ()
 
-/// 数据源数组
 @property(nonatomic, strong) NSArray *dataArray;
 
 @property (nonatomic, assign) CHVideoSetViewType viewType;
 
-/// 值label的数组
 @property(nonatomic, strong) NSMutableArray *valueArray;
-/// 下划线的数组
+
 @property(nonatomic, strong) NSMutableArray *lineArray;
 
 @property (nonatomic, assign) CGFloat gap;
@@ -140,7 +138,7 @@
 - (void)buttonsClick:(UIButton *)button
 {
     if (button.tag == 1000)
-    {// 返回
+    {
         if (_resolutionViewButtonClick)
         {
             _resolutionViewButtonClick(nil);

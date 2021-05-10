@@ -14,15 +14,15 @@
 
 @interface CHVideoSetView ()
 
-/// 标题的数组
-@property(nonatomic,strong) NSMutableArray *titleArray;
-/// 值label的数组
-@property(nonatomic,strong) NSMutableArray *valueArray;
-/// 箭头的数组
-@property(nonatomic,strong) NSMutableArray *arrowArray;
-/// 下划线的数组
-@property(nonatomic,strong) NSMutableArray *lineArray;
+@property(nonatomic,strong) NSMutableArray *bgButtonArray;
 
+@property(nonatomic,strong) NSMutableArray *titleArray;
+
+@property(nonatomic,strong) NSMutableArray *valueArray;
+
+@property(nonatomic,strong) NSMutableArray *arrowArray;
+
+@property(nonatomic,strong) NSMutableArray *lineArray;
 
 @property (nonatomic, weak) UILabel *titleLable;
 
@@ -31,8 +31,8 @@
 @property (nonatomic, assign) CGFloat cellHeight;
 
 @property (nonatomic, weak) UILabel *resolutionLable;
-@property (nonatomic, weak) UILabel *rateLable;
 
+@property (nonatomic, weak) UILabel *rateLable;
 
 @end
 
@@ -45,6 +45,7 @@
     {
         self.backgroundColor = [CHWhiteColor ch_changeAlpha:0.8];;
         
+        self.bgButtonArray = [NSMutableArray array];
         self.titleArray = [NSMutableArray array];
         self.valueArray = [NSMutableArray array];
         self.arrowArray = [NSMutableArray array];
@@ -75,12 +76,16 @@
  
     for (int i = 0; i<2; i++)
     {
+        UIButton *button = [[UIButton alloc]init];
+        button.tag = i+100;
+        [button addTarget:self action:@selector(arrowButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:button];
+        
         UILabel *titleLabel = [[UILabel alloc]init];
         titleLabel.font = CHFont12;
         titleLabel.textColor = CHColor_6D7278;
         titleLabel.textAlignment  = NSTextAlignmentLeft;
         [self addSubview:titleLabel];
-
         
         UILabel *valueLable = [[UILabel alloc]init];
         valueLable.font = CHFont12;
@@ -100,15 +105,14 @@
         }
         
         UIButton *arrowButton = [[UIButton alloc]init];
-        arrowButton.tag = i+100;
         [arrowButton setImage:[UIImage imageNamed:@"live_setNextArrow"] forState:UIControlStateNormal];
-        [arrowButton addTarget:self action:@selector(arrowButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:arrowButton];
         
         UIView *lineView = [[UIView alloc]init];
         lineView.backgroundColor = CHColor_6D7278;
         [self addSubview:lineView];
         
+        [self.bgButtonArray addObject:button];
         [self.titleArray addObject:titleLabel];
         [self.valueArray addObject:valueLable];
         [self.arrowArray addObject:arrowButton];
@@ -122,6 +126,9 @@
         
     for (int i = 0; i<self.titleArray.count; i++)
     {
+        UIButton *bgButton = self.bgButtonArray[i];
+        bgButton.frame = CGRectMake(0, self.titleLable.ch_height + self.gap + i *self.cellHeight, self.ch_width, self.cellHeight);
+        
         UILabel *nameLabel = self.titleArray[i];
         nameLabel.frame = CGRectMake(leftMargin, self.titleLable.ch_height + self.gap + i *self.cellHeight , 100, CHSetView_LabelHeight);
         
