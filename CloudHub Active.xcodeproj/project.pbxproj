@@ -1351,7 +1351,7 @@
 					"-Objc",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "zxc.CloudHub-Active";
+				PRODUCT_BUNDLE_IDENTIFIER = com.cloudhub.active;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1383,7 +1383,7 @@
 					"-Objc",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "zxc.CloudHub-Active";
+				PRODUCT_BUNDLE_IDENTIFIER = com.cloudhub.active;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

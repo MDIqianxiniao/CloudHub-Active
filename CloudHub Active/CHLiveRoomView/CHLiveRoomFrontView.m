@@ -78,7 +78,7 @@
     userListButton.titleLabel.font = CHFont12;
     [userListButton addTarget:self action:@selector(buttonsClick:) forControlEvents:UIControlEventTouchUpInside];
     userListButton.layer.cornerRadius = ButtonWidth * 0.5f;
-//    userListButton.hidden = self.roleType;
+    userListButton.userInteractionEnabled = !self.roleType;
     self.userListButton = userListButton;
     [self addSubview:userListButton];
     userListButton.imageEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0 );

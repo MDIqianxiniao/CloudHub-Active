@@ -21,6 +21,10 @@
 /// user nick name
 @property (nonatomic, copy) NSString *myNickName;
 
+@property (nonatomic, strong) CHVideoView *myVideoView;
+
+@property (nonatomic, strong) CHRoomUser *anchorUser;
+
 @property (nonatomic, strong) NSMutableDictionary *smallVideoViews;
 
 @property (nonatomic, assign) BOOL isJoinChannel;
@@ -35,15 +39,15 @@
 
 @property (nonatomic, strong) CHSetToolView *setToolView;
 
-@property (nonatomic, strong) CHVideoView *myVideoView;
 
-@property (nonatomic, strong) NSMutableArray *platformUserArray;
 
 @property (nonatomic, strong) NSMutableArray<CHChatMessageModel *> *messageArray;
 
 @property (nonatomic, assign) NSTimeInterval timeInterval;
 
-@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, strong) NSTimer *userListTimer;
+
+@property (nonatomic, strong) NSTimer *tipMessageTimer;
 
 @end
 
@@ -58,9 +62,7 @@
     self.rtcEngine.delegate = self;
     
     self.userList = [NSMutableArray array];
-    
-    self.platformUserArray = [NSMutableArray array];
-    
+        
     self.messageArray = [NSMutableArray array];
     
     self.smallVideoViews = [NSMutableDictionary dictionary];
@@ -78,7 +80,7 @@
     
     [self setupChatInputView];
     
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(getNewUserJoinChannel) userInfo:nil repeats:YES];
+    self.tipMessageTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(getNewUserJoinChannel) userInfo:nil repeats:YES];
 }
 
 - (void)setupFrontViewUI
@@ -119,53 +121,32 @@
     {
         case CHLiveRoomFrontButton_userList:
         {
-            CHWeakSelf
-            [CHNetworkRequest getWithURLString:sCHGetUserList params:@{@"channel":self.liveModel.channelId} progress:nil success:^(NSDictionary * _Nonnull dictionary) {
+            if (self.userListTableView.ch_originY < self.view.ch_height)
+            {
+                [self.userListTimer invalidate];
+                self.userListTimer = nil;
                 
-                NSArray *array = dictionary[@"data"];
+                [UIView animateWithDuration:0.25 animations:^{
+                    self.userListTableView.ch_originY = self.view.ch_height;
+               }];
+            }
+            else
+            {
+                self.userListTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(getUserList) userInfo:nil repeats:YES];
                 
-                [weakSelf.userList removeAllObjects];
+                [UIView animateWithDuration:0.25 animations:^{
+                    self.setToolView.ch_originY = self.view.ch_height;
+                    self.beautyView.ch_originY = self.view.ch_height;
+                    self.musicView.ch_originY = self.view.ch_height;
+                    self.videoSetView.ch_originY = self.view.ch_height;
+                    self.resolutionView.ch_originY = self.view.ch_height;
+                    self.rateView.ch_originY = self.view.ch_height;
+                                        
+                    self.userListTableView.ch_originY = self.view.ch_height - self.userListTableView.ch_height;
+               }];
                 
-                for (NSDictionary *dict in array)
-                {
-                    NSString * peerId = dict[@"user_id"];
-                    
-                    CHRoomUser *user = [[CHRoomUser alloc]initWithPeerId:peerId];
-                    user.nickName = dict[@"username"];
-                    
-                    if ( [self.localUser.peerID isEqualToString:peerId] && self.localUser.role == CHUserType_Anchor )
-                    {
-                        user.role = CHUserType_Anchor;
-                    }
-                    
-                    if ([self.platformUserArray containsObject:peerId])
-                    {
-                        user.publishState = CHUser_PublishState_UP;
-                    }
-                   
-                    [weakSelf.userList addObject:user];
-                }
-                weakSelf.userListTableView.userListArray = weakSelf.userList;
-                
-            } failure:^(NSError * _Nonnull error) {
-                
-                [weakSelf.userList removeAllObjects];
-                weakSelf.userListTableView.userListArray = nil;
-                [CHProgressHUD ch_showHUDAddedTo:weakSelf.view animated:YES withText:@"获取用户列表失败" delay:CHProgressDelay];
-            }];
-                        
-            [UIView animateWithDuration:0.25 animations:^{
-                self.setToolView.ch_originY = self.view.ch_height;
-                self.beautyView.ch_originY = self.view.ch_height;
-                self.musicView.ch_originY = self.view.ch_height;
-                self.videoSetView.ch_originY = self.view.ch_height;
-                self.resolutionView.ch_originY = self.view.ch_height;
-                self.rateView.ch_originY = self.view.ch_height;
-                
-                self.userListTableView.ch_originY = self.view.ch_height - self.userListTableView.ch_height;
-           }];
-            
-            [self.userListTableView ch_bringToFront];
+                [self.userListTableView ch_bringToFront];
+            }
         }
             break;
         case CHLiveRoomFrontButton_Back:
@@ -222,6 +203,50 @@
         default:
             break;
     }
+}
+
+- (void)getUserList
+{
+    CHWeakSelf
+    [CHNetworkRequest getWithURLString:sCHGetUserList params:@{@"channel":self.liveModel.channelId} progress:nil success:^(NSDictionary * _Nonnull dictionary) {
+        
+        NSArray *array = dictionary[@"data"];
+        
+        [weakSelf.userList removeAllObjects];
+        
+        for (NSDictionary *dict in array)
+        {
+            NSString * peerId = dict[@"user_id"];
+            
+            CHRoomUser *user = [[CHRoomUser alloc]initWithPeerId:peerId];
+            user.nickName = dict[@"username"];
+            
+            if ([self.localUser.peerID isEqualToString:peerId] && self.roleType == CHUserType_Anchor )
+            {
+                user.role = CHUserType_Anchor;
+            }
+            
+            for (CHVideoView *videoView in self.smallVideoViews.allValues)
+            {
+                if ([videoView.roomUser.peerID isEqualToString:peerId])
+                {
+                    user.publishState = CHUser_PublishState_UP;
+                    break;
+                }
+            }
+
+            user.cloudHubRtcEngineKit = weakSelf.rtcEngine;
+            
+            [weakSelf.userList addObject:user];
+        }
+        weakSelf.userListTableView.userListArray = weakSelf.userList;
+        
+    } failure:^(NSError * _Nonnull error) {
+        
+        [weakSelf.userList removeAllObjects];
+        weakSelf.userListTableView.userListArray = nil;
+        [CHProgressHUD ch_showHUDAddedTo:weakSelf.view animated:YES withText:@"获取用户列表失败" delay:CHProgressDelay];
+    }];
 }
 
 - (void)setToolButtonsClick:(UIButton *)sender
@@ -347,7 +372,13 @@
         self.beautyView.ch_originY = self.view.ch_height;
         self.setToolView.ch_originY = self.view.ch_height;
         self.musicView.ch_originY = self.view.ch_height;
-        self.userListTableView.ch_originY = self.view.ch_height;
+        
+        if (self.userListTableView.ch_originY < self.view.ch_height)
+        {
+            [self.userListTimer invalidate];
+            self.userListTimer = nil;
+            self.userListTableView.ch_originY = self.view.ch_height;
+        }
     }];
     
     if (self.chatInputView.ch_originY < self.view.ch_height)
@@ -371,7 +402,7 @@
 
     NSString *str = [userProperty ch_toJSON];
 
-    [self.rtcEngine joinChannelByToken:self.chToken channelId:self.liveModel.channelId properties:str uid:nil joinSuccess:nil];
+    int kk = [self.rtcEngine joinChannelByToken:self.chToken channelId:self.liveModel.channelId properties:str uid:nil joinSuccess:nil];
 }
 
 - (void)leftChannel
@@ -383,7 +414,7 @@
     }
     else
     {
-        if (self.localUser.role == CHUserType_Anchor)
+        if (self.roleType == CHUserType_Anchor)
         {
             CHWeakSelf
             UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:CH_Localized(@"Live_EntLive") message:CH_Localized(@"Live_EntLiveNow") preferredStyle:UIAlertControllerStyleAlert];
@@ -414,8 +445,8 @@
     roomUser.cloudHubRtcEngineKit = self.rtcEngine;
     roomUser.role = self.roleType;
     self.localUser = roomUser;
-//    [self.userList addObject:self.localUser];
-    
+    [self.userList addObject:self.localUser];
+
     if (self.roleType == CHUserType_Anchor)
     {
         [self.rtcEngine enableAudio];
@@ -428,6 +459,8 @@
         self.largeVideoView.streamId = self.localUser.peerID;
 
         [self.rtcEngine publishStream];
+        
+        self.anchorUser = roomUser;
     }
 }
 
@@ -445,10 +478,10 @@
     [self.smallVideoViews removeAllObjects];
     self.myVideoView = nil;
     
-//    [self.userList removeAllObjects];
-//    [self.userList addObject:self.localUser];
+    [self.userList removeAllObjects];
+    [self.userList addObject:self.localUser];
 
-    if (self.localUser.role == CHUserType_Anchor)
+    if (self.roleType == CHUserType_Anchor)
     {
         [self.rtcEngine startPlayingLocalVideo:self.largeVideoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled];
         self.largeVideoView.roomUser = self.localUser;
@@ -466,7 +499,12 @@
     [self.rtcEngine disableAudio];
     [self.rtcEngine disableVideo];
     
-    [self.timer invalidate];
+    [self.tipMessageTimer invalidate];
+    self.tipMessageTimer = nil;
+    
+    [self.userListTimer invalidate];
+    self.userListTimer = nil;
+    
     [self.rtcEngine stopPlayingLocalVideo];
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -475,9 +513,14 @@
 {
     NSLog(@"rtcEngine didJoinedOfUid %@ %@ %d %@", uid, properties, isHistory, srcChannel);
 
-//    NSDictionary *propertDic = [CHCloudHubUtil convertWithData:properties];
+    NSDictionary *propertDic = [CHCloudHubUtil convertWithData:properties];
     
-//    [self addRoomUserWithId:uid properties:propertDic];
+    CHRoomUser *roomUser = [self addRoomUserWithId:uid properties:propertDic];
+    
+    if (roomUser.role == CHUserType_Anchor)
+    {
+        self.anchorUser = roomUser;
+    }
 }
 
 - (void)rtcEngine:(CloudHubRtcEngineKit *)engine didOfflineOfUid:(NSString *)uid
@@ -510,14 +553,12 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
     {
         return;
     }
-    
+        
     if ([properties ch_containsObjectForKey:sCHUserPublishstate])
     {
         CHPublishState publishState = [properties ch_intForKey:sCHUserPublishstate];
-        
-        CHRoomUser *roomUser = [self getRoomUserWithId:uid];
-        
-        if ([self.localUser.peerID isEqualToString:uid] && self.localUser.role == CHUserType_Audience)
+                
+        if ([self.localUser.peerID isEqualToString:uid] && self.roleType == CHUserType_Audience)
         {
             [self changeMyPublishState:publishState];
 
@@ -530,15 +571,17 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
                 self.setToolView.isUpStage = NO;
             }
         }
-        else if (self.localUser.role == CHUserType_Anchor)
+        else if (self.roleType == CHUserType_Anchor)
         {
-            if (![fromuid isEqualToString:self.localUser.peerID])
-            {
-                [roomUser.properties ch_setUInteger:publishState forKey:sCHUserPublishstate];
-            }
-                   
             if (self.userListTableView.ch_originY < self.view.ch_height)
             {
+                CHRoomUser *roomUser = [self getRoomUserWithId:uid];
+                
+                if (![fromuid isEqualToString:self.localUser.peerID])
+                {
+                    [roomUser.properties ch_setUInteger:publishState forKey:sCHUserPublishstate];
+                }
+                
                 self.userListTableView.userListArray = self.userList;
             }
         }
@@ -561,8 +604,6 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
         
         if (reason == CloudHubVideoRemoteStateReasonAddRemoteStream)
         {
-            
-            [self.platformUserArray addObject:uid];
             [self playVideo:uid streamId:streamID sourceId:sourceID];
         }
     }
@@ -579,7 +620,6 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
         
         if (reason == CloudHubVideoRemoteStateReasonRemoveRemoteStream)
         {
-            [self.platformUserArray removeObject:uid];
             [self unPlayVideo:uid streamId:streamID];
         }
     }
@@ -784,13 +824,22 @@ onChatMessageArrival:(NSString *)message
 
 - (void)playVideo:(NSString*)uid streamId:(NSString *)streamId sourceId:(NSString *)sourceId
 {
-    CHRoomUser *roomUser = [self getRoomUserWithId:uid];
+    
 
-    if (roomUser.role == CHUserType_Anchor)
+    if ([self.anchorUser.peerID isEqualToString:uid])
     {
-        self.largeVideoView.roomUser = roomUser;
+        self.largeVideoView.roomUser = self.anchorUser;
         [self freshPlayVideoView:self.largeVideoView streamId:streamId mute:NO];
         return;
+    }
+    
+    CHRoomUser *roomUser = [self getRoomUserWithId:uid];
+    if (![roomUser ch_isNotEmpty])
+    {
+        roomUser = [[CHRoomUser alloc] initWithPeerId:uid];
+        roomUser.cloudHubRtcEngineKit = self.rtcEngine;
+        roomUser.role = CHUserType_Audience;
+//        [self.userList addObject:roomUser];
     }
     
     @synchronized (self.smallVideoViews)
@@ -815,7 +864,7 @@ onChatMessageArrival:(NSString *)message
             }
         }
         
-        if (self.localUser.role == CHUserType_Anchor)
+        if (self.roleType == CHUserType_Anchor)
         {
             [self.userListTableView ch_bringToFront];
             view.canRemove = YES;
@@ -829,7 +878,6 @@ onChatMessageArrival:(NSString *)message
                 [self.setToolView ch_bringToFront];
             }
         }
-        
         [self freshPlayVideoView:view streamId:streamId mute:NO];
     }
 }
@@ -855,7 +903,7 @@ onChatMessageArrival:(NSString *)message
 }
 
 #pragma mark - CHVideoViewDelegate
-
+/*
 - (void)clickViewToControlWithVideoView:(CHVideoView *)videoView
 {
     CHRoomUser *roomUser = videoView.roomUser;
@@ -906,9 +954,10 @@ onChatMessageArrival:(NSString *)message
     [self playVideo:largeRoomUser.peerID streamId:streamId sourceId:sourceId];
 }
 
+ */
 - (void)clickRemoveButtonToCloseVideoView:(CHVideoView *)videoView
 {
-    if (self.localUser.role == CHUserType_Anchor)
+    if (self.roleType == CHUserType_Anchor)
     {
         [videoView.roomUser sendToChangePublishstate:CHUser_PublishState_DOWN];
     }
@@ -924,7 +973,6 @@ onChatMessageArrival:(NSString *)message
 
 #pragma mark - userList
 
-/*
 - (CHRoomUser *)addRoomUserWithId:(NSString *)peerId properties:(NSDictionary *)properties
 {
     CHRoomUser *existRoomUser = nil;
@@ -952,7 +1000,7 @@ onChatMessageArrival:(NSString *)message
         }
     }
     
-    if (self.localUser.role == CHUserType_Anchor && self.userListTableView.ch_originY < self.view.ch_height)
+    if (self.roleType == CHUserType_Anchor && self.userListTableView.ch_originY < self.view.ch_height)
     {
         self.userListTableView.userListArray = self.userList;
     }
@@ -961,7 +1009,7 @@ onChatMessageArrival:(NSString *)message
 }
  
  
-
+/*
 - (CHRoomUser *)removeRoomUserWithId:(NSString *)peerId
 {
     // not remove self
@@ -982,7 +1030,7 @@ onChatMessageArrival:(NSString *)message
         }
     }
     
-    if (self.localUser.role == CHUserType_Anchor && self.userListTableView.ch_originY < self.view.ch_height)
+    if (self.roleType == CHUserType_Anchor && self.userListTableView.ch_originY < self.view.ch_height)
     {
         self.userListTableView.userListArray = self.userList;
     }
