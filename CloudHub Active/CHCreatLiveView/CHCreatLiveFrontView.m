@@ -136,6 +136,7 @@
     [beautySetButton addTarget:self action:@selector(liveButtonsClick:) forControlEvents:UIControlEventTouchUpInside];
     beautySetButton.layer.cornerRadius = ButtonWidth * 0.5;
     [self addSubview:beautySetButton];
+    beautySetButton.hidden = YES;
     
     UIButton *startButton = [[UIButton alloc]initWithFrame:CGRectMake(0, beautySetButton.ch_originY, 100, ButtonWidth)];
     startButton.ch_centerX = self.ch_width * 0.5;

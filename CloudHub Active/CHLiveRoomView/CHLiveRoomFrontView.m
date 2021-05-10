@@ -124,6 +124,7 @@
     beautySetButton.layer.cornerRadius = ButtonWidth * 0.5;
     self.beautySetButton = beautySetButton;
     [self addSubview:beautySetButton];
+    beautySetButton.hidden = YES;
     
     CGFloat beautySetButtonX = musicButton.ch_left - width;
     if (self.roleType == CHUserType_Audience)
