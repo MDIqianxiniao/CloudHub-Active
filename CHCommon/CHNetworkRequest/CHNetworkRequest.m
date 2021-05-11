@@ -71,7 +71,6 @@
  */
 + (AFHTTPSessionManager *)manager
 {
-//    PTUserModel *userInfo = [PTCommonTool getLoginUserInfo];
     // 创建AFN
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     // 请求参数为json数据
@@ -82,14 +81,7 @@
     [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
     manager.requestSerializer.timeoutInterval = CHTimeoutInterval;
     [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
-    // 创建公共参数
-//    [manager.requestSerializer setValue:[PTCommonTool getUUID] forHTTPHeaderField:@"App-UUID"];
-//    [manager.requestSerializer setValue:@"ios" forHTTPHeaderField:@"App-OS"];
-//    [manager.requestSerializer setValue:[PTCommonTool getAC] forHTTPHeaderField:@"App-AC"];
-//    if (userInfo.token.length) {
-//        [manager.requestSerializer setValue:userInfo.token forHTTPHeaderField:@"App-Token"];
-//    }
-//    [manager.requestSerializer setValue:kVersion forHTTPHeaderField:@"App-Version"];
+
     return manager;
 }
 

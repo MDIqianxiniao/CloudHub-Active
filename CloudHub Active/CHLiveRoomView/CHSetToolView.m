@@ -34,7 +34,7 @@
 {
     if (self = [super initWithFrame:frame])
     {
-        self.backgroundColor = [CHWhiteColor ch_changeAlpha:0.8];
+        self.backgroundColor = CHWhiteColor;
         
         self.roleType = roleType;
         

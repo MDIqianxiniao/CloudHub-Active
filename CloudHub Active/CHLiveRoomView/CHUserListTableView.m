@@ -28,7 +28,7 @@
 {
     if (self = [super initWithFrame:frame style:style])
     {
-        self.backgroundColor = [CHWhiteColor ch_changeAlpha:0.9];;
+        self.backgroundColor = CHWhiteColor;
         self.dataSource = self;
         self.delegate = self;
         self.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -105,9 +105,9 @@
     
     [self reloadData];
     
-    CGFloat height = HeaderHeight + userListArray.count *CellHeight +FooterHeight;
-    
-    self.frame = CGRectMake(0, CHUI_SCREEN_HEIGHT - height, self.ch_width, HeaderHeight + userListArray.count *CellHeight +FooterHeight);
+//    CGFloat height = HeaderHeight + userListArray.count *CellHeight +FooterHeight;
+//    
+//    self.frame = CGRectMake(0, CHUI_SCREEN_HEIGHT - height, self.ch_width, HeaderHeight + userListArray.count *CellHeight +FooterHeight);
 }
 
 @end

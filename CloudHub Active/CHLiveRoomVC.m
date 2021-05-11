@@ -43,8 +43,6 @@
 
 @property (nonatomic, assign) NSTimeInterval timeInterval;
 
-@property (nonatomic, strong) NSTimer *userListTimer;
-
 @property (nonatomic, strong) NSTimer *tipMessageTimer;
 
 @end
@@ -71,14 +69,23 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
     [self setupFrontViewUI];
-    
-    [self beginLiveJoinChannel];
-    
+        
     [self setupMusicView];
     
     [self setupChatInputView];
     
     self.tipMessageTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(getNewUserJoinChannel) userInfo:nil repeats:YES];
+    
+    NSString *userId = [[NSUUID UUID] UUIDString];
+        
+    CHWeakSelf
+    [CHNetworkRequest postWithURLString:sCHStoreTheChannel params:@{@"user_id":userId,@"username":self.myNickName} progress:nil success:^(NSDictionary * _Nonnull dictionary) {
+
+        [weakSelf beginLiveJoinChannel];
+    } failure:^(NSError * _Nonnull error) {
+
+    }];
+    
 }
 
 - (void)setupFrontViewUI
@@ -121,29 +128,13 @@
         {
             if (self.userListTableView.ch_originY < self.view.ch_height)
             {
-                [self.userListTimer invalidate];
-                self.userListTimer = nil;
-                
                 [UIView animateWithDuration:0.25 animations:^{
                     self.userListTableView.ch_originY = self.view.ch_height;
                }];
             }
             else
             {
-                self.userListTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(getUserList) userInfo:nil repeats:YES];
-                
-                [UIView animateWithDuration:0.25 animations:^{
-                    self.setToolView.ch_originY = self.view.ch_height;
-                    self.beautyView.ch_originY = self.view.ch_height;
-                    self.musicView.ch_originY = self.view.ch_height;
-                    self.videoSetView.ch_originY = self.view.ch_height;
-                    self.resolutionView.ch_originY = self.view.ch_height;
-                    self.rateView.ch_originY = self.view.ch_height;
-                                        
-                    self.userListTableView.ch_originY = self.view.ch_height - self.userListTableView.ch_height;
-               }];
-                
-                [self.userListTableView ch_bringToFront];
+                [self getUserList];
             }
         }
             break;
@@ -239,12 +230,32 @@
         }
         weakSelf.userListTableView.userListArray = weakSelf.userList;
         
+        [weakSelf pushUserListTableView];
+        
     } failure:^(NSError * _Nonnull error) {
         
         [weakSelf.userList removeAllObjects];
         weakSelf.userListTableView.userListArray = nil;
         [CHProgressHUD ch_showHUDAddedTo:weakSelf.view animated:YES withText:@"获取用户列表失败" delay:CHProgressDelay];
+        
+        [weakSelf pushUserListTableView];
     }];
+}
+
+- (void)pushUserListTableView
+{
+    [UIView animateWithDuration:0.25 animations:^{
+        self.setToolView.ch_originY = self.view.ch_height;
+        self.beautyView.ch_originY = self.view.ch_height;
+        self.musicView.ch_originY = self.view.ch_height;
+        self.videoSetView.ch_originY = self.view.ch_height;
+        self.resolutionView.ch_originY = self.view.ch_height;
+        self.rateView.ch_originY = self.view.ch_height;
+                            
+        self.userListTableView.ch_originY = self.view.ch_height - self.userListTableView.ch_height;
+   }];
+    
+    [self.userListTableView ch_bringToFront];
 }
 
 - (void)setToolButtonsClick:(UIButton *)sender
@@ -401,9 +412,6 @@
     
     if (point.y < self.userListTableView.ch_originY && self.userListTableView && self.userListTableView.ch_originY < self.view.ch_height)
     {
-        [self.userListTimer invalidate];
-        self.userListTimer = nil;
-        
         [UIView animateWithDuration:0.25 animations:^{
             self.userListTableView.ch_originY = self.view.ch_height;
         }];
@@ -431,7 +439,7 @@
 
     NSString *str = [userProperty ch_toJSON];
 
-    int kk = [self.rtcEngine joinChannelByToken:self.chToken channelId:self.liveModel.channelId properties:str uid:nil joinSuccess:nil];
+    [self.rtcEngine joinChannelByToken:self.chToken channelId:self.liveModel.channelId properties:str uid:nil joinSuccess:nil];
 }
 
 - (void)leftChannel
@@ -530,10 +538,7 @@
     
     [self.tipMessageTimer invalidate];
     self.tipMessageTimer = nil;
-    
-    [self.userListTimer invalidate];
-    self.userListTimer = nil;
-    
+
     [self.rtcEngine stopPlayingLocalVideo];
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -1097,7 +1102,7 @@ onChatMessageArrival:(NSString *)message
 {
     if (!_userListTableView)
     {
-        _userListTableView = [[CHUserListTableView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 100)];
+        _userListTableView = [[CHUserListTableView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 300)];
         [self.view addSubview:_userListTableView];
         
         _userListTableView.userListCellClick = ^(CHRoomUser * _Nonnull userModel) {

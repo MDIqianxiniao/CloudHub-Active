@@ -53,6 +53,8 @@ static NSString *const sCHUserPublishstate          = @"publishstate";
 /// Number of large room users
 static NSString *const sCHSignal_Notice_BigRoom_Usernum     = @"Notice_BigRoom_Usernum";
 
+static NSString *const sCHStoreTheChannel = @"https://cna-dorado-user-api.cloudhub.vip/channel_users";
+
 /// Gets the configuration information before creating the channel
 static NSString *const sCHGetConfig              = @"https://cna-dorado-user-api.cloudhub.vip/config";
 
@@ -66,8 +68,10 @@ static NSString *const sCHJoinChannelRecord         = @"https://cna-dorado-user-
 static NSString *const sCHGetUserList        = @"https://cna-dorado-user-api.cloudhub.vip/channel_users";
 
 /// Query individual Channel details
-static NSString *const sCHGetShowChannelDate     = @"https://cna-dorado-user-api.cloudhub.vip/channels/live";
-/// deleteChannel
-static NSString *const sCHDeleteTheChannel       = @"https://cna-dorado-user-api.cloudhub.vip/channels/live";
+//static NSString *const sCHGetShowChannelDate     = @"https://cna-dorado-user-api.cloudhub.vip/channels/live";
+///// deleteChannel
+//static NSString *const sCHDeleteTheChannel       = @"https://cna-dorado-user-api.cloudhub.vip/channels/live";
+
+
 
 #endif /* CHAppDefine_h */

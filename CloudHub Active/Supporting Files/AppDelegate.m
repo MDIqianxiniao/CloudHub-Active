@@ -9,7 +9,7 @@
 #import "CHLiveListVC.h"
 #import "CHNavigationController.h"
 
-static NSString *const kAppkey = @"cjdoHSFdOzrpXs0Y";
+static NSString *const kAppkey = @"EosBxj1PWonrI2rG";
 
 @interface AppDelegate ()
 

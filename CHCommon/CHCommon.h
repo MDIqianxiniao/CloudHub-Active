@@ -87,7 +87,7 @@
 #define CHColor_C4C4C4 [UIColor ch_colorWithHex:0xC4C4C4]
 #define CHColor_24D3EE [UIColor ch_colorWithHex:0x24D3EE]
 #define CHColor_BBBBBB [UIColor ch_colorWithHex:0xBBBBBB]
-
+#define CHColor_D8D8D8 [UIColor ch_colorWithHex:0xD8D8D8]
 
 
 /// StatusBar
