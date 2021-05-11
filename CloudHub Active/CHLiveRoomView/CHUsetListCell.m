@@ -69,7 +69,7 @@
     self.connectButton = connectButton;
     
     UIView *lineView = [[UIView alloc]init];
-    lineView.backgroundColor = CHColor_6D7278;
+    lineView.backgroundColor = [CHColor_D8D8D8 ch_changeAlpha:0.4];
     [self addSubview:lineView];
     
     [connectButton mas_makeConstraints:^(MASConstraintMaker *make) {

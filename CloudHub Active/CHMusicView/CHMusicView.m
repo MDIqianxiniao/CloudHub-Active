@@ -33,7 +33,7 @@ static  NSString * const   CHMusicTableViewCellID     = @"CHMusicTableViewCell";
 {
     if (self = [super initWithFrame:frame])
     {
-        self.backgroundColor = [CHWhiteColor ch_changeAlpha:0.8];
+        self.backgroundColor = CHWhiteColor;
         self.musicList = [NSMutableArray new];
         self.lastSelectIndex = -1;
         [self setupUI];

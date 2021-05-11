@@ -39,7 +39,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = [CHWhiteColor ch_changeAlpha:0.8];;
+        self.backgroundColor = CHWhiteColor;
         
         self.valueArray = [NSMutableArray array];
         self.lineArray = [NSMutableArray array];
@@ -95,7 +95,7 @@
         valueButton.tag = i;
         
         UIView *lineView = [[UIView alloc]init];
-        lineView.backgroundColor = CHColor_6D7278;
+        lineView.backgroundColor = [CHColor_D8D8D8 ch_changeAlpha:0.4];;
         [self addSubview:lineView];
         
         [self.valueArray addObject: valueButton];
@@ -160,11 +160,6 @@
             }
         }
     }
-}
-
-- (void)buttonClick
-{
-    
 }
 
 @end

@@ -43,9 +43,8 @@
     
     UIView *lineView = [[UIView alloc] init];
     self.lineView = lineView;
-    lineView.backgroundColor = CHColor_6D7278;
+    lineView.backgroundColor = [CHColor_D8D8D8 ch_changeAlpha:0.4];
     [self.contentView addSubview:lineView];
-
 }
 
 - (void)layoutSubviews

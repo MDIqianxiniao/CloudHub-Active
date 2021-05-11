@@ -34,7 +34,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = [CHWhiteColor ch_changeAlpha:0.8];;
+        self.backgroundColor = CHWhiteColor;
         if (gap == 0)
         {
             gap = CHBeautySetView_Gap;

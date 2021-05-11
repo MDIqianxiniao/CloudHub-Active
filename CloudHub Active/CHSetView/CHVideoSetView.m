@@ -43,7 +43,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = [CHWhiteColor ch_changeAlpha:0.8];;
+        self.backgroundColor = CHWhiteColor;
         
         self.bgButtonArray = [NSMutableArray array];
         self.titleArray = [NSMutableArray array];
@@ -107,9 +107,10 @@
         UIButton *arrowButton = [[UIButton alloc]init];
         [arrowButton setImage:[UIImage imageNamed:@"live_setNextArrow"] forState:UIControlStateNormal];
         [self addSubview:arrowButton];
+        arrowButton.userInteractionEnabled = NO;
         
         UIView *lineView = [[UIView alloc]init];
-        lineView.backgroundColor = CHColor_6D7278;
+        lineView.backgroundColor = [CHColor_D8D8D8 ch_changeAlpha:0.4];
         [self addSubview:lineView];
         
         [self.bgButtonArray addObject:button];
