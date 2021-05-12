@@ -412,6 +412,7 @@
             break;
     }
     
+    /*
     // video device error code
     CHDeviceFaultType vfail = [self.roomUser getVideoVfailWithSourceId:self.sourceId];
     switch (vfail)
@@ -449,6 +450,10 @@
         }
             break;
     }
+     */
 }
+
+
+
 
 @end
