@@ -15,6 +15,8 @@
 
 @interface CHLiveListVC ()
 
+@property (nonatomic, strong,nullable) CloudHubRtcEngineKit *rtcEngine;
+
 @property (nonatomic, strong) NSMutableArray *channelListArray;
 
 @property (nonatomic, strong) UIImageView *centreImageView;
@@ -51,6 +53,8 @@
     [[NSUserDefaults standardUserDefaults] setValue:[UIDevice currentDevice].name forKey:CHCacheAnchorName];
     
     self.channelListArray = [NSMutableArray array];
+    
+    self.rtcEngine = RtcEngine;
     
     [self setupViews];
 
@@ -137,13 +141,30 @@
     
     CHWeakSelf
     liveListTableView.liveListCellClick = ^(NSIndexPath * _Nonnull index) {
-        
-        CHLiveChannelModel * model = weakSelf.channelListArray[index.row];
-        CHLiveRoomVC *vc = [[CHLiveRoomVC alloc]init];
-        vc.liveModel = model;
-        vc.roleType = CHUserType_Audience;
-        [weakSelf.navigationController pushViewController:vc animated:YES];
+                
+        CHLiveChannelModel * model = weakSelf.channelListArray[index.section];
+        [weakSelf pushToRoomWithRoom:model];
     };
+}
+
+- (void)pushToRoomWithRoom:(CHLiveChannelModel *)model
+{
+    [CHProgressHUD ch_showHUDAddedTo:self.view animated:YES];
+    CHWeakSelf
+    [CHNetworkRequest getWithURLString:sCHGetConfig params:@{@"channel":model.channelId,@"user_role":@(CHUserType_Audience)} progress:nil success:^(NSDictionary * _Nonnull dictionary) {
+        
+        NSDictionary *dict = dictionary[@"data"];
+        CHLiveRoomVC *liveRoomVC = [[CHLiveRoomVC alloc]init];
+        liveRoomVC.liveModel = model;
+        liveRoomVC.roleType = CHUserType_Audience;
+        liveRoomVC.chToken = dict[@"token"];
+        [self.navigationController pushViewController:liveRoomVC animated:YES];
+        
+        [CHProgressHUD ch_hideHUDForView:weakSelf.view animated:YES];
+
+    } failure:^(NSError * _Nonnull error) {
+        [CHProgressHUD ch_hideHUDForView:weakSelf.view animated:YES];
+    }];
 }
 
 - (void)clickToCreatLive

@@ -88,18 +88,18 @@
             
             [CHProgressHUD ch_showHUDAddedTo:self.view animated:YES];
             CHWeakSelf
-            [CHNetworkRequest getWithURLString:sCHGetConfig params:@{@"channel":self.liveFrontView.channelId} progress:nil success:^(NSDictionary * _Nonnull dictionary) {
+            [CHNetworkRequest getWithURLString:sCHGetConfig params:@{@"channel":self.liveFrontView.channelId,@"user_role":@(CHUserType_Anchor)} progress:nil success:^(NSDictionary * _Nonnull dictionary) {
                 
-                [self.rtcEngine stopPlayingLocalVideo];
+                [weakSelf.rtcEngine stopPlayingLocalVideo];
                 
-                self.liveModel.channelId = self.liveFrontView.channelId;
+                weakSelf.liveModel.channelId = self.liveFrontView.channelId;
                 
                 NSDictionary *dict = dictionary[@"data"];
                 CHLiveRoomVC *liveRoomVC = [[CHLiveRoomVC alloc]init];
-                liveRoomVC.liveModel = self.liveModel;
+                liveRoomVC.liveModel = weakSelf.liveModel;
                 liveRoomVC.roleType = CHUserType_Anchor;
                 liveRoomVC.chToken = dict[@"token"];
-                [self.navigationController pushViewController:liveRoomVC animated:YES];
+                [weakSelf.navigationController pushViewController:liveRoomVC animated:YES];
                 
                 [CHProgressHUD ch_hideHUDForView:weakSelf.view animated:YES];
                 
