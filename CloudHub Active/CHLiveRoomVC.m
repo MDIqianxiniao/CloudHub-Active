@@ -21,6 +21,8 @@
 /// user nick name
 @property (nonatomic, copy) NSString *myNickName;
 
+@property (nonatomic, copy) NSString *myPeerId;
+
 @property (nonatomic, strong) CHVideoView *myVideoView;
 
 @property (nonatomic, strong) CHRoomUser *anchorUser;
@@ -76,16 +78,15 @@
     
     self.tipMessageTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(getNewUserJoinChannel) userInfo:nil repeats:YES];
     
-    NSString *userId = [[NSUUID UUID] UUIDString];
-        
+    self.myPeerId = [[NSUUID UUID] UUIDString];
+    NSDictionary *dict = @{@"user_id":self.myPeerId,@"username":self.myNickName,@"user_role":@(self.roleType)};
     CHWeakSelf
-    [CHNetworkRequest postWithURLString:sCHStoreTheChannel params:@{@"user_id":userId,@"username":self.myNickName} progress:nil success:^(NSDictionary * _Nonnull dictionary) {
+    [CHNetworkRequest postWithURLString:sCHStoreTheChannel params:dict progress:nil success:^(NSDictionary * _Nonnull dictionary) {
 
         [weakSelf beginLiveJoinChannel];
     } failure:^(NSError * _Nonnull error) {
 
     }];
-    
 }
 
 - (void)setupFrontViewUI
@@ -439,7 +440,7 @@
 
     NSString *str = [userProperty ch_toJSON];
 
-    [self.rtcEngine joinChannelByToken:self.chToken channelId:self.liveModel.channelId properties:str uid:nil joinSuccess:nil];
+    [self.rtcEngine joinChannelByToken:self.chToken channelId:self.liveModel.channelId properties:str uid:self.myPeerId joinSuccess:nil];
 }
 
 - (void)leftChannel
@@ -457,7 +458,7 @@
             UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:CH_Localized(@"Live_EntLive") message:CH_Localized(@"Live_EntLiveNow") preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *sure = [UIAlertAction actionWithTitle:CH_Localized(@"Live_Sure") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
-                [self.rtcEngine leaveChannel:nil];
+                [weakSelf.rtcEngine leaveChannel:nil];
             }];
             UIAlertAction *cancel = [UIAlertAction actionWithTitle:CH_Localized(@"Cancel") style:UIAlertActionStyleCancel handler:nil];
             

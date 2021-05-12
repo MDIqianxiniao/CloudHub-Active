@@ -64,4 +64,6 @@
 
 "Music.Background_music" = "Background music";
 
+"Live_Channel_use" = "Channel ID in use，Change and try again";
+
 "PK.EnterPKNow" = "Is the live now finished?";

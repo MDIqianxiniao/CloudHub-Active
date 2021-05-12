@@ -64,4 +64,6 @@
 
 "Music.Background_music" = "背景音乐";
 
+"Live_Channel_use" = "该通道号正在使用中，请重新输入";
+
 "PK.EnterPKNow" = "是否结束 PK";

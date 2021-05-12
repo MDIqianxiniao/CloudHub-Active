@@ -26,8 +26,8 @@
             filePath = "CloudHub Active/CHLiveRoomVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "657"
-            endingLineNumber = "657"
+            startingLineNumber = "658"
+            endingLineNumber = "658"
             landmarkName = "-rtcEngine:remoteVideoStateChangedOfUid:sourceID:streamID:type:state:reason:"
             landmarkType = "7">
          </BreakpointContent>

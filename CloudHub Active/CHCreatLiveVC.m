@@ -89,12 +89,12 @@
             [CHProgressHUD ch_showHUDAddedTo:self.view animated:YES];
             CHWeakSelf
             [CHNetworkRequest getWithURLString:sCHGetConfig params:@{@"channel":self.liveFrontView.channelId} progress:nil success:^(NSDictionary * _Nonnull dictionary) {
-                NSDictionary *dict = dictionary[@"data"];
-                            
+                
                 [self.rtcEngine stopPlayingLocalVideo];
                 
                 self.liveModel.channelId = self.liveFrontView.channelId;
                 
+                NSDictionary *dict = dictionary[@"data"];
                 CHLiveRoomVC *liveRoomVC = [[CHLiveRoomVC alloc]init];
                 liveRoomVC.liveModel = self.liveModel;
                 liveRoomVC.roleType = CHUserType_Anchor;
@@ -105,6 +105,13 @@
                 
             } failure:^(NSError * _Nonnull error) {
                 [CHProgressHUD ch_hideHUDForView:weakSelf.view animated:YES];
+                
+                NSHTTPURLResponse *response = error.userInfo[AFNetworkingOperationFailingURLResponseErrorKey];
+                
+                if (response.statusCode == 400)
+                {
+                    [CHProgressHUD ch_showHUDAddedTo:weakSelf.view animated:YES withText:CH_Localized(@"Live_Channel_use") delay:CHProgressDelay];
+                }
             }];
         }
             break;
