@@ -280,7 +280,7 @@
         {
             sender.selected = !sender.selected;
             [self.rtcEngine muteLocalVideoStream:sender.selected];
-            
+                        
             [self freshPlayVideo:self.localUser.peerID streamId:self.localUser.peerID sourceId:self.localUser.peerID mute:sender.selected];
         }
             break;
@@ -288,6 +288,7 @@
         {
             sender.selected = !sender.selected;
             [self.rtcEngine muteLocalAudioStream:sender.selected];
+            
         }
             break;
         case CHSetToolViewButton_SwitchCam:
@@ -452,8 +453,8 @@
     }
     else
     {
-        if (self.roleType == CHUserType_Anchor)
-        {
+//        if (self.roleType == CHUserType_Anchor)
+//        {
             CHWeakSelf
             UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:CH_Localized(@"Live_EntLive") message:CH_Localized(@"Live_EntLiveNow") preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *sure = [UIAlertAction actionWithTitle:CH_Localized(@"Live_Sure") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -466,11 +467,11 @@
             [alertVc addAction:cancel];
             
             [self presentViewController:alertVc animated:YES completion:nil];
-        }
-        else
-        {
-            [self.rtcEngine leaveChannel:nil];
-        }
+//        }
+//        else
+//        {
+//            [self.rtcEngine leaveChannel:nil];
+//        }
     }
 }
 
