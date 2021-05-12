@@ -47,6 +47,8 @@
 
 @property (nonatomic, strong) NSTimer *tipMessageTimer;
 
+@property (nonatomic, assign)BOOL anchorLeft;
+
 @end
 
 @implementation CHLiveRoomVC
@@ -311,6 +313,8 @@
         default:
             break;
     }
+    
+    [self.setToolView ch_bringToFront];
 }
 
 - (void)getNewUserJoinChannel
@@ -533,6 +537,23 @@
 
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine didLeaveChannel:(CloudHubChannelStats * _Nonnull)stats
 {
+    
+    if (self.anchorLeft)
+    {
+        [CHProgressHUD ch_showHUDAddedTo:self.view animated:YES withText:CH_Localized(@"Live_LeaveRoom") delay:CHProgressDelay];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(CHProgressDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self leaveRoom];
+        });
+    }
+    else
+    {
+        [self leaveRoom];
+    }
+}
+
+- (void)leaveRoom
+{
     [self.rtcEngine enableLocalAudio:NO];
     [self.rtcEngine enableLocalVideo:NO];
     [self.rtcEngine disableAudio];
@@ -563,11 +584,14 @@
 {
     NSLog(@"CHSessionManager didOfflineOfUid: %@", uid);
     
-//    CHRoomUser *roomUser = [self removeRoomUserWithId:uid];
-    
-//    NSLog(@"rtcEngine %@ didOffline", roomUser.nickName);
-    
-//    [self unPlayAllVideo:uid];
+    CHRoomUser *roomUser = [self getRoomUserWithId:uid];
+
+    if (roomUser.role == CHUserType_Anchor)
+    {
+        self.anchorLeft = YES;
+        
+        [self.rtcEngine leaveChannel:nil];
+    }
 }
 
 
@@ -720,9 +744,10 @@ onChatMessageArrival:(NSString *)message
         return;
     }
 
-    NSDictionary *sender = [messageDic ch_dictionaryForKey:@"sender"];
     
-    CHRoomUser *user = [[CHRoomUser alloc] initWithPeerId:fromuid properties:sender];
+    CHRoomUser *user = [[CHRoomUser alloc] initWithPeerId:fromuid];
+    user.nickName = [messageDic ch_stringForKey:sCHUserNickname];
+    user.role = [messageDic ch_intForKey:sCHUserRole];
     
     CHChatMessageModel *messageModel = [[CHChatMessageModel alloc] init];
     messageModel.sendUser = user;
@@ -1092,8 +1117,9 @@ onChatMessageArrival:(NSString *)message
         NSMutableDictionary *messageDic = [[NSMutableDictionary alloc] init];
         // 0 消息
         [messageDic setObject:@(CHChatMessageType_Text) forKey:@"type"];
-        NSDictionary *senderDic = @{ sCHUserRole : @(self.roleType), sCHUserNickname : self.myNickName };
-        [messageDic setObject:senderDic forKey:@"sender"];
+//        NSDictionary *senderDic = @{ sCHUserRole : @(self.roleType), sCHUserNickname : self.myNickName };
+        [messageDic setObject:@(self.roleType) forKey:sCHUserRole];
+        [messageDic setObject:self.myNickName forKey:sCHUserNickname];
 
         return ([self.rtcEngine sendChatMsg:message to:CHRoomPubMsgTellAll withExtraData:[messageDic ch_toJSON]] == 0);
     }

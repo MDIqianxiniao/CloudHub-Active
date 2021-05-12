@@ -106,13 +106,13 @@
     }
     else if (sender.tag == 2)
     {
-        [self.nameField resignFirstResponder];
-        
         if ([self.nameField.text ch_isNotEmpty])
         {
             [[NSUserDefaults standardUserDefaults] setValue:self.nameField.text forKey:CHCacheAnchorName];
         }
     }
+    
+    [self.nameField resignFirstResponder];
     self.hidden = YES;
 }
 

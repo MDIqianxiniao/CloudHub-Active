@@ -65,5 +65,6 @@
 "Music.Background_music" = "Background music";
 
 "Live_Channel_use" = "The channel ID is in use. Please try another.";
+"Live_LeaveRoom" = "Anchor has left the room ";
 
 "PK.EnterPKNow" = "Is the live now finished?";

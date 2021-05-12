@@ -78,8 +78,8 @@
     titleLabel.textColor = CHColor_6D7278;
     titleLabel.font = CHFont12;
     titleLabel.textAlignment = NSTextAlignmentCenter;
-    
-//    titleLabel.backgroundColor = UIColor.yellowColor;
+        
+    [titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12]];
     
     return titleLabel;
 }

@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, CHUserRoleType)
     /// Anchor
     CHUserType_Anchor = 0,
     /// Audience
-    CHUserType_Audience = 1,
+    CHUserType_Audience = 2,
 };
 
 /// Room type

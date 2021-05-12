@@ -88,7 +88,7 @@
 #define CHColor_24D3EE [UIColor ch_colorWithHex:0x24D3EE]
 #define CHColor_BBBBBB [UIColor ch_colorWithHex:0xBBBBBB]
 #define CHColor_D8D8D8 [UIColor ch_colorWithHex:0xD8D8D8]
-
+#define CHColor_40424A [UIColor ch_colorWithHex:0x40424A]
 
 /// StatusBar
 #define StatusBarH_iPhone 20
