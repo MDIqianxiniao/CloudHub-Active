@@ -38,13 +38,19 @@
     
     if (self)
     {
-        self.backgroundColor = UIColor.blackColor;
+        self.backgroundColor = CHColor_40424A;
+        
         UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:self.bounds];
         [self addSubview:bgImageView];
         bgImageView.image = [UIImage imageNamed:@"icon_videoClose"];
         bgImageView.contentMode = UIViewContentModeScaleAspectFit;
         self.bgImageView = bgImageView;
-
+        
+        if (self.ch_width > CHUI_SCREEN_WIDTH * 0.5)
+        {
+            bgImageView.frame = CGRectMake(self.ch_width * (1 - 0.2) * 0.5, self.ch_height * (1 - 0.2) *0.5, self.ch_width * 0.2, self.ch_height * 0.2);
+        }
+        
         UIView *contentView = [[UIView alloc] initWithFrame:self.bounds];
         [self addSubview:contentView];
         contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
