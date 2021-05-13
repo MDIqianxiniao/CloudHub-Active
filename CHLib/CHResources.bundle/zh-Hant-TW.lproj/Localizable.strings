@@ -64,7 +64,7 @@
 
 "Music.Background_music" = "背景音樂";
 
-"Live_Channel_use" = "該通道號正在使用中，請重新輸入";
+"Live_Channel_use" = "該通道已結束或被占用。";
 "Live_LeaveRoom" = "主播已離開房間";
 
 "PK.EnterPKNow" = "是否結束 PK";

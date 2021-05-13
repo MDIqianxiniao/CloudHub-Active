@@ -107,7 +107,6 @@
                 [CHProgressHUD ch_hideHUDForView:weakSelf.view animated:YES];
                 
                 NSHTTPURLResponse *response = error.userInfo[AFNetworkingOperationFailingURLResponseErrorKey];
-                
                 if (response.statusCode == 400)
                 {
                     [CHProgressHUD ch_showHUDAddedTo:weakSelf.view animated:YES withText:CH_Localized(@"Live_Channel_use") delay:CHProgressDelay];

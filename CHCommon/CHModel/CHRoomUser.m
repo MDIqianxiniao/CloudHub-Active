@@ -102,7 +102,6 @@
     return [self.properties ch_dictionaryForKey:sCHUserCameras];
 }
 
-
 - (void)updateWithProperties:(NSDictionary *)properties
 {
     if ([properties ch_isNotEmptyDictionary])
