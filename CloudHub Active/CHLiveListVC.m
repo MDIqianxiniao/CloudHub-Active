@@ -29,6 +29,8 @@
 
 @property (nonatomic, weak) UIRefreshControl *refresh;
 
+@property (nonatomic, strong) NSTimer *refreshTimer;
+
 @end
 
 @implementation CHLiveListVC
@@ -43,8 +45,16 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
+
+    [self.refresh sendActionsForControlEvents:UIControlEventValueChanged];
     
-    [self getChannelListArray];
+    self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(getChannelListArray) userInfo:nil repeats:YES];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self.refreshTimer invalidate];
+    self.refreshTimer = nil;
 }
 
 - (void)viewDidLoad {
@@ -62,6 +72,7 @@
     [refresh addTarget:self action:@selector(getChannelListArray) forControlEvents:UIControlEventValueChanged];
     [self.liveListTableView addSubview:refresh];
     [refresh beginRefreshing];
+    [refresh sendActionsForControlEvents:UIControlEventValueChanged];
     self.refresh = refresh;
 }
 
@@ -164,6 +175,12 @@
 
     } failure:^(NSError * _Nonnull error) {
         [CHProgressHUD ch_hideHUDForView:weakSelf.view animated:YES];
+        
+        NSHTTPURLResponse *response = error.userInfo[AFNetworkingOperationFailingURLResponseErrorKey];
+        if (response.statusCode == 400)
+        {
+            [CHProgressHUD ch_showHUDAddedTo:weakSelf.view animated:YES withText:CH_Localized(@"Live_Channel_use") delay:CHProgressDelay];
+        }
     }];
 }
 
