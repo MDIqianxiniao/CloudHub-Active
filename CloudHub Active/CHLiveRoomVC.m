@@ -222,7 +222,8 @@
             {
                 if ([videoView.roomUser.peerID isEqualToString:peerId])
                 {
-                    user.publishState = CHUser_PublishState_UP;
+                    [user.properties ch_setUInteger:CHUser_PublishState_UP forKey:sCHUserPublishstate];
+                    
                     break;
                 }
             }
@@ -490,12 +491,13 @@
     self.localUser = roomUser;
     [self.userList addObject:self.localUser];
 
+    [self.rtcEngine enableAudio];
+    [self.rtcEngine enableVideo];
+    [self.rtcEngine enableLocalAudio:YES];
+    [self.rtcEngine enableLocalVideo:YES];
+    
     if (self.roleType == CHUserType_Anchor)
     {
-        [self.rtcEngine enableAudio];
-        [self.rtcEngine enableLocalAudio:YES];
-        [self.rtcEngine enableVideo];
-        [self.rtcEngine enableLocalVideo:YES];
         [self.rtcEngine startPlayingLocalVideo:self.largeVideoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled];
         self.largeVideoView.roomUser = self.localUser;
         self.largeVideoView.sourceId = self.localUser.peerID;
@@ -885,8 +887,6 @@ onChatMessageArrival:(NSString *)message
 
 - (void)playVideo:(NSString*)uid streamId:(NSString *)streamId sourceId:(NSString *)sourceId
 {
-    
-
     if ([self.anchorUser.peerID isEqualToString:uid])
     {
         self.largeVideoView.roomUser = self.anchorUser;
