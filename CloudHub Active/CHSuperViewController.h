@@ -45,7 +45,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *chToken;
 
-- (BOOL)sendMessageWithText:(NSString *)message withMessageType:(CHChatMessageType)messageType withMemberModel:(CHRoomUser *)memberModel;
 
 @end
 

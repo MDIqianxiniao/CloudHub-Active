@@ -213,12 +213,12 @@
             CHRoomUser *user = [[CHRoomUser alloc]initWithPeerId:peerId];
             user.nickName = dict[@"username"];
             
-            if ([self.localUser.peerID isEqualToString:peerId] && self.roleType == CHUserType_Anchor )
+            if ([weakSelf.localUser.peerID isEqualToString:peerId] && weakSelf.roleType == CHUserType_Anchor )
             {
                 user.role = CHUserType_Anchor;
             }
             
-            for (CHVideoView *videoView in self.smallVideoViews.allValues)
+            for (CHVideoView *videoView in weakSelf.smallVideoViews.allValues)
             {
                 if ([videoView.roomUser.peerID isEqualToString:peerId])
                 {

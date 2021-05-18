@@ -32,6 +32,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     self.view.backgroundColor = UIColor.whiteColor;
     [self setupFrontViewUI];
 }
@@ -88,7 +89,7 @@
                 
                 [weakSelf.rtcEngine stopPlayingLocalVideo];
                 
-                weakSelf.liveModel.channelId = self.liveFrontView.channelId;
+                weakSelf.liveModel.channelId = weakSelf.liveFrontView.channelId;
                 
                 NSDictionary *dict = dictionary[@"data"];
                 CHLiveRoomVC *liveRoomVC = [[CHLiveRoomVC alloc]init];

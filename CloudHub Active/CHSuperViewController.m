@@ -18,6 +18,14 @@
 
 @implementation CHSuperViewController
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+}
+
+
 - (CHLiveChannelModel *)liveModel
 {
     if (!_liveModel)
@@ -129,7 +137,7 @@
                     weakSelf.liveModel.videoheight = [array.lastObject integerValue];
                     
                     CloudHubVideoEncoderConfiguration *config = [[CloudHubVideoEncoderConfiguration alloc] initWithWidth:weakSelf.liveModel.videowidth height:weakSelf.liveModel.videoheight frameRate:weakSelf.liveModel.rate];
-                    [self.rtcEngine setVideoEncoderConfiguration:config];
+                    [weakSelf.rtcEngine setVideoEncoderConfiguration:config];
                     
                 }
                 else
@@ -168,7 +176,7 @@
                     weakSelf.liveModel.rate = value.integerValue;
                     
                     CloudHubVideoEncoderConfiguration *config = [[CloudHubVideoEncoderConfiguration alloc] initWithWidth:weakSelf.liveModel.videowidth height:weakSelf.liveModel.videoheight frameRate:weakSelf.liveModel.rate];
-                    [self.rtcEngine setVideoEncoderConfiguration:config];
+                    [weakSelf.rtcEngine setVideoEncoderConfiguration:config];
                 }
                 else
                 {
@@ -200,11 +208,13 @@
 
     if (_motionManager.deviceMotionAvailable)
     {
+        CHWeakSelf
         [_motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMDeviceMotion *motion, NSError *error) {
 
-            [self performSelectorOnMainThread:@selector(handleDeviceMotion:) withObject:motion waitUntilDone:YES];
+            [weakSelf performSelectorOnMainThread:@selector(handleDeviceMotion:) withObject:motion waitUntilDone:YES];
         }];
-    }else
+    }
+    else
     {
         [self setMotionManager:nil];
     }
