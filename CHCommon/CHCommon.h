@@ -33,6 +33,8 @@
 
 #import "CHProgressHUD.h"
 
+#define CHHost_API          1
+
 
 #define CHUI_SCREEN_WIDTH                 ([[UIScreen mainScreen] bounds].size.width)
 #define CHUI_SCREEN_HEIGHT                ([[UIScreen mainScreen] bounds].size.height)

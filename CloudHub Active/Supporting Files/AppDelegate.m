@@ -11,7 +11,18 @@
 
 
 /// https://itunes.apple.com/cn/app/id1559508438  App Store下载链接
+
+#if CHHost_API
+
 static NSString *const kAppkey = @"EosBxj1PWonrI2rG";
+
+#else
+
+static NSString *const kAppkey = @"4dAxkcHvEOhF5HIS";
+
+#endif
+
+
 
 @interface AppDelegate ()
 
