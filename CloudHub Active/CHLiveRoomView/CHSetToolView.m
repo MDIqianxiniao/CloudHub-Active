@@ -8,9 +8,9 @@
 #import "CHSetToolView.h"
 #import "CHImageTitleButtonView.h"
 
-#define leftMargin  10
-#define ButtonWidth  (self.ch_width - 2 * leftMargin)/4
-#define ButtonHeight  60
+#define leftMargin  10.0f
+#define ButtonWidth  (self.ch_width - 2.0f * leftMargin)/4.0f
+#define ButtonHeight  60.0f
 
 @interface CHSetToolView ()
 
@@ -47,14 +47,12 @@
 
 - (void)setupUI
 {
-    UILabel *titleLable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.ch_width, 70)];
+    UILabel *titleLable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.ch_width, 70.0f)];
     titleLable.text = CH_Localized(@"Live_Tools");
     titleLable.font = CHFont15;
     titleLable.textColor = CHColor_6D7278;
     titleLable.textAlignment = NSTextAlignmentCenter;
-    
     [self addSubview:titleLable];
-    
     
     CHImageTitleButtonView * cameraButton = [self creatButtonWithTitle:CH_Localized(@"Live_Tools_MuteCam") selectTitle:CH_Localized(@"Live_Tools_UnMuteCam") image:[UIImage imageNamed:@"live_tools_cameraOpen"] selectImage:[UIImage imageNamed:@"live_tools_cameraClose"]];
     cameraButton.tag = CHSetToolViewButton_Camera;
@@ -115,20 +113,20 @@
 {
     if (self.roleType == CHUserType_Audience)
     {
-        self.linkMicButton.frame = CGRectMake(leftMargin, 70, ButtonWidth, ButtonHeight);
-        self.cameraButton.frame = CGRectMake(leftMargin + ButtonWidth, 70, ButtonWidth, ButtonHeight);
-        self.micButton.frame = CGRectMake(leftMargin + 2 * ButtonWidth, 70, ButtonWidth, ButtonHeight);
-        self.switchCamButton.frame = CGRectMake(leftMargin + 3 * ButtonWidth, 70, ButtonWidth, ButtonHeight);
-        self.setButton.frame = CGRectMake(leftMargin, self.switchCamButton.ch_bottom + 5, ButtonWidth, ButtonHeight);
-        frame.size.height = self.setButton.ch_bottom + 20;
+        self.linkMicButton.frame = CGRectMake(leftMargin, 70.0f, ButtonWidth, ButtonHeight);
+        self.cameraButton.frame = CGRectMake(leftMargin + ButtonWidth, 70.0f, ButtonWidth, ButtonHeight);
+        self.micButton.frame = CGRectMake(leftMargin + 2.0f * ButtonWidth, 70.0f, ButtonWidth, ButtonHeight);
+        self.switchCamButton.frame = CGRectMake(leftMargin + 3.0f * ButtonWidth, 70.0f, ButtonWidth, ButtonHeight);
+        self.setButton.frame = CGRectMake(leftMargin, self.switchCamButton.ch_bottom + 5.0f, ButtonWidth, ButtonHeight);
+        frame.size.height = self.setButton.ch_bottom + 20.0f;
     }
     else
     {
-        self.cameraButton.frame = CGRectMake(leftMargin, 70, ButtonWidth, ButtonHeight);
-        self.micButton.frame = CGRectMake(leftMargin + ButtonWidth, 70, ButtonWidth, ButtonHeight);
-        self.switchCamButton.frame = CGRectMake(leftMargin + 2 * ButtonWidth, 70, ButtonWidth, ButtonHeight);
-        self.setButton.frame = CGRectMake(leftMargin + 3 * ButtonWidth, 70, ButtonWidth, ButtonHeight);
-        frame.size.height = self.setButton.ch_bottom + 70;
+        self.cameraButton.frame = CGRectMake(leftMargin, 70.0f, ButtonWidth, ButtonHeight);
+        self.micButton.frame = CGRectMake(leftMargin + ButtonWidth, 70.0f, ButtonWidth, ButtonHeight);
+        self.switchCamButton.frame = CGRectMake(leftMargin + 2.0f * ButtonWidth, 70.0f, ButtonWidth, ButtonHeight);
+        self.setButton.frame = CGRectMake(leftMargin + 3.0f * ButtonWidth, 70.0f, ButtonWidth, ButtonHeight);
+        frame.size.height = self.setButton.ch_bottom + 70.0f;
     }
     
     [super setFrame:frame];

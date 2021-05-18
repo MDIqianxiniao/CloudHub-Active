@@ -11,8 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CHMinePopupView : UIView
 
-//@property (nonatomic, copy) NSString *nameString;
-
 @end
 
 NS_ASSUME_NONNULL_END

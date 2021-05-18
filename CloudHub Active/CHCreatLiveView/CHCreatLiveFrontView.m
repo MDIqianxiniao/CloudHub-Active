@@ -15,7 +15,6 @@
     UITextFieldDelegate
 >
 
-
 @property (nonatomic, weak) UITextField *liveNumField;
 
 @property (nonatomic, weak) UIButton *startButton;

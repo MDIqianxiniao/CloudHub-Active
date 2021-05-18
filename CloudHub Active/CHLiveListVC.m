@@ -57,7 +57,8 @@
     self.refreshTimer = nil;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
         
     [[NSUserDefaults standardUserDefaults] setValue:[UIDevice currentDevice].name forKey:CHCacheAnchorName];

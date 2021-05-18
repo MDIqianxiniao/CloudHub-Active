@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CHSetToolView : UIView
 
-/// 当前用户是否上台
+/// Whether the current user is on stage
 @property (nonatomic, assign) BOOL isUpStage;
 
 @property (nonatomic, copy) void(^setToolViewButtonsClick)(UIButton *button);

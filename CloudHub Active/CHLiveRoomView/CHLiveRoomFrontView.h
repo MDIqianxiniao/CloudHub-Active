@@ -24,8 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) NSInteger userNum;
 
-//@property (nonatomic, weak) UITextView *inputView;
-
 @property (nonatomic, strong) NSMutableArray <CHChatMessageModel *> *messageList;
 
 /// 当前用户是否上台

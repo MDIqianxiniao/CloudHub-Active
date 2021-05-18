@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) CHRoomUser *userModel;
 
-@property (nonatomic, copy) void(^connectButtonClick)();
+@property (nonatomic, copy) void(^connectButtonClick)(void);
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 

@@ -10,14 +10,11 @@
 #define TopMargin  5
 
 #define LeftMargin  10
-//#define ButtonWidth  32
 
 @interface CHChatInputView ()
 <
     UITextViewDelegate
 >
-
-
 
 @property (nonatomic, weak) UILabel *placeholderLable;
 
@@ -43,14 +40,12 @@
     [self addSubview:inputBgView];
     inputBgView.layer.cornerRadius = inputBgView.ch_height * 0.5;
     
-    //输入框
     UITextView *inputView = [[UITextView alloc]initWithFrame:CGRectMake(LeftMargin, 0, self.ch_width - LeftMargin * 3, inputBgView.ch_height)];
     inputView.backgroundColor = UIColor.clearColor;
     inputView.returnKeyType = UIReturnKeySend;
     inputView.font = CHFont12;
     inputView.textColor = CHWhiteColor;
     inputView.delegate = self;
-        //当textview的字符串为0时发送（rerurn）键无效
     self.inputView.enablesReturnKeyAutomatically = YES;
     [inputBgView addSubview:inputView];
     self.inputView = inputView;
@@ -69,7 +64,7 @@
     
     UITextRange *selectedRange = [textView markedTextRange];
     if (!selectedRange)
-    {//拼音全部输入完成
+    {
         if (textView.text.length > 80)
         {
             textView.text = [textView.text substringToIndex:80];
@@ -78,7 +73,7 @@
     }
 }
 
-#pragma mark - 发送消息（键盘的return按钮点击事件）
+#pragma mark -
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     if([text isEqualToString:@"\n"] && [self.inputView.text ch_isNotEmpty])

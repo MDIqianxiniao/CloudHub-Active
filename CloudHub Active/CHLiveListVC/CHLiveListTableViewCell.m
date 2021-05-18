@@ -7,14 +7,11 @@
 
 #import "CHLiveListTableViewCell.h"
 
-
 @interface CHLiveListTableViewCell ()
 
 @property (nonatomic, weak) UIView *bgView;
-
 /// 直播名称
 @property (nonatomic, weak) UILabel *liveTitleLable;
-
 /// 用户数
 @property (nonatomic, weak) UIButton *numberButton;
 
