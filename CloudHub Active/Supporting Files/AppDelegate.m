@@ -10,8 +10,7 @@
 #import "CHNavigationController.h"
 
 
-/// https://itunes.apple.com/cn/app/id1559508438  App Store下载链接
-static NSString *const kAppkey = @"EosBxj1PWonrI2rG";
+static NSString *const kAppkey = @"<#Your App Id#>";
 
 @interface AppDelegate ()
 

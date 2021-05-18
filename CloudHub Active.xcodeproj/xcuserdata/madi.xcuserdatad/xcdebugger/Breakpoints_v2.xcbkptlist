@@ -26,8 +26,8 @@
             filePath = "CloudHub Active/CHLiveRoomVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "685"
-            endingLineNumber = "685"
+            startingLineNumber = "678"
+            endingLineNumber = "678"
             landmarkName = "-rtcEngine:remoteVideoStateChangedOfUid:sourceID:streamID:type:state:reason:"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,8 +42,8 @@
             filePath = "CloudHub Active/CHLiveRoomVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "777"
-            endingLineNumber = "777"
+            startingLineNumber = "770"
+            endingLineNumber = "770"
             landmarkName = "-changeMyPublishState:"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,8 +58,8 @@
             filePath = "CloudHub Active/CHLiveRoomVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "783"
-            endingLineNumber = "783"
+            startingLineNumber = "776"
+            endingLineNumber = "776"
             landmarkName = "-changeMyPublishState:"
             landmarkType = "7">
          </BreakpointContent>
