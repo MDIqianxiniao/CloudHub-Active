@@ -6,7 +6,7 @@
   
 */
 
-CFBundleDisplayName = "CloudHub Active";
+CFBundleDisplayName = "CloudHub VideoCall";
 /*权限声明*/
 NSCameraUsageDescription = "房间中需要進行視頻通話以及拍攝您是否允許打開相機";
 NSMicrophoneUsageDescription  = "房间中需要發送語音消息及發言您是否允許打開麥克風";
