@@ -84,7 +84,7 @@ static  NSString * const   CHMusicTableViewCellID     = @"CHMusicTableViewCell";
 {
     [super setFrame:frame];
     self.titleLable.frame = CGRectMake(0, 17.0f, self.ch_width, 17.0f);
-    self.musicListTableView.frame = CGRectMake(0, self.titleLable.ch_bottom + 5.0f, self.ch_width, 110);
+    self.musicListTableView.frame = CGRectMake(0, self.titleLable.ch_bottom + 5.0f, self.ch_width, 110.0f);
     [self.musicListTableView ch_setTop:self.titleLable.ch_bottom + 5.0f bottom:self.ch_height];
 }
 

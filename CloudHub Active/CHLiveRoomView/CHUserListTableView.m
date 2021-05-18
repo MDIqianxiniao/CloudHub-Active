@@ -8,9 +8,9 @@
 #import "CHUserListTableView.h"
 #import "CHUsetListCell.h"
 
-#define CellHeight 40
-#define HeaderHeight 50
-#define FooterHeight 30
+#define CellHeight 40.0f
+#define HeaderHeight 50.0f
+#define FooterHeight 30.0f
 
 @interface CHUserListTableView ()
 <
@@ -104,10 +104,6 @@
     _userListArray = userListArray;
     
     [self reloadData];
-    
-//    CGFloat height = HeaderHeight + userListArray.count *CellHeight +FooterHeight;
-//    
-//    self.frame = CGRectMake(0, CHUI_SCREEN_HEIGHT - height, self.ch_width, HeaderHeight + userListArray.count *CellHeight +FooterHeight);
 }
 
 @end

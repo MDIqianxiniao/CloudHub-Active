@@ -7,8 +7,8 @@
 
 #import "CHUsetListCell.h"
 
-#define NameLeftMargin 30
-#define LineLeftMargin 20
+#define NameLeftMargin 30.0f
+#define LineLeftMargin 20.0f
 
 @interface CHUsetListCell ()
 

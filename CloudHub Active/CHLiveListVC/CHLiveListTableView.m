@@ -8,20 +8,15 @@
 #import "CHLiveListTableView.h"
 #import "CHLiveListTableViewCell.h"
 
-
 @interface CHLiveListTableView ()
 <
     UITableViewDelegate,
     UITableViewDataSource
 >
 
-
-
-
 @end
 
 @implementation CHLiveListTableView
-
 
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style
 {
@@ -55,7 +50,6 @@
     return cell;
 }
 
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (_liveListCellClick)
@@ -78,7 +72,6 @@
 {
     return 10.0;
 }
-
 
 
 @end

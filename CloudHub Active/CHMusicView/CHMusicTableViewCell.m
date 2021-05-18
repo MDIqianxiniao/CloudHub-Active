@@ -10,8 +10,11 @@
 @interface CHMusicTableViewCell()
 
 @property (nonatomic, strong) UIImageView *stateImgView;
+
 @property (nonatomic, strong) UILabel *titleLable;
+
 @property (nonatomic, strong) UIView *lineView;
+
 @end
 
 @implementation CHMusicTableViewCell
@@ -63,7 +66,9 @@
 - (void)setMusicModel:(CHMusicModel *)musicModel
 {
     _musicModel = musicModel;
+    
     self.titleLable.text = musicModel.name;
+    
     if (musicModel.isPlay)
     {
         self.titleLable.textColor = CHColor_24D3EE;

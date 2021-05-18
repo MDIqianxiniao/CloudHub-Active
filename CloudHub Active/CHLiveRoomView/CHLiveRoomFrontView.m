@@ -18,7 +18,6 @@
 
 @interface CHLiveRoomFrontView ()
 
-
 @property (nonatomic, assign) CHUserRoleType roleType;
 
 @property (nonatomic, weak) UILabel *nameLable;
