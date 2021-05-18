@@ -458,25 +458,18 @@
     }
     else
     {
-//        if (self.roleType == CHUserType_Anchor)
-//        {
-            CHWeakSelf
-            UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:CH_Localized(@"Live_EntLive") message:CH_Localized(@"Live_EntLiveNow") preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *sure = [UIAlertAction actionWithTitle:CH_Localized(@"Live_Sure") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                
-                [weakSelf.rtcEngine leaveChannel:nil];
-            }];
-            UIAlertAction *cancel = [UIAlertAction actionWithTitle:CH_Localized(@"Cancel") style:UIAlertActionStyleCancel handler:nil];
+        CHWeakSelf
+        UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:CH_Localized(@"Live_EntLive") message:CH_Localized(@"Live_EntLiveNow") preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *sure = [UIAlertAction actionWithTitle:CH_Localized(@"Live_Sure") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
-            [alertVc addAction:sure];
-            [alertVc addAction:cancel];
-            
-            [self presentViewController:alertVc animated:YES completion:nil];
-//        }
-//        else
-//        {
-//            [self.rtcEngine leaveChannel:nil];
-//        }
+            [weakSelf.rtcEngine leaveChannel:nil];
+        }];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:CH_Localized(@"Cancel") style:UIAlertActionStyleCancel handler:nil];
+        
+        [alertVc addAction:sure];
+        [alertVc addAction:cancel];
+        
+        [self presentViewController:alertVc animated:YES completion:nil];
     }
 }
 
