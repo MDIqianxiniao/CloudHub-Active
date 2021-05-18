@@ -48,6 +48,22 @@
                                                object:nil];
 }
 
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+//    return UIInterfaceOrientationMaskPortrait;
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
+}
+
 - (void)setupLargeVideoView
 {
     CHVideoView *largeVideoView = [[CHVideoView alloc] initWithFrame:self.view.bounds];
@@ -193,6 +209,7 @@
         [self setMotionManager:nil];
     }
 }
+
 - (void)handleDeviceMotion:(CMDeviceMotion *)deviceMotion
 {
     double x = deviceMotion.gravity.x;
@@ -249,22 +266,5 @@
             break;
     }
 }
-
-- (BOOL)shouldAutorotate
-{
-    return YES;
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-//    return UIInterfaceOrientationMaskPortrait;
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
-{
-    return UIInterfaceOrientationPortrait;
-}
-
 
 @end

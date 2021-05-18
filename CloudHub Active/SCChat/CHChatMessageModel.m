@@ -14,5 +14,4 @@
     self.timeStr = [NSDate ch_stringFromTs:timeInterval formatter:@"HH:mm"];
 }
 
-
 @end

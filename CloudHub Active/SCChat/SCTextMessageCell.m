@@ -16,13 +16,13 @@
 
 @property (nonatomic, strong) UIView *backView;
 
-@property (nonatomic, strong) UILabel * msgLab;
+@property (nonatomic, strong) UILabel *msgLab;
 
 @end
 
 @implementation SCTextMessageCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
