@@ -12,7 +12,7 @@
 
 @property (strong, nonatomic) CMMotionManager *motionManager;
 /// Judge horizontal and vertical
-@property (assign, nonatomic) BOOL isHeng;
+@property (assign, nonatomic) BOOL isHorizontal;
 
 @end
 
@@ -200,18 +200,18 @@
 
     if (fabs(y) >= fabs(x))
     {
-        if (self.isHeng == YES) {
+        if (self.isHorizontal == YES) {
             [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger:UIDeviceOrientationLandscapeLeft] forKey:@"orientation"];
             [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger:UIDeviceOrientationPortrait] forKey:@"orientation"];
-            self.isHeng = NO;
+            self.isHorizontal = NO;
         }
     }
     else
     {
-        if (self.isHeng == NO) {
+        if (self.isHorizontal == NO) {
             [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger:UIDeviceOrientationPortrait] forKey:@"orientation"];
             [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger:UIDeviceOrientationLandscapeLeft] forKey:@"orientation"];
-            self.isHeng = YES;
+            self.isHorizontal = YES;
         }
     }
 }

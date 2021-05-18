@@ -14,15 +14,15 @@
 
 @interface CHVideoSetView ()
 
-@property(nonatomic,strong) NSMutableArray *bgButtonArray;
+@property (nonatomic,strong) NSMutableArray *bgButtonArray;
 
-@property(nonatomic,strong) NSMutableArray *titleArray;
+@property (nonatomic,strong) NSMutableArray *titleArray;
 
-@property(nonatomic,strong) NSMutableArray *valueArray;
+@property (nonatomic,strong) NSMutableArray *valueArray;
 
-@property(nonatomic,strong) NSMutableArray *arrowArray;
+@property (nonatomic,strong) NSMutableArray *arrowArray;
 
-@property(nonatomic,strong) NSMutableArray *lineArray;
+@property (nonatomic,strong) NSMutableArray *lineArray;
 
 @property (nonatomic, weak) UILabel *titleLable;
 
