@@ -67,7 +67,6 @@
             break;
         case CHCreateRoomFrontButton_Beauty:
         {// Beauty Settings
-            
             [UIView animateWithDuration:0.25 animations:^{
                 self.beautyView.ch_originY = self.view.ch_height - self.beautyView.ch_height;
            }];
@@ -77,7 +76,6 @@
             break;
         case CHCreateRoomFrontButton_Start:
         {// Begin to live
-            
             if (![self.liveFrontView.channelId ch_isNotEmpty])
             {
                 [CHProgressHUD ch_showHUDAddedTo:self.view animated:YES withText:CH_Localized(@"Live_InputRoomNumPrompt") delay:CHProgressDelay];
@@ -114,7 +112,6 @@
             break;
         case CHCreateRoomFrontButton_Setting:
         {// Settings
-
             [UIView animateWithDuration:0.25 animations:^{
                 self.videoSetView.ch_originY = self.view.ch_height - self.videoSetView.ch_height;
            }];
@@ -175,8 +172,5 @@
         return;
     }
 }
-
-
-
 
 @end

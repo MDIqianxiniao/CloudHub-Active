@@ -13,8 +13,8 @@
 #import "CHUserListTableView.h"
 #import "CHChatInputView.h"
 
-#define VideoWidth 86
-#define VideoHeight 115
+#define VideoWidth 86.0f
+#define VideoHeight 115.0f
 
 @interface CHLiveRoomVC ()
 

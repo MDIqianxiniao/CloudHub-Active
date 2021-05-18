@@ -20,7 +20,7 @@
 
 @implementation SCTipsMessageCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -58,9 +58,7 @@
     self.iMessageLabel.frame = CGRectMake(10, 0, model.messageSize.width, model.messageSize.height);
     
     self.backView.ch_centerY = self.ch_height * 0.5f;
-    self.iMessageLabel.ch_centerY = self.backView.ch_height * 0.5f;
-    
+    self.iMessageLabel.ch_centerY = self.backView.ch_height * 0.5f;    
 }
-
 
 @end

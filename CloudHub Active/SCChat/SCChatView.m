@@ -14,15 +14,15 @@
 
 @interface SCChatView()
 <
-UITableViewDelegate,
-UITableViewDataSource,
-UITextFieldDelegate
+    UITableViewDelegate,
+    UITableViewDataSource,
+    UITextFieldDelegate
 >
 
-@property(nonatomic,strong)UIImageView *bubbleView;
+@property(nonatomic, strong) UIImageView *bubbleView;
 
 ///Pop up the button in the input box
-@property(nonatomic,strong)UIButton * textBtn;
+@property(nonatomic, strong) UIButton *textBtn;
 
 @end
 
@@ -168,4 +168,5 @@ UITextFieldDelegate
     
     return _chatTableView;
 }
+
 @end

@@ -9,6 +9,5 @@
 
 @interface CHLiveListVC : UIViewController
 
-
 @end
 

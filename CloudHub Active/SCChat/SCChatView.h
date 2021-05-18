@@ -16,9 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSMutableArray <CHChatMessageModel *> *messageList;
 
-@property (nonatomic, copy)void(^textBtnClick)(void);
+@property (nonatomic, copy) void(^textBtnClick)(void);
 
-@property (nonatomic, copy)void(^clickViewToHiddenTheKeyBoard)(void);
+@property (nonatomic, copy) void(^clickViewToHiddenTheKeyBoard)(void);
 
 
 @end
