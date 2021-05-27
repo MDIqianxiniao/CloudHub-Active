@@ -532,7 +532,6 @@
 
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine didLeaveChannel:(CloudHubChannelStats * _Nonnull)stats
 {
-    
     if (self.anchorLeft)
     {
         [CHProgressHUD ch_showHUDAddedTo:self.view animated:YES withText:CH_Localized(@"Live_LeaveRoom") delay:CHProgressDelay];
@@ -673,7 +672,7 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
             }
         }
         
-        if (reason == CloudHubVideoRemoteStateReasonRemoveRemoteStream)
+         if (reason == CloudHubVideoRemoteStateReasonRemoveRemoteStream)
         {
             [self unPlayVideo:uid streamId:streamID];
         }

@@ -13,9 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CHLiveChannelModel : NSObject
 
-/// name
-//@property (nonatomic, copy) NSString *liveName;
-
 /// channelId
 @property (nonatomic, copy) NSString *channelId;
 

@@ -9,4 +9,18 @@
 
 @implementation CHLiveChannelModel
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        self.videowidth = 320;
+        self.videoheight = 240;
+        self.rate = 15;
+    }
+    
+    return self;
+}
+
+
 @end

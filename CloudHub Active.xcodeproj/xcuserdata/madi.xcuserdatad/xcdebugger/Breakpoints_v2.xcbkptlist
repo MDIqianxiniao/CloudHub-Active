@@ -19,48 +19,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "97017406-0E4E-48F8-96AB-C6F71C7FFBC4"
+            uuid = "D967CB34-2295-48F1-8BCC-7F24C7B12D06"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CloudHub Active/CHLiveRoomVC.m"
+            filePath = "CloudHub Active/CHSuperViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "671"
-            endingLineNumber = "671"
-            landmarkName = "-rtcEngine:remoteVideoStateChangedOfUid:sourceID:streamID:type:state:reason:"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
+            landmarkName = "-setViewArrowButtonClick:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C9D03A90-F25B-4C68-B5FC-74B3FFA8B00B"
+            uuid = "A972E34A-52F2-4826-8D66-6016ED54F3CA"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CloudHub Active/CHLiveRoomVC.m"
+            filePath = "CloudHub Active/CHSuperViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "763"
-            endingLineNumber = "763"
-            landmarkName = "CHLiveRoomVC"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "37CFCE8F-6A0B-449B-AA0F-98720DA355B0"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CloudHub Active/CHLiveRoomVC.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "769"
-            endingLineNumber = "769"
-            landmarkName = "-changeMyPublishState:"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
+            landmarkName = "-setViewArrowButtonClick:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
