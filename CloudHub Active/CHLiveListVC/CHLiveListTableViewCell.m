@@ -55,6 +55,7 @@
     
     UILabel *liveTitleLable = [[UILabel alloc]init];
     liveTitleLable.font = CHFont12;
+    liveTitleLable.textColor = CHColor_6D7278;
     [bgView addSubview:liveTitleLable];
     self.liveTitleLable = liveTitleLable;
         
