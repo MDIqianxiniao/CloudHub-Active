@@ -11,6 +11,9 @@
 #define CHBeautySetView_Gap             ([UIDevice ch_isiPad] ? 20.0f : 4.0f)
 
 @interface CHBeautySetView ()
+<
+CHBeautyViewDelegate
+>
 
 @property (nonatomic, assign) CGFloat gap;
 
@@ -41,8 +44,10 @@
         }
         self.gap = gap;
         
-        [self setupView];
+        self.beautySetModel = [[CHBeautySetModel alloc]init];
         
+        [self setupView];
+                
         self.frame = frame;
     }
     
@@ -62,13 +67,14 @@
     CHBeautyView *beautyView = [[CHBeautyView alloc]initWithFrame:self.bounds itemGap:self.gap];
     [self addSubview:beautyView];
     self.beautyView = beautyView;
+    beautyView.beautyViewDelegate = self;
 }
 
 - (void)setBeautySetModel:(CHBeautySetModel *)beautySetModel
 {
     _beautySetModel = beautySetModel;
     
-    self.beautyView.beautySetModel = self.beautySetModel;
+    self.beautyView.beautySetModel = beautySetModel;
 }
 
 - (void)setFrame:(CGRect)frame
@@ -82,13 +88,11 @@
     [super setFrame:frame];
 }
 
-- (void)beautyViewValueChange
+- (void)beautyViewValueChange:(CHBeautySetModel *)beautySetModel
 {
-    self.beautySetModel = self.beautyView.beautySetModel;
-    
     if (_beautySetModelChange)
     {
-        _beautySetModelChange();
+        _beautySetModelChange(beautySetModel);
     }
 }
 

@@ -13,9 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CHBeautySetView : UIView
 
 /// 美颜数据
-@property (nonatomic, weak) CHBeautySetModel *beautySetModel;
+@property (nonatomic, strong) CHBeautySetModel *beautySetModel;
 
-@property (nonatomic, copy) void(^beautySetModelChange)(void);
+@property (nonatomic, copy) void(^beautySetModelChange)(CHBeautySetModel *beautySetModel);
 
 - (instancetype)initWithFrame:(CGRect)frame itemGap:(CGFloat)gap;
 

@@ -108,7 +108,7 @@
     {
         if ([self.nameField.text ch_isNotEmpty])
         {
-            [[NSUserDefaults standardUserDefaults] setValue:self.nameField.text forKey:CHCacheAnchorName];
+            [CHUserDefault setValue:self.nameField.text forKey:CHCacheAnchorName];
         }
     }
     

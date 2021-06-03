@@ -24,9 +24,11 @@
 #endif
 
 
+#pragma The cache key
+ static NSString *const CHCacheAnchorName                  = @"AnchorName";
+static NSString *const CHCacheBeautyModel                  = @"CacheBeautyModel";
 
-/// The cache key
-static NSString *const CHCacheAnchorName                  = @"AnchorName";
+
 
 /// Send a message to everyone on the channel
 static NSString *const CHRoomPubMsgTellAll                  = @"__all";
@@ -60,6 +62,26 @@ static NSString *const sCHUserVideoFail             = @"vfail";
 static NSString *const sCHUserAudioFail             = @"afail";
 static NSString *const sCHUserPublishstate          = @"publishstate";
 
+/*
+/// Number of large room users
+static NSString *const sCHSignal_Notice_BigRoom_Usernum     = @"Notice_BigRoom_Usernum";
+
+static NSString *const sCHStoreTheChannel = @"https://cna-dorado-user-api.cloudhub.vip-demo/channel_users";
+
+/// Gets the configuration information before creating the channel
+static NSString *const sCHGetConfig              = @"https://cna-dorado-user-api.cloudhub.vip-demo/config";
+
+/// Get lists of channels
+static NSString *const sCHGetChannelList         = @"https://cna-dorado-user-api.cloudhub.vip-demo/channels";
+
+/// User Entry and Exit Record
+static NSString *const sCHJoinChannelRecord         = @"https://cna-dorado-user-api.cloudhub.vip-demo/record";
+
+/// Gets a list of users for the specified channel
+static NSString *const sCHGetUserList        = @"https://cna-dorado-user-api.cloudhub.vip-demo/channel_users";
+ */
+
+
 /// Number of large room users
 static NSString *const sCHSignal_Notice_BigRoom_Usernum     = @"Notice_BigRoom_Usernum";
 
@@ -76,6 +98,7 @@ static NSString *const sCHJoinChannelRecord         = @"https://cna-dorado-user-
 
 /// Gets a list of users for the specified channel
 static NSString *const sCHGetUserList        = @"https://cna-dorado-user-api.cloudhub.vip/channel_users";
+
 
 /// Query individual Channel details
 //static NSString *const sCHGetShowChannelDate     = @"https://cna-dorado-user-api.cloudhub.vip/channels/live";

@@ -123,18 +123,17 @@
     beautySetButton.layer.cornerRadius = ButtonWidth * 0.5;
     self.beautySetButton = beautySetButton;
     [self addSubview:beautySetButton];
-    beautySetButton.hidden = YES;
     
     CGFloat beautySetButtonX = musicButton.ch_left - width;
     if (self.roleType == CHUserType_Audience)
     {
         beautySetButtonX = moreToolsButton.ch_left - width;
-        beautySetButton.frame = CGRectMake(beautySetButtonX, backButton.ch_originY, ButtonWidth, ButtonWidth);
-        
         musicButton.hidden = YES;
-        beautySetButton.hidden = YES;
+//        beautySetButton.hidden = YES;
     }
 
+    beautySetButton.frame = CGRectMake(beautySetButtonX, backButton.ch_originY, ButtonWidth, ButtonWidth);
+    
     UIButton *inputButton = [[UIButton alloc]initWithFrame:CGRectMake(leftMargin, backButton.ch_originY, self.ch_width - leftMargin - 4 * width - leftMargin * 0.5, ButtonWidth)];
     inputButton.tag = CHLiveRoomFrontButton_Chat;
     [inputButton setBackgroundColor:[CHBlackColor ch_changeAlpha:0.5]];

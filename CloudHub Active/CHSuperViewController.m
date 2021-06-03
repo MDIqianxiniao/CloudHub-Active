@@ -86,11 +86,24 @@
     if (!_beautyView)
     {
         _beautyView = [[CHBeautySetView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 0) itemGap:CellGap];
+                
+        if (self.liveModel.beautySetModel)
+        {
+            self.beautyView.beautySetModel = self.liveModel.beautySetModel;
+        }
+        
         [self.view addSubview:_beautyView];
         
         CHWeakSelf
-        _beautyView.beautySetModelChange = ^{
-            weakSelf.liveModel.beautySetModel = weakSelf.beautyView.beautySetModel;
+        _beautyView.beautySetModelChange = ^(CHBeautySetModel * _Nonnull beautySetModel) {
+            weakSelf.liveModel.beautySetModel = beautySetModel;
+            
+            CloudHubBeautyOptions * beautyOptions = [[CloudHubBeautyOptions alloc]init];
+            beautyOptions.lighteningLevel = beautySetModel.whitenValue;
+            beautyOptions.smoothnessLevel = beautySetModel.exfoliatingValue;
+            beautyOptions.rednessLevel = beautySetModel.ruddyValue;
+            
+            [weakSelf.rtcEngine setBeautyEffectOptions:YES options:beautyOptions];
         };
     }
     return _beautyView;
@@ -138,7 +151,6 @@
                     
                     CloudHubVideoEncoderConfiguration *config = [[CloudHubVideoEncoderConfiguration alloc] initWithWidth:weakSelf.liveModel.videowidth height:weakSelf.liveModel.videoheight frameRate:weakSelf.liveModel.rate];
                     [weakSelf.rtcEngine setVideoEncoderConfiguration:config];
-                    
                 }
                 else
                 {// back

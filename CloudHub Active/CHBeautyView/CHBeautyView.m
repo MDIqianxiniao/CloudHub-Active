@@ -58,6 +58,7 @@
         self.titleIconArray = [NSMutableArray array];
         self.lableArray = [NSMutableArray array];
         self.sliderArray = [NSMutableArray array];
+        self.beautySetModel = [[CHBeautySetModel alloc]init];
         
         self.backgroundColor = UIColor.clearColor;
         
@@ -257,9 +258,9 @@
             break;
     }
     
-    if ([self.beautyViewDelegate respondsToSelector:@selector(beautyViewValueChange)])
+    if ([self.beautyViewDelegate respondsToSelector:@selector(beautyViewValueChange:)])
     {
-        [self.beautyViewDelegate beautyViewValueChange];
+        [self.beautyViewDelegate beautyViewValueChange:self.beautySetModel];
     }
     
 }

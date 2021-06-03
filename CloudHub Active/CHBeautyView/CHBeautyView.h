@@ -13,14 +13,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol CHBeautyViewDelegate <NSObject>
 
-- (void)beautyViewValueChange;
+- (void)beautyViewValueChange:(CHBeautySetModel *)beautySetModel;
 
 @end
 
 @interface CHBeautyView : UIView
 
 /// 美颜数据
-@property (nonatomic, weak) CHBeautySetModel *beautySetModel;
+@property (nonatomic, strong) CHBeautySetModel *beautySetModel;
 
 @property (nonatomic, weak) id<CHBeautyViewDelegate> beautyViewDelegate;
 

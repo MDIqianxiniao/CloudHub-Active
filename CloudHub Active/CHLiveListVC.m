@@ -61,7 +61,7 @@
 {
     [super viewDidLoad];
         
-    [[NSUserDefaults standardUserDefaults] setValue:[UIDevice currentDevice].name forKey:CHCacheAnchorName];
+    [CHUserDefault setValue:[UIDevice currentDevice].name forKey:CHCacheAnchorName];
     
     self.channelListArray = [NSMutableArray array];
     

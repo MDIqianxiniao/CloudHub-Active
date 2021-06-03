@@ -67,7 +67,7 @@
     
     self.smallVideoViews = [NSMutableDictionary dictionary];
     
-    self.myNickName = [[NSUserDefaults standardUserDefaults] objectForKey:CHCacheAnchorName];
+    self.myNickName = [CHUserDefault objectForKey:CHCacheAnchorName];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];

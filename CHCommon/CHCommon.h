@@ -33,7 +33,7 @@
 
 #import "CHProgressHUD.h"
 
-#define CHHost_API          1
+#define CHHost_API          0
 
 
 #define CHUI_SCREEN_WIDTH                 ([[UIScreen mainScreen] bounds].size.width)
@@ -69,6 +69,8 @@
 #define CHStrongType(type)          __strong __typeof(weak##type) strong##type = weak##type;
 
 #define  RtcEngine ((AppDelegate *)[[UIApplication sharedApplication] delegate]).rtcEngine
+
+#define  CHUserDefault [NSUserDefaults standardUserDefaults]
 
 /// UIFont
 #define CHFont(size) [UIFont systemFontOfSize:size]
