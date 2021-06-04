@@ -72,9 +72,11 @@
 
 - (void)setupView
 {
-    NSArray *titleArray = @[@"BeautySet.Whitening", @"BeautySet.ThinFace", @"BeautySet.BigEyes", @"BeautySet.Exfoliating", @"BeautySet.Ruddy"];
-    NSArray *imageStrArray = @[@"beauty_whiten", @"beauty_thinFace", @"beauty_bigEye", @"beauty_exfoliating", @"beauty_ruddy"];
-    
+//    NSArray *titleArray = @[@"BeautySet.Whitening", @"BeautySet.ThinFace", @"BeautySet.BigEyes", @"BeautySet.Exfoliating", @"BeautySet.Ruddy"];
+//    NSArray *imageStrArray = @[@"beauty_whiten", @"beauty_thinFace", @"beauty_bigEye", @"beauty_exfoliating", @"beauty_ruddy"];
+    NSArray *titleArray = @[@"BeautySet.Whitening", @"BeautySet.Exfoliating", @"BeautySet.Ruddy"];
+    NSArray *imageStrArray = @[@"beauty_whiten", @"beauty_exfoliating", @"beauty_ruddy"];
+
     for (NSUInteger i = 0; i < titleArray.count; i++)
     {
         UIButton *titleIconView = [self creatTitleIcon:titleArray[i] image:imageStrArray[i]];
@@ -170,23 +172,23 @@
                 slider.value = self.beautySetModel.whitenValue;
                 break;
             
-            // 瘦脸值
-            case 2:
-                slider.value = self.beautySetModel.thinFaceValue;
-                break;
-               
-            // 大眼值
-            case 3:
-                slider.value = self.beautySetModel.bigEyeValue;
-                break;
+//            // 瘦脸值
+//            case 2:
+//                slider.value = self.beautySetModel.thinFaceValue;
+//                break;
+//
+//            // 大眼值
+//            case 3:
+//                slider.value = self.beautySetModel.bigEyeValue;
+//                break;
                 
             // 磨皮值
-            case 4:
+            case 2:
                 slider.value = self.beautySetModel.exfoliatingValue;
                 break;
                 
             // 红润值
-            case 5:
+            case 3:
                 slider.value = self.beautySetModel.ruddyValue;
                 break;
                 
@@ -234,23 +236,23 @@
             self.beautySetModel.whitenValue = slider.value;
             break;
         
-        // 瘦脸值
-        case 2:
-            self.beautySetModel.thinFaceValue = slider.value;
-            break;
-           
-        // 大眼值
-        case 3:
-            self.beautySetModel.bigEyeValue = slider.value;
-            break;
+//        // 瘦脸值
+//        case 2:
+//            self.beautySetModel.thinFaceValue = slider.value;
+//            break;
+//
+//        // 大眼值
+//        case 3:
+//            self.beautySetModel.bigEyeValue = slider.value;
+//            break;
             
         // 磨皮值
-        case 4:
+        case 2:
             self.beautySetModel.exfoliatingValue = slider.value;
             break;
             
         // 红润值
-        case 5:
+        case 3:
             self.beautySetModel.ruddyValue = slider.value;
             break;
             
