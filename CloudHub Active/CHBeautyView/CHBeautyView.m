@@ -112,7 +112,7 @@
     label.textAlignment= NSTextAlignmentRight;
     label.textColor = CHColor_6D7278;
     label.font = CHFont12;
-    label.text = @"0.00 %";
+    label.text = @"0%";
     [self addSubview:label];
     
     return label;
@@ -195,6 +195,9 @@
             default:
                 break;
         }
+        
+        UILabel *label = self.lableArray[slider.tag - 1];
+        label.text = [NSString stringWithFormat:@"%@ %%", @(slider.value*100)];
     }
 }
 
@@ -223,7 +226,8 @@
     
     UILabel *label = self.lableArray[slider.tag - 1];
     
-    label.text = [NSString stringWithFormat:@"%@ %%", [value ch_stringWithDecimalStyle]];
+    
+    label.text = [NSString stringWithFormat:@"%@ %%", @(value.integerValue)];
 }
 
 // slider结束滑动事件

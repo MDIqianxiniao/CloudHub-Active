@@ -31,6 +31,14 @@
     if (!_liveModel)
     {
         _liveModel = [[CHLiveChannelModel alloc]init];
+        if (!_liveModel.beautySetModel)
+        {
+            CHBeautySetModel *beautySetModel = [[CHBeautySetModel alloc] init];
+            beautySetModel.whitenValue = 0.7f;
+            beautySetModel.exfoliatingValue = 0.5f;
+            beautySetModel.ruddyValue = 0.1f;
+            _liveModel.beautySetModel = beautySetModel;
+        }
     }
     return _liveModel;
 }
