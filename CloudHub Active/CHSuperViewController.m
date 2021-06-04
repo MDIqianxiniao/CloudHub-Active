@@ -34,10 +34,7 @@
     }
     if (!_liveModel.beautySetModel)
     {
-        CHBeautySetModel *beautySetModel = [[CHBeautySetModel alloc] init];
-        beautySetModel.whitenValue = 0.7f;
-        beautySetModel.exfoliatingValue = 0.5f;
-        beautySetModel.ruddyValue = 0.1f;
+        CHBeautySetModel *beautySetModel = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).beautySetModel;
         _liveModel.beautySetModel = beautySetModel;
     }
     return _liveModel;

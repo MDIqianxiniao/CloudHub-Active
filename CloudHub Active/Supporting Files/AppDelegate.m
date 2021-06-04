@@ -8,7 +8,7 @@
 #import "AppDelegate.h"
 #import "CHLiveListVC.h"
 #import "CHNavigationController.h"
-
+#import "CHBeautySetModel.h"
 
 /// https://itunes.apple.com/cn/app/id1559508438  App Store下载链接
 
@@ -26,6 +26,7 @@ static NSString *const kAppkey = @"4dAxkcHvEOhF5HIS";
 
 @interface AppDelegate ()
 
+@property (nonatomic, strong) CHBeautySetModel *beautySetModel;
 @end
 
 @implementation AppDelegate
@@ -33,7 +34,11 @@ static NSString *const kAppkey = @"4dAxkcHvEOhF5HIS";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+    self.beautySetModel = [[CHBeautySetModel alloc] init];
+    self.beautySetModel.whitenValue = 0.7f;
+    self.beautySetModel.exfoliatingValue = 0.5f;
+    self.beautySetModel.ruddyValue = 0.1f;
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     self.window.backgroundColor = [UIColor whiteColor];
