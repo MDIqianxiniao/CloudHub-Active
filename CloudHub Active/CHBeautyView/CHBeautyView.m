@@ -237,7 +237,7 @@
     {
         // 美白值
         case 1:
-            self.beautySetModel.whitenValue = slider.value;
+            self.beautySetModel.whitenValue = [NSString stringWithFormat:@"%.2f",slider.value].floatValue;
             break;
         
 //        // 瘦脸值
@@ -252,12 +252,12 @@
             
         // 磨皮值
         case 2:
-            self.beautySetModel.exfoliatingValue = slider.value;
+            self.beautySetModel.exfoliatingValue = [NSString stringWithFormat:@"%.2f",slider.value].floatValue;;
             break;
             
         // 红润值
         case 3:
-            self.beautySetModel.ruddyValue = slider.value;
+            self.beautySetModel.ruddyValue = [NSString stringWithFormat:@"%.2f",slider.value].floatValue;;
             break;
             
         default:
