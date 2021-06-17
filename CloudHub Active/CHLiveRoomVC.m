@@ -489,6 +489,9 @@
     [self.rtcEngine enableLocalAudio:YES];
     [self.rtcEngine enableLocalVideo:YES];
     
+    // 开启音量报告
+    [self.rtcEngine enableAudioVolumeIndication:500 smooth:3 reportVAD:YES];
+    
     if (self.roleType == CHUserType_Anchor)
     {
         [self.rtcEngine startPlayingLocalVideo:self.largeVideoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled];
