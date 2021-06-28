@@ -14,7 +14,8 @@
 
 #if CHHost_API
 
-static NSString *const kAppkey = @"EosBxj1PWonrI2rG";
+//static NSString *const kAppkey = @"EosBxj1PWonrI2rG";
+static NSString *const kAppkey = @"ARxvq4uUorvqH9ua";
 
 #else
 

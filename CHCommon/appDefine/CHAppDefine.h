@@ -14,7 +14,7 @@
 
 #if CHHost_API
 
-#define CHLiveActive_Server          @"api.roadofcloud.net"
+#define CHLiveActive_Server          @"api.roadofcloud.vip"
 //#define CHLiveActive_Server          @"demo.roadofcloud.vip"
 
 #else

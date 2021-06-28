@@ -140,6 +140,7 @@
             CHResolutionView *resolutionView = [[CHResolutionView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 0) itemGap:CellGap type:CHVideoSetViewType_Resolution withData:dataArray];
             [self.view addSubview:resolutionView];
             self.resolutionView = resolutionView;
+            resolutionView.selectValue = self.videoSetView.resolutionString;
             
             CHWeakSelf
             __weak CHResolutionView *weakResolutionView = self.resolutionView;
@@ -183,6 +184,7 @@
             CHResolutionView *rateView = [[CHResolutionView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 0) itemGap:CellGap type:CHVideoSetViewType_Rate withData:dataArray];
             [self.view addSubview:rateView];
             self.rateView = rateView;
+            rateView.selectValue = self.videoSetView.rateString;
             
             CHWeakSelf
             __weak CHResolutionView *weakRateView = self.rateView;

@@ -49,6 +49,10 @@
 
 @property (nonatomic, assign)BOOL anchorLeft;
 
+@property (nonatomic, copy) NSString *sendResolution;
+
+@property (nonatomic, assign) NSInteger sendRate;
+
 @end
 
 @implementation CHLiveRoomVC
@@ -284,7 +288,7 @@
             sender.selected = !sender.selected;
             [self.rtcEngine muteLocalVideoStream:sender.selected];
                         
-            [self freshPlayVideo:self.localUser.peerID streamId:self.localUser.peerID sourceId:self.localUser.peerID mute:sender.selected];
+            [self freshPlayVideo:self.localUser.peerID streamId:self.localUser.peerID mute:sender.selected];
         }
             break;
         case CHSetToolViewButton_Mic:
@@ -446,7 +450,7 @@
 
     NSString *str = [userProperty ch_toJSON];
 
-    [self.rtcEngine joinChannelByToken:self.chToken channelId:self.liveModel.channelId properties:str uid:self.myPeerId joinSuccess:nil];
+    [self.rtcEngine joinChannelByToken:self.chToken channelId:self.liveModel.channelId properties:str uid:self.myPeerId autoSubscribeAudio:YES autoSubscribeVideo:YES joinSuccess:nil];
 }
 
 - (void)leftChannel
@@ -473,7 +477,7 @@
     }
 }
 
-- (void)rtcEngine:(CloudHubRtcEngineKit *)engine didJoinChannel:(NSString *)channel withUid:(NSString *)uid elapsed:(NSInteger)elapsed
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine didJoinChannelwithUid:(NSString *)uid elapsed:(NSInteger)elapsed
 {
     self.isJoinChannel = YES;
     
@@ -505,9 +509,9 @@
     }
 }
 
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine didReJoinChannel:(NSString * _Nonnull)channel withUid:(NSString * _Nonnull)uid elapsed:(NSInteger) elapsed
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine didReJoinChannelwithUid:(NSString *)uid elapsed:(NSInteger)elapsed
 {
-    NSLog(@"rtcEngine didReJoinChannel %@ %@ %@", channel, uid, @(elapsed));
+    NSLog(@"rtcEngine didReJoinChannel %@ %@", uid, @(elapsed));
 
     for (UIView *smallview in [self.smallVideoViews allValues])
     {
@@ -533,7 +537,7 @@
     }
 }
 
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine didLeaveChannel:(CloudHubChannelStats * _Nonnull)stats
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine didLeaveChannel:(CloudHubChannelStats *)stats
 {
     if (self.anchorLeft)
     {
@@ -563,7 +567,7 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine didJoinedOfUid:(NSString * _Nonnull)uid properties:(NSString * _Nullable)properties isHistory:(BOOL)isHistory fromChannel:(NSString* _Nonnull)srcChannel
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine didJoinedOfUid:(NSString *)uid properties:(NSString *)properties isHistory:(BOOL)isHistory fromChannel:(NSString *)srcChannel
 {
     NSLog(@"rtcEngine didJoinedOfUid %@ %@ %d %@", uid, properties, isHistory, srcChannel);
 
@@ -590,7 +594,6 @@
         [self.rtcEngine leaveChannel:nil];
     }
 }
-
 
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine
 onSetPropertyOfUid:(NSString * _Nonnull)uid
@@ -646,7 +649,7 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
     }
 }
 
-- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine remoteVideoStateChangedOfUid:(NSString * _Nonnull)uid sourceID:(NSString * _Nonnull)sourceID streamID:(NSString * _Nonnull)streamID type:(CloudHubMediaType)type state:(CloudHubVideoRemoteState)state reason:(CloudHubVideoRemoteStateReason)reason
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine remoteVideoStateChangedOfUid:(NSString *)uid streamId:(NSString *)streamId type:(CloudHubMediaType)type state:(CloudHubVideoRemoteState)state reason:(CloudHubVideoRemoteStateReason)reason
 {
     if (state == CloudHubVideoRemoteStateStarting)
     {
@@ -654,14 +657,14 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
         {
             if (reason == CloudHubVideoRemoteStateReasonRemoteUnmuted)
             {
-                [self freshPlayVideo:uid streamId:streamID sourceId:sourceID mute:NO];
+                [self freshPlayVideo:uid streamId:streamId mute:NO];
                 return;
             }
         }
         
         if (reason == CloudHubVideoRemoteStateReasonAddRemoteStream)
         {
-            [self playVideo:uid streamId:streamID sourceId:sourceID];
+            [self playVideo:uid streamId:streamId];
         }
     }
     else if (state == CloudHubVideoRemoteStateStopped)
@@ -670,14 +673,27 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
         {
             if (reason == CloudHubVideoRemoteStateReasonRemoteMuted)
             {
-                [self freshPlayVideo:uid streamId:streamID sourceId:sourceID mute:YES];
+                [self freshPlayVideo:uid streamId:streamId mute:YES];
                 return;
             }
         }
         
          if (reason == CloudHubVideoRemoteStateReasonRemoveRemoteStream)
         {
-            [self unPlayVideo:uid streamId:streamID];
+            [self unPlayVideo:uid streamId:streamId];
+        }
+    }
+}
+
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine localVideoStats:(CloudHubRtcLocalVideoStats * _Nonnull)stats
+{
+    NSLog(@"rtcEngine localVideoStats:%@ %@", @(stats.encodedFrameWidth), @(stats.encodedFrameHeight));
+    
+    if (self.largeVideoView.roomUser == self.localUser)
+    {
+        self.sendRate = stats.sentFrameRate;
+        if (stats.encodedFrameHeight > 0 && stats.encodedFrameWidth > 0) {
+            self.sendResolution = [NSString stringWithFormat:@"%@ × %@",@(stats.encodedFrameHeight),@(stats.encodedFrameWidth)];
         }
     }
 }
@@ -770,7 +786,7 @@ onChatMessageArrival:(NSString *)message
     if (publishState == CHUser_PublishState_UP)
     {
         [self.rtcEngine publishStream];//sCHUserDefaultSourceId
-        [self playVideo:roomUser.peerID streamId:roomUser.peerID sourceId:roomUser.peerID];
+        [self playVideo:roomUser.peerID streamId:roomUser.peerID];
     }
     else
     {
@@ -814,7 +830,7 @@ onChatMessageArrival:(NSString *)message
 }
  */
 
-- (void)freshPlayVideo:(NSString*)uid streamId:(NSString *)streamId sourceId:(NSString *)sourceId mute:(BOOL)mute
+- (void)freshPlayVideo:(NSString*)uid streamId:(NSString *)streamId mute:(BOOL)mute
 {
     if ([uid isEqualToString:self.largeVideoView.roomUser.peerID])
     {
@@ -837,7 +853,7 @@ onChatMessageArrival:(NSString *)message
             }
             else
             {
-                [self.rtcEngine startPlayingRemoteVideo:self.largeVideoView.contentView streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled];
+                [self.rtcEngine startPlayingRemoteVideo:self.largeVideoView.contentView streamId:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled];
             }
         }
         
@@ -873,14 +889,14 @@ onChatMessageArrival:(NSString *)message
         }
         else
         {
-            [self.rtcEngine startPlayingRemoteVideo:videoView.contentView streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled];
+            [self.rtcEngine startPlayingRemoteVideo:videoView.contentView streamId:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled];
         }
     }
 }
 
 #pragma mark - playVideo
 
-- (void)playVideo:(NSString*)uid streamId:(NSString *)streamId sourceId:(NSString *)sourceId
+- (void)playVideo:(NSString*)uid streamId:(NSString *)streamId
 {
     if ([self.anchorUser.peerID isEqualToString:uid])
     {
@@ -907,7 +923,7 @@ onChatMessageArrival:(NSString *)message
             [self.view addSubview:view];
             view.delegate = self;
             view.streamId = streamId;
-            view.sourceId = sourceId;
+            view.sourceId = [streamId componentsSeparatedByString:@":"].lastObject;
             view.roomUser = roomUser;
             
             [self.smallVideoViews setObject:view forKey:streamId];
@@ -1007,7 +1023,7 @@ onChatMessageArrival:(NSString *)message
         return;
     }
     
-    [self playVideo:largeRoomUser.peerID streamId:streamId sourceId:sourceId];
+    [self playVideo:largeRoomUser.peerID streamId:streamId];
 }
 
  */
@@ -1026,6 +1042,25 @@ onChatMessageArrival:(NSString *)message
     }
 }
 
+- (void)setSendResolution:(NSString *)sendResolution
+{
+    _sendResolution = sendResolution;
+    
+    if ([sendResolution ch_isNotEmpty] && ![sendResolution isEqualToString:self.videoSetView.resolutionString])
+    {
+        self.videoSetView.resolutionString = self.sendResolution;
+    }
+}
+
+- (void)setSendRate:(NSInteger)sendRate
+{
+    _sendRate = sendRate;
+    
+    if (sendRate && [self.videoSetView.rateString integerValue] != sendRate)
+    {
+        self.videoSetView.rateString = [NSString stringWithFormat:@"%@",@(sendRate)];
+    }
+}
 
 #pragma mark - userList
 
