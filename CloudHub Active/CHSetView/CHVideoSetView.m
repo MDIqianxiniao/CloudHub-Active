@@ -119,6 +119,10 @@
         [self.arrowArray addObject:arrowButton];
         [self.lineArray addObject:lineView];
     }
+    
+    self.resolutionString = @"640 × 360";
+    self.rateString = @"15";
+    
 }
     
 - (void)setFrame:(CGRect)frame

@@ -162,4 +162,19 @@
     }
 }
 
+- (void)setSelectValue:(NSString *)selectValue
+{
+    NSInteger lastIndex = [self.dataArray indexOfObject:self.selectValue];
+    UIButton *lastButton = [self.valueArray ch_safeObjectAtIndex:lastIndex];
+    lastButton.selected = NO;
+    
+    _selectValue = selectValue;
+    
+    NSInteger index = [self.dataArray indexOfObject:selectValue];
+    UIButton *button = [self.valueArray ch_safeObjectAtIndex:index];
+    button.selected = YES;
+    
+    
+}
+
 @end
