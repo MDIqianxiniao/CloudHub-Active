@@ -154,12 +154,12 @@
         {
             if (!self.setToolView)
             {
-                CHSetToolView *setToolView = [[CHSetToolView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 0) WithUserType:self.roleType];
-                self.setToolView = setToolView;
-                [self.view addSubview:setToolView];
+//                CHSetToolView *setToolView = [[CHSetToolView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 0) WithUserType:self.roleType];
+//                self.setToolView = setToolView;
+//                [self.view addSubview:setToolView];
                 
                 CHWeakSelf
-                setToolView.setToolViewButtonsClick = ^(UIButton * _Nonnull button) {
+                self.setToolView.setToolViewButtonsClick = ^(UIButton * _Nonnull button) {
                     [weakSelf setToolButtonsClick:button];
                 };
             }
@@ -199,6 +199,16 @@
         default:
             break;
     }
+}
+
+- (CHSetToolView *)setToolView
+{
+    if (!_setToolView)
+    {
+        _setToolView = [[CHSetToolView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 0) WithUserType:self.roleType];
+        [self.view addSubview:_setToolView];
+    }
+    return _setToolView;
 }
 
 - (void)getUserList
@@ -477,6 +487,11 @@
     }
 }
 
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine didOccurError:(CloudHubErrorCode)errorCode withMessage:(NSString *)message
+{
+    
+}
+
 - (void)rtcEngine:(CloudHubRtcEngineKit *)engine didJoinChannelwithUid:(NSString *)uid elapsed:(NSInteger)elapsed
 {
     self.isJoinChannel = YES;
@@ -489,8 +504,8 @@
     [self.userList addObject:self.localUser];
 
     [self.rtcEngine enableAudio];
-    [self.rtcEngine enableVideo];
     [self.rtcEngine enableLocalAudio:YES];
+    [self.rtcEngine enableVideo];
     [self.rtcEngine enableLocalVideo:YES];
     
     // 开启音量报告
