@@ -120,9 +120,8 @@
         [self.lineArray addObject:lineView];
     }
     
-    self.resolutionString = @"640 × 360";
-    self.rateString = @"15";
-    
+//    self.resolutionString = @"640 × 360";
+//    self.rateString = @"15";
 }
     
 - (void)setFrame:(CGRect)frame

@@ -121,6 +121,9 @@
         _videoSetView = [[CHVideoSetView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 0) itemGap:CellGap];
         [self.view addSubview:_videoSetView];
         
+        _videoSetView.resolutionString = @"320 × 240";
+        _videoSetView.rateString = @"15";
+        
         CHWeakSelf
         _videoSetView.setArrowButtonClick = ^(UIButton * _Nonnull button) {
             [weakSelf setViewArrowButtonClick:button];
@@ -185,7 +188,7 @@
             [self.view addSubview:rateView];
             self.rateView = rateView;
             rateView.selectValue = self.videoSetView.rateString;
-            
+                        
             CHWeakSelf
             __weak CHResolutionView *weakRateView = self.rateView;
             rateView.resolutionViewButtonClick = ^(NSString * _Nullable value) {

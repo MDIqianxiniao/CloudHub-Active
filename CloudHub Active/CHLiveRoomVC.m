@@ -152,18 +152,6 @@
             break;
         case CHLiveRoomFrontButton_Tools:
         {
-            if (!self.setToolView)
-            {
-//                CHSetToolView *setToolView = [[CHSetToolView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 0) WithUserType:self.roleType];
-//                self.setToolView = setToolView;
-//                [self.view addSubview:setToolView];
-                
-                CHWeakSelf
-                self.setToolView.setToolViewButtonsClick = ^(UIButton * _Nonnull button) {
-                    [weakSelf setToolButtonsClick:button];
-                };
-            }
-            
             [UIView animateWithDuration:0.25 animations:^{
                 self.setToolView.ch_originY = self.view.ch_height - self.setToolView.ch_height;
            }];
@@ -207,6 +195,11 @@
     {
         _setToolView = [[CHSetToolView alloc]initWithFrame:CGRectMake(0, self.view.ch_height, self.view.ch_width, 0) WithUserType:self.roleType];
         [self.view addSubview:_setToolView];
+        
+        CHWeakSelf
+        self.setToolView.setToolViewButtonsClick = ^(UIButton * _Nonnull button) {
+            [weakSelf setToolButtonsClick:button];
+        };
     }
     return _setToolView;
 }
@@ -706,10 +699,10 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
     
     if (self.largeVideoView.roomUser == self.localUser)
     {
-        self.sendRate = stats.sentFrameRate;
-        if (stats.encodedFrameHeight > 0 && stats.encodedFrameWidth > 0) {
-            self.sendResolution = [NSString stringWithFormat:@"%@ × %@",@(stats.encodedFrameHeight),@(stats.encodedFrameWidth)];
-        }
+//        self.sendRate = stats.sentFrameRate;
+//        if (stats.encodedFrameHeight > 0 && stats.encodedFrameWidth > 0) {
+//            self.sendResolution = [NSString stringWithFormat:@"%@ × %@",@(stats.encodedFrameHeight),@(stats.encodedFrameWidth)];
+//        }
     }
 }
 

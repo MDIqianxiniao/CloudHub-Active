@@ -96,6 +96,10 @@
                 liveRoomVC.liveModel = weakSelf.liveModel;
                 liveRoomVC.roleType = CHUserType_Anchor;
                 liveRoomVC.chToken = dict[@"token"];
+                
+                liveRoomVC.videoSetView.resolutionString = self.videoSetView.resolutionString;
+                liveRoomVC.videoSetView.rateString = self.videoSetView.rateString;
+                
                 [weakSelf.navigationController pushViewController:liveRoomVC animated:YES];
                 
                 [CHProgressHUD ch_hideHUDForView:weakSelf.view animated:YES];

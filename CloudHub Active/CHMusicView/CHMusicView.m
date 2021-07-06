@@ -146,7 +146,7 @@ static  NSString * const   CHMusicTableViewCellID     = @"CHMusicTableViewCell";
     NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] resourcePath]];
     NSString *filePath = [[bundle resourcePath] stringByAppendingPathComponent:lastModel.path];
     [RtcEngine playEffect:(int)lastModel.soundId filePath:filePath loopCount:0 pitch:1 pan:0 gain:0 publish:YES startTimeMS:0 endTimeMS:0];
-    
+            
     lastModel.isPlay = YES;
 
     [tableView reloadData];
