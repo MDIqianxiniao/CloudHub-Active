@@ -7,6 +7,8 @@
  */
 
 "Cancel" = "Cancel";
+"Refuse" = "Refuse";
+"Agree" = "Agree";
 
 "Login.Channel" = "Channel";
 "Login.Channel.Placeholder" = "Please enter your channel id";
@@ -67,4 +69,7 @@
 "Live_Channel_use" = "The channel is closed or occupied.";
 "Live_LeaveRoom" = "Anchor has left the room ";
 
-"PK.EnterPKNow" = "Is the live now finished?";
+"PK.PKChannelId" = "Please enter the name of the room to which you want PK";
+"Pk.InviteToPK" = "wants to invite you to do room PK";
+"PK.EnterPKButton" = "End Pk";
+"Pk.EnterPKNow" = "Do you end PK?";

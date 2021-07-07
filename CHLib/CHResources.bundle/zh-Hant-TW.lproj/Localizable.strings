@@ -7,6 +7,8 @@
  */
 
 "Cancel" = "取消";
+"Refuse" = "拒絕";
+"Agree" = "同意";
 
 "Login.Channel" = "頻道";
 "Login.Channel.Placeholder" = "請輸入您的房間號";
@@ -67,4 +69,7 @@
 "Live_Channel_use" = "該通道已結束或被占用。";
 "Live_LeaveRoom" = "主播已離開房間";
 
-"PK.EnterPKNow" = "是否結束 PK";
+"PK.PKChannelId" = "請輸入要PK的房間名";
+"PK.InviteToPK" = "想要邀請你進行房間PK";
+"PK.EnterPKButton" = "結束 PK";
+"PK.EnterPKNow" = "是否結束 PK？";
