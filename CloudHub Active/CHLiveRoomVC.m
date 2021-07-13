@@ -659,6 +659,7 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
 
 - (void)rtcEngine:(CloudHubRtcEngineKit *)engine remoteVideoStateChangedOfUid:(NSString *)uid streamId:(NSString *)streamId type:(CloudHubMediaType)type state:(CloudHubVideoRemoteState)state reason:(CloudHubVideoRemoteStateReason)reason
 {
+    ///ddddddd
     if (state == CloudHubVideoRemoteStateStarting)
     {
         if (type & CloudHub_MEDIA_TYPE_AUDIO_AND_VIDEO || type & CloudHub_MEDIA_TYPE_AUDIO_ONLY)
