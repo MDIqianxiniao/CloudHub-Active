@@ -22,6 +22,8 @@
 
 @property (nonatomic, weak) UILabel *nameLable;
 
+@property (nonatomic, weak) UILabel *channelIdLable;
+
 @property (nonatomic, weak) UIButton *userListButton;
 
 @property (nonatomic, weak) UIButton *backButton;
@@ -58,7 +60,6 @@
     CGFloat buttonY = StatusBarH + 15;
         
     UILabel *nameLable = [[UILabel alloc]initWithFrame:CGRectMake(leftMargin, buttonY, 100, ButtonWidth)];
-    nameLable.text = @"主播的昵称";
     nameLable.backgroundColor = CHBlackColor;
     nameLable.font = CHFont12;
     nameLable.textColor = CHWhiteColor;
@@ -67,6 +68,17 @@
     [self addSubview:nameLable];
     self.nameLable.layer.cornerRadius = ButtonWidth * 0.5f;
     self.nameLable.layer.masksToBounds = YES;
+    
+    UILabel *channelIdLable = [[UILabel alloc]initWithFrame:CGRectMake(0, buttonY, 100, ButtonWidth)];
+    channelIdLable.backgroundColor = CHBlackColor;
+    channelIdLable.font = CHFont12;
+    channelIdLable.textColor = CHWhiteColor;
+    channelIdLable.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:channelIdLable];
+    channelIdLable.ch_centerX = self.ch_width * 0.5f;
+    channelIdLable.layer.cornerRadius = ButtonWidth * 0.5f;
+    channelIdLable.layer.masksToBounds = YES;
+    self.channelIdLable = channelIdLable;
     
     CGFloat buttonW = 70;
     
@@ -145,6 +157,7 @@
     inputButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     inputButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     [self addSubview:inputButton];
+    
 }
 
 - (void)addChatView
@@ -191,6 +204,16 @@
     
     CGSize nameWidth = [nickName ch_sizeToFitWidth:self.userListButton.ch_left - leftMargin withFont:CHFont12];
     self.nameLable.ch_width = nameWidth.width + 25;
+}
+
+- (void)setChannelId:(NSString *)channelId
+{
+    _channelId = channelId;
+    
+    self.channelIdLable.text = self.channelId;
+    
+//    CGSize channelIdWidth = [channelId ch_sizeToFitWidth:150 withFont:CHFont12];
+//    self.channelIdLable.ch_width = channelIdWidth.width + 25;
 }
 
 - (void)setUserNum:(NSInteger)userNum

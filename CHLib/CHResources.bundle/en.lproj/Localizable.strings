@@ -69,7 +69,12 @@
 "Live_Channel_use" = "The channel is closed or occupied.";
 "Live_LeaveRoom" = "Anchor has left the room ";
 
-"PK.PKChannelId" = "Please enter the name of the room to which you want PK";
-"Pk.InviteToPK" = "wants to invite you to do room PK";
-"PK.EnterPKButton" = "End Pk";
-"Pk.EnterPKNow" = "Do you end PK?";
+"PK.PKChannelId" = "Please fill in the channel name to PK";
+"PK.IncorrectChannel" = "The channel is incorrect or expired";
+"PK.PKMineChannel" = "Can't do PK with yourself";
+"PK.InviteToPK" = "want to invite you to do room PK";
+"PK.InviteToPKInPKing" = "There are other users want to PK with you, after the PK, can receive the invitation";
+"PK.IsInPK" = "This channel has been rejected or is in PK. Please wait";
+"PK.EnterPKButton" = "End of PK";
+"PK.EnterPKNow" = "Whether to end the PK";
+"PK.IKnow" = "I see";

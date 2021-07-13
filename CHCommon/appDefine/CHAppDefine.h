@@ -27,8 +27,6 @@
  static NSString *const CHCacheAnchorName                  = @"AnchorName";
 static NSString *const CHCacheBeautyModel                  = @"CacheBeautyModel";
 
-
-
 /// Send a message to everyone on the channel
 static NSString *const CHRoomPubMsgTellAll                  = @"__all";
 
@@ -51,9 +49,9 @@ static NSString *const sCHSignal_Server_RoomEnd             = @"Server_RoomEnd";
 static NSString *const sCHUserProperties            = @"properties";
 
 /// User nickname
-static NSString *const sCHUserNickname              = @"userName";
+static NSString *const sCHUserNickname              = @"nickname";
 /// User role
-static NSString *const sCHUserRole                  = @"userRole";
+static NSString *const sCHUserRole                  = @"role";
 
 static NSString *const sCHUserDefaultSourceId       = @"default_source_id";
 static NSString *const sCHUserCameras               = @"cameras";
@@ -84,6 +82,10 @@ static NSString *const sCHGetUserList        = @"https://cna-dorado-user-api.clo
 /// Number of large room users
 static NSString *const sCHSignal_Notice_BigRoom_Usernum     = @"Notice_BigRoom_Usernum";
 
+static NSString *const sCHSignal_Notice_PK_Invitation     = @"PKInvitation";
+
+static NSString *const sCHSignal_Notice_PK_InvitationResult     = @"PKInvitationResult";
+
 static NSString *const sCHStoreTheChannel = @"https://cna-dorado-user-api.cloudhub.vip/channel_users";
 
 /// Gets the configuration information before creating the channel
@@ -97,6 +99,8 @@ static NSString *const sCHJoinChannelRecord         = @"https://cna-dorado-user-
 
 /// Gets a list of users for the specified channel
 static NSString *const sCHGetUserList        = @"https://cna-dorado-user-api.cloudhub.vip/channel_users";
+
+static NSString *const sCHPKInvitation        = @"https://cna-dorado-user-api.cloudhub.vip/publish/messages";
 
 
 /// Query individual Channel details

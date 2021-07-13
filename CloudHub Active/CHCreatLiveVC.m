@@ -32,8 +32,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.view.backgroundColor = UIColor.whiteColor;
     [self setupFrontViewUI];
 }
 
@@ -97,8 +95,8 @@
                 liveRoomVC.roleType = CHUserType_Anchor;
                 liveRoomVC.chToken = dict[@"token"];
                 
-                liveRoomVC.videoSetView.resolutionString = self.videoSetView.resolutionString;
-                liveRoomVC.videoSetView.rateString = self.videoSetView.rateString;
+                liveRoomVC.videoSetView.resolutionString = weakSelf.videoSetView.resolutionString;
+                liveRoomVC.videoSetView.rateString = weakSelf.videoSetView.rateString;
                 
                 [weakSelf.navigationController pushViewController:liveRoomVC animated:YES];
                 

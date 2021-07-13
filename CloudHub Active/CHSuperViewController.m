@@ -44,6 +44,8 @@
 {
     [super viewDidLoad];
     
+    self.view.backgroundColor = CHColor_24262C;
+    
     self.rtcEngine = RtcEngine;
     
     [self setupLargeVideoView];

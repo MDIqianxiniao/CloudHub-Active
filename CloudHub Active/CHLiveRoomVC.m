@@ -53,6 +53,18 @@
 
 @property (nonatomic, assign) NSInteger sendRate;
 
+@property (nonatomic, weak) UIButton *startPkButton;
+
+@property (nonatomic, assign) BOOL isStartPK;
+
+@property (nonatomic, copy) NSString *pkChannelId;
+
+@property (nonatomic, weak) CHVideoView *anchorPkView;
+
+@property (nonatomic, weak) CHVideoView *pkView;
+
+@property (nonatomic, weak) UIButton *stopPkButton;
+
 @end
 
 @implementation CHLiveRoomVC
@@ -60,9 +72,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.view.backgroundColor = UIColor.whiteColor;
-    
+        
     self.rtcEngine.delegate = self;
     
     self.userList = [NSMutableArray array];
@@ -101,11 +111,85 @@
     self.liveRoomFrontView = liveRoomFrontView;
     [self.view addSubview:liveRoomFrontView];
     liveRoomFrontView.nickName = self.myNickName;
+    liveRoomFrontView.channelId = self.liveModel.channelId;
     
     CHWeakSelf
     liveRoomFrontView.liveRoomFrontViewButtonsClick = ^(UIButton * _Nonnull button) {
         [weakSelf frontViewButtonsClick:button];
     };
+        
+    UIButton *startPkButton = [[UIButton alloc]initWithFrame:CGRectMake(self.view.ch_width - VideoWidth - 5, self.view.ch_height - 80 - VideoWidth, VideoWidth, VideoWidth)];
+    [startPkButton setImage:[UIImage imageNamed:@"PKButton"] forState:UIControlStateNormal];
+    [startPkButton addTarget:self action:@selector(pkbuttonsClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:startPkButton];
+    self.startPkButton = startPkButton;
+}
+
+- (void)pkbuttonsClick:(UIButton *)sender
+{
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *sure = [UIAlertAction actionWithTitle:CH_Localized(@"Live_Sure") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        if ([self.pkChannelId isEqualToString:self.liveModel.channelId])
+        {
+            self.pkChannelId = nil;
+            
+            UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:CH_Localized(@"PK.PKMineChannel") message:nil preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:CH_Localized(@"PK.IKnow") style:UIAlertActionStyleDefault handler:nil];
+            [alertVc addAction:cancel];
+            [self presentViewController:alertVc animated:YES completion:nil];
+        }
+        else if ([self.pkChannelId ch_isNotEmpty])
+        {
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@{@"channelId":self.liveModel.channelId} options:0 error:nil];
+            NSString * json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            
+            NSDictionary *params = @{
+                @"channel":self.pkChannelId,
+                @"message_name":@"pubMsg",
+                @"signaling_name":sCHSignal_Notice_PK_Invitation,
+                @"signaling_id":sCHSignal_Notice_PK_Invitation,
+                @"data":json
+            };
+            
+            CHWeakSelf
+            [CHNetworkRequest postWithURLString:sCHPKInvitation params:params progress:nil success:^(NSDictionary * _Nonnull dictionary) {
+                
+                NSLog(@"邀请发送成功");
+                
+            } failure:^(NSError * _Nonnull error) {
+                
+                NSHTTPURLResponse *response = error.userInfo[AFNetworkingOperationFailingURLResponseErrorKey];
+                if (response.statusCode == 400)
+                {
+                    self.pkChannelId = nil;
+                    
+                    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:CH_Localized(@"PK.IncorrectChannel") message:nil preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *cancel = [UIAlertAction actionWithTitle:CH_Localized(@"PK.IKnow") style:UIAlertActionStyleDefault handler:nil];
+                    [alertVc addAction:cancel];
+                    [weakSelf presentViewController:alertVc animated:YES completion:nil];
+                }
+            }];
+        }
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:CH_Localized(@"Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        self.pkChannelId = nil;
+    }];
+    
+    [alertVc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = CH_Localized(@"PK.PKChannelId");
+        [textField addTarget:self action:@selector(textFieldChane:) forControlEvents:UIControlEventEditingChanged];
+    }];
+    
+    [alertVc addAction:sure];
+    [alertVc addAction:cancel];
+    
+    [self presentViewController:alertVc animated:YES completion:nil];
+}
+
+- (void)textFieldChane:(UITextField *)textField
+{
+    self.pkChannelId = textField.text;
 }
 
 - (void)setupMusicView
@@ -207,7 +291,7 @@
 - (void)getUserList
 {
     CHWeakSelf
-    [CHNetworkRequest getWithURLString:sCHGetUserList params:@{@"channel":self.liveModel.channelId} progress:nil success:^(NSDictionary * _Nonnull dictionary) {
+    [CHNetworkRequest getWithURLString:sCHGetUserList params:@{@"channelId":self.liveModel.channelId} progress:nil success:^(NSDictionary * _Nonnull dictionary) {
         
         NSArray *array = dictionary[@"data"];
         
@@ -472,7 +556,6 @@
             [weakSelf.rtcEngine leaveChannel:nil];
         }];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:CH_Localized(@"Cancel") style:UIAlertActionStyleCancel handler:nil];
-        
         [alertVc addAction:sure];
         [alertVc addAction:cancel];
         
@@ -571,7 +654,13 @@
     [self.tipMessageTimer invalidate];
     self.tipMessageTimer = nil;
 
+    if (self.isStartPK)
+    {
+        [self.rtcEngine stopChannelMediaRelay];
+    }
+
     [self.rtcEngine stopPlayingLocalVideo];
+    
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -583,10 +672,25 @@
     
     CHRoomUser *roomUser = [self addRoomUserWithId:uid properties:propertDic];
     
-    if (roomUser.role == CHUserType_Anchor)
+    if (roomUser.role == CHUserType_Anchor && !self.isStartPK)
     {
-        self.anchorUser = roomUser;
+        self.isStartPK = YES;
+//
+//        CloudHubChannelMediaRelayInfo *info = [[CloudHubChannelMediaRelayInfo alloc]init];
+//
+//        info.channelID = @"222";
+//        info.token = self.chToken;
+//
+//        CloudHubChannelMediaRelayConfig * config = [[CloudHubChannelMediaRelayConfig alloc]init];
+//        config.destinationInfos = @{info.channelID : info};
+//
+//        [self.rtcEngine startChannelMediaRelay:config];
     }
+    
+//    if (roomUser.role == CHUserType_Anchor)
+//    {
+//        self.anchorUser = roomUser;
+//    }
 }
 
 - (void)rtcEngine:(CloudHubRtcEngineKit *)engine didOfflineOfUid:(NSString *)uid
@@ -597,9 +701,16 @@
 
     if (roomUser.role == CHUserType_Anchor)
     {
-        self.anchorLeft = YES;
-        
-        [self.rtcEngine leaveChannel:nil];
+        if ([self.anchorUser.peerID isEqualToString:uid])
+        {
+            self.anchorLeft = YES;
+            
+            [self.rtcEngine leaveChannel:nil];
+        }
+        else if (self.isStartPK)
+        {
+            self.isStartPK = NO;
+        }
     }
 }
 
@@ -691,6 +802,10 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
             [self unPlayVideo:uid streamId:streamId];
         }
     }
+    else
+    {
+        NSLog(@"其他情况");
+    }
 }
 
 - (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine localVideoStats:(CloudHubRtcLocalVideoStats * _Nonnull)stats
@@ -718,13 +833,168 @@ associatedWithMsg:(NSString *)assMsgID
         isHistory:(BOOL)isHistory
               seq:(NSInteger)seq
 {
-    // 房间用户数
+    // userCount
     if ([msgName isEqualToString:sCHSignal_Notice_BigRoom_Usernum])
     {
         NSDictionary *dataDic = [CHCloudHubUtil convertWithData:data];
         NSUInteger count = [dataDic ch_uintForKey:@"num"];
         
         self.liveRoomFrontView.userNum = count;
+        return;
+    }
+    
+    // PKInvitation
+    if ([msgName isEqualToString:sCHSignal_Notice_PK_Invitation])
+    {
+        NSDictionary *dataDic = [CHCloudHubUtil convertWithData:data];
+        self.pkChannelId = [dataDic ch_stringForKey:@"channelId"];
+        
+        if (self.isStartPK)
+        {
+            UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:CH_Localized(@"PK.InviteToPKInPKing") message:nil preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:CH_Localized(@"PK.IKnow") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                // 拒绝
+                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@{@"isAgree":@NO,@"channelId":self.liveModel.channelId} options:0 error:nil];
+                NSString * json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+                
+                NSDictionary *params = @{
+                    @"channel":self.pkChannelId,
+                    @"message_name":@"pubMsg",
+                    @"signaling_name":sCHSignal_Notice_PK_InvitationResult,
+                    @"signaling_id":sCHSignal_Notice_PK_InvitationResult,
+                    @"data":json
+                };
+                                
+                [CHNetworkRequest postWithURLString:sCHPKInvitation params:params progress:nil success:^(NSDictionary * _Nonnull dictionary) {
+                } failure:^(NSError * _Nonnull error) {
+                }];
+                self.pkChannelId = nil;
+            }];
+            [alertVc addAction:cancel];
+            
+            [self presentViewController:alertVc animated:YES completion:nil];
+        }
+        else
+        {
+            NSString *titleString = [NSString stringWithFormat:@"%@ %@",self.pkChannelId,CH_Localized(@"PK.InviteToPK")];
+            
+            UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:titleString message:nil preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *sure = [UIAlertAction actionWithTitle:CH_Localized(@"Agree") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                
+                if ([self.pkChannelId ch_isNotEmpty])
+                {
+                    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@{@"isAgree":@YES,@"channelId":self.liveModel.channelId} options:0 error:nil];
+                    NSString * json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+                    NSDictionary *params = @{
+                        @"channel":self.pkChannelId,
+                        @"message_name":@"pubMsg",
+                        @"signaling_name":sCHSignal_Notice_PK_InvitationResult,
+                        @"signaling_id":sCHSignal_Notice_PK_InvitationResult,
+                        @"data":json
+                    };
+                                        
+                    CHWeakSelf
+                    [CHNetworkRequest postWithURLString:sCHPKInvitation params:params progress:nil success:^(NSDictionary * _Nonnull dictionary) {
+                        
+                        self.isStartPK = YES;
+                        
+                        [weakSelf.rtcEngine stopChannelMediaRelay];
+                        
+                        CloudHubChannelMediaRelayInfo *info = [[CloudHubChannelMediaRelayInfo alloc]init];
+                        
+                        info.channelID = weakSelf.pkChannelId;
+                        info.token = weakSelf.chToken;
+                        
+                        CloudHubChannelMediaRelayConfig * config = [[CloudHubChannelMediaRelayConfig alloc]init];
+                        config.destinationInfos = @{weakSelf.pkChannelId : info};
+                        
+                        [weakSelf.rtcEngine startChannelMediaRelay:config];
+                        
+                    } failure:^(NSError * _Nonnull error) {
+                        
+                        self.isStartPK = NO;
+                        
+                        NSHTTPURLResponse *response = error.userInfo[AFNetworkingOperationFailingURLResponseErrorKey];
+                        if (response.statusCode == 400)
+                        {
+                            UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:CH_Localized(@"PK.IsInPK") message:nil preferredStyle:UIAlertControllerStyleAlert];
+                            UIAlertAction *cancel = [UIAlertAction actionWithTitle:CH_Localized(@"PK.IKnow") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                self.pkChannelId = nil;
+                            }];
+                            [alertVc addAction:cancel];
+                            
+                            [self presentViewController:alertVc animated:YES completion:nil];
+                        }
+                    }];
+                }
+            }];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:CH_Localized(@"Refuse") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@{@"isAgree":@NO,@"channelId":self.liveModel.channelId} options:0 error:nil];
+                NSString * json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+                
+                NSDictionary *params = @{
+                    @"channel":self.pkChannelId,
+                    @"message_name":@"pubMsg",
+                    @"signaling_name":sCHSignal_Notice_PK_InvitationResult,
+                    @"signaling_id":sCHSignal_Notice_PK_InvitationResult,
+                    @"data":json
+                };
+                                
+                [CHNetworkRequest postWithURLString:sCHPKInvitation params:params progress:nil success:^(NSDictionary * _Nonnull dictionary) {
+                } failure:^(NSError * _Nonnull error) {
+                }];
+                self.pkChannelId = nil;
+            }];
+            
+            [alertVc addAction:sure];
+            [alertVc addAction:cancel];
+            
+            [self presentViewController:alertVc animated:YES completion:nil];
+        }
+        return;
+    }
+    
+    // PKInvitationResult
+    if ([msgName isEqualToString:sCHSignal_Notice_PK_InvitationResult])
+    {
+        NSDictionary *dataDic = [CHCloudHubUtil convertWithData:data];
+        
+        BOOL isResult = [dataDic ch_boolForKey:@"isAgree"];
+        
+        if (!self.isStartPK)
+        {
+            if (isResult)
+            {
+                for (CHVideoView *videoView in self.smallVideoViews.allValues)
+                {
+                    [self clickRemoveButtonToCloseVideoView:videoView];
+                }
+                                
+                [self.rtcEngine stopChannelMediaRelay];
+                
+                CloudHubChannelMediaRelayInfo *info = [[CloudHubChannelMediaRelayInfo alloc]init];
+                
+                info.channelID = self.pkChannelId;
+                info.token = self.chToken;
+                
+                CloudHubChannelMediaRelayConfig * config = [[CloudHubChannelMediaRelayConfig alloc]init];
+                config.destinationInfos = @{self.pkChannelId : info};
+                
+                [self.rtcEngine startChannelMediaRelay:config];
+            }
+            else
+            {
+                self.pkChannelId = nil;
+                
+                UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:CH_Localized(@"PK.IsInPK") message:nil preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *cancel = [UIAlertAction actionWithTitle:CH_Localized(@"PK.IKnow") style:UIAlertActionStyleDefault handler:nil];
+                [alertVc addAction:cancel];
+                
+                [self presentViewController:alertVc animated:YES completion:nil];
+            }
+        }
+        return;
     }
 }
 
@@ -764,7 +1034,6 @@ onChatMessageArrival:(NSString *)message
     {
         return;
     }
-
     
     CHRoomUser *user = [[CHRoomUser alloc] initWithPeerId:fromuid];
     user.nickName = [messageDic ch_stringForKey:sCHUserNickname];
@@ -783,6 +1052,25 @@ onChatMessageArrival:(NSString *)message
     [self.messageArray addObject:messageModel];
     
     self.liveRoomFrontView.messageList = self.messageArray;
+}
+
+#pragma mark - PK
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine onChannel:(NSString *)channelID MediaRelayStateChanged:(CloudHubMediaRelayState)state error:(CloudHubMediaRelayError)error
+{
+    if (state == CloudHub_RELAY_STATE_IDLE)
+    {
+        
+    }
+    else if (state == CloudHub_RELAY_STATE_CONNECTING)
+    {
+    }
+    else if (state == CloudHub_RELAY_STATE_RUNNING)
+    {
+        
+    }
+    else if (state == CloudHub_RELAY_STATE_FAILURE)
+    {
+    }
 }
 
 #pragma mark - 改变自己视频流发布状态
@@ -906,6 +1194,14 @@ onChatMessageArrival:(NSString *)message
 
 - (void)playVideo:(NSString*)uid streamId:(NSString *)streamId
 {
+    if (self.isStartPK)
+    {
+        [self startPkVideoUser:uid streamId:streamId];
+        
+        return;
+    }
+        
+    self.largeVideoView.hidden = NO;
     if ([self.anchorUser.peerID isEqualToString:uid])
     {
         self.largeVideoView.roomUser = self.anchorUser;
@@ -919,7 +1215,6 @@ onChatMessageArrival:(NSString *)message
         roomUser = [[CHRoomUser alloc] initWithPeerId:uid];
         roomUser.cloudHubRtcEngineKit = self.rtcEngine;
         roomUser.role = CHUserType_Audience;
-//        [self.userList addObject:roomUser];
     }
     
     @synchronized (self.smallVideoViews)
@@ -962,11 +1257,118 @@ onChatMessageArrival:(NSString *)message
     }
 }
 
+- (void)setIsStartPK:(BOOL)isStartPK
+{
+    _isStartPK = isStartPK;
+    
+    if (isStartPK)
+    {
+        self.startPkButton.hidden = YES;
+        self.liveRoomFrontView.nameLable.hidden = YES;
+        self.liveRoomFrontView.channelIdLable.hidden = YES;
+        self.liveRoomFrontView.userListButton.hidden = YES;
+    }
+    else
+    {
+        [self.rtcEngine stopChannelMediaRelay];
+        
+        self.startPkButton.hidden = NO;
+        self.stopPkButton.hidden = YES;
+        
+        self.liveRoomFrontView.nameLable.hidden = NO;
+        self.liveRoomFrontView.channelIdLable.hidden = NO;
+        self.liveRoomFrontView.userListButton.hidden = NO;
+        
+        self.anchorPkView.hidden = YES;
+        self.pkView.hidden = YES;
+        self.largeVideoView.hidden = NO;
+        
+        [self playVideo:self.anchorUser.peerID streamId:self.largeVideoView.streamId];
+    }
+    
+}
+
+- (void)startPkVideoUser:(NSString*)uid streamId:(NSString *)streamId
+{
+    [self.rtcEngine stopPlayingRemoteVideo:self.largeVideoView.streamId];
+    self.largeVideoView.hidden = YES;
+        
+    CGFloat marginX = 5.0f;
+    CGFloat marginY = 50;
+    CGFloat pkWidth = (self.view.ch_width - 15.0f)/2.0f;
+    CGFloat pkHeight = pkWidth * 4.0f / 3.0f;
+    
+    if (!self.anchorPkView)
+    {
+        CHVideoView *anchorPkView = [[CHVideoView alloc] initWithFrame:CGRectMake(marginX, marginY, pkWidth, pkHeight)];
+        [self.view addSubview:anchorPkView];
+        anchorPkView.delegate = self;
+        self.anchorPkView = anchorPkView;
+    }
+    self.anchorPkView.hidden = NO;
+    self.anchorPkView.streamId = self.largeVideoView.streamId;
+    self.anchorPkView.sourceId = self.largeVideoView.sourceId;
+    self.anchorPkView.roomUser = self.largeVideoView.roomUser;
+    
+    [self freshPlayVideoView:self.anchorPkView streamId:self.largeVideoView.streamId mute:NO];
+    
+    CHRoomUser *roomUser = [self getRoomUserWithId:uid];
+    if (![roomUser ch_isNotEmpty])
+    {
+        roomUser = [[CHRoomUser alloc] initWithPeerId:uid];
+        roomUser.cloudHubRtcEngineKit = self.rtcEngine;
+        roomUser.role = CHUserType_Anchor;
+    }
+    
+    if (!self.pkView)
+    {
+        CHVideoView *pkView = [[CHVideoView alloc] initWithFrame:CGRectMake(self.anchorPkView.ch_right + marginX, marginY, pkWidth, pkHeight)];
+        [self.view addSubview:pkView];
+        pkView.delegate = self;
+        self.pkView = pkView;
+    }
+    self.pkView.hidden = NO;
+    self.pkView.streamId = streamId;
+    self.pkView.sourceId = [streamId componentsSeparatedByString:@":"].lastObject;
+    self.pkView.roomUser = roomUser;
+    
+    [self freshPlayVideoView:self.pkView streamId:streamId mute:NO];
+    
+    if (!self.stopPkButton)
+    {
+        UIButton *stopPkButton = [[UIButton alloc]initWithFrame:CGRectMake(0, self.anchorPkView.ch_bottom + 10, 84, 28)];
+        [stopPkButton setBackgroundImage:[UIImage imageNamed:@"stopPkButton"] forState:UIControlStateNormal];
+        [stopPkButton setTitle:CH_Localized(@"PK.EnterPKButton") forState:UIControlStateNormal];
+        [stopPkButton addTarget:self action:@selector(stopPkButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:stopPkButton];
+        self.stopPkButton = stopPkButton;
+        stopPkButton.ch_centerX = self.view.ch_width * 0.5f;
+    }
+    self.stopPkButton.hidden = NO;
+}
+
+- (void)stopPkButtonClick
+{
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:CH_Localized(@"PK.EnterPKNow") message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *sure = [UIAlertAction actionWithTitle:CH_Localized(@"Live_Sure") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [self.rtcEngine stopChannelMediaRelay];
+        
+        self.pkChannelId = nil;
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:CH_Localized(@"Cancel") style:UIAlertActionStyleCancel handler:nil];
+       
+    [alertVc addAction:sure];
+    [alertVc addAction:cancel];
+    
+    [self presentViewController:alertVc animated:YES completion:nil];
+}
+
 - (void)arrangeVideoViews
 {
     CGFloat margin = [UIDevice ch_isiPad] ? 10 : 5;
     CGFloat x = self.view.ch_width - VideoWidth - 5;
-    CGFloat y = self.view.ch_height - 100 - VideoHeight;
+    CGFloat y = self.view.ch_height - 180 - VideoHeight;
     
     NSArray *array = [self.smallVideoViews allValues];
     

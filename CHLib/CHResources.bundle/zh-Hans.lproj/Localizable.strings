@@ -11,7 +11,7 @@
 "Agree" = "同意";
 
 "Login.Channel" = "频道";
-"Login.Channel.Placeholder" = "请输入您的房间号";
+"Login.Channel.Placeholder" = "请输入您的通道号";
 "Login.NickName.Placeholder" = "请输入您的昵称";
 "Login.Enter" = "进入";
 "Login.EnterRoom" = "进入房间";
@@ -29,7 +29,7 @@
 "List_LiveName" = "直播间名";
 "List_InpuYourNickName" = "请输入您的昵称";
 
-"Live_InputRoomNum" = "输入您的直播号（直播号只允许输入数字+字母）";
+"Live_InputRoomNum" = "输入您的通道名";
 "Live_StartLive" = "开始直播";
 "Live_EntLive" = "退出直播";
 "Live_EntLiveNow" = "是否退出直播";
@@ -39,7 +39,7 @@
 "Live_Set_Rate" = "帧率";
 "Live_Prompt_Title" = "温馨提示";
 "Live_Prompt_Content" = "本应用为测试产品，请勿商用，\n单次直播最多10分钟，每个通道最多10人";
-"Live_InputRoomNumPrompt" = "请输入您的直播号";
+"Live_InputRoomNumPrompt" = "请输入您的通道名";
 "Live_ChatPlaceholder" = "我来说几句...";
 "Live_ChatTextNumber" = "文本最多输入 80 个字符";
 
@@ -69,8 +69,12 @@
 "Live_Channel_use" = "该通道已结束或被占用。";
 "Live_LeaveRoom" = "主播已离开房间";
 
-"PK.PKChannelId" = "请输入要PK的房间名";
+"PK.PKChannelId" = "请输入要PK的通道名";
+"PK.IncorrectChannel" = "该通道不正确或已过期";
+"PK.PKMineChannel" = "不能与自己进行 PK";
 "PK.InviteToPK" = "想要邀请你进行房间PK";
+"PK.InviteToPKInPKing" = "有其他用户想和你PK，结束当前 PK 后，可收到邀请。";
+"PK.IsInPK" = "该通道已拒绝或正在PK中，请稍等";
 "PK.EnterPKButton" = "结束 PK";
 "PK.EnterPKNow" = "是否结束 PK？";
-
+"PK.IKnow" = "我知道了";

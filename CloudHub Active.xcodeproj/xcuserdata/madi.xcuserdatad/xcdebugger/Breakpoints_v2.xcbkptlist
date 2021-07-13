@@ -26,8 +26,8 @@
             filePath = "CloudHub Active/CHLiveRoomView/CHLiveRoomFrontView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
             landmarkName = "-setIsUpStage:"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,8 +42,8 @@
             filePath = "CloudHub Active/CHLiveRoomVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
             landmarkName = "-getUserList"
             landmarkType = "7">
          </BreakpointContent>
@@ -51,16 +51,256 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "93753167-BCBF-4556-9587-6BBB8DEEC51B"
+            uuid = "7EDAD99B-2E3E-4ABF-AC49-EB45EA9689D7"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CloudHub Active/CHLiveRoomVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "635"
-            endingLineNumber = "635"
-            landmarkName = "-rtcEngine:onSetPropertyOfUid:from:properties:"
+            startingLineNumber = "868"
+            endingLineNumber = "868"
+            landmarkName = "-rtcEngine:onPubMsg:msgId:from:withData:associatedWithUser:associatedWithMsg:ts:withExtraData:isHistory:seq:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "7EDAD99B-2E3E-4ABF-AC49-EB45EA9689D7 - 481da7fb67076ff0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__123-[CHLiveRoomVC rtcEngine:onPubMsg:msgId:from:withData:associatedWithUser:associatedWithMsg:ts:withExtraData:isHistory:seq:]_block_invoke"
+                  moduleName = "CloudHub Active"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madi/Desktop/CloudHub-Active/CloudHub%20Active/CHLiveRoomVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "868"
+                  endingLineNumber = "868"
+                  offsetFromSymbolStart = "700">
+               </Location>
+               <Location
+                  uuid = "7EDAD99B-2E3E-4ABF-AC49-EB45EA9689D7 - c9a75885a38797b0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__123-[CHLiveRoomVC rtcEngine:onPubMsg:msgId:from:withData:associatedWithUser:associatedWithMsg:ts:withExtraData:isHistory:seq:]_block_invoke_2"
+                  moduleName = "CloudHub Active"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madi/Desktop/CloudHub-Active/CloudHub%20Active/CHLiveRoomVC.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "869"
+                  endingLineNumber = "869"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "13DE619F-76CC-421E-944F-ADA4E5F8A75C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CloudHub Active/CHLiveRoomVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "918"
+            endingLineNumber = "918"
+            landmarkName = "-rtcEngine:onPubMsg:msgId:from:withData:associatedWithUser:associatedWithMsg:ts:withExtraData:isHistory:seq:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "95E68476-0C55-46F2-A6CE-C7B64898BD0D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CloudHub Active/CHLiveRoomVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "936"
+            endingLineNumber = "936"
+            landmarkName = "-rtcEngine:onPubMsg:msgId:from:withData:associatedWithUser:associatedWithMsg:ts:withExtraData:isHistory:seq:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C16D600F-98A8-4F53-8387-5BBCEC02DBD5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CloudHub Active/CHLiveRoomVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "980"
+            endingLineNumber = "980"
+            landmarkName = "-rtcEngine:onPubMsg:msgId:from:withData:associatedWithUser:associatedWithMsg:ts:withExtraData:isHistory:seq:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4FFD83A8-0597-4B38-B823-2110584EC926"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CloudHub Active/CHLiveRoomVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "786"
+            endingLineNumber = "786"
+            landmarkName = "-rtcEngine:remoteVideoStateChangedOfUid:streamId:type:state:reason:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "802179C7-1C74-4E99-BAFA-4AE0FFD33F37"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CloudHub Active/CHLiveRoomVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "712"
+            endingLineNumber = "712"
+            landmarkName = "-rtcEngine:didOfflineOfUid:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AEA28B0F-1DA1-4C44-B2CA-D773329DCF10"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CloudHub Active/CHLiveRoomVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "707"
+            endingLineNumber = "707"
+            landmarkName = "-rtcEngine:didOfflineOfUid:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FF41616E-8CE6-4C35-B38A-E75162681BD7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CloudHub Active/CHLiveRoomVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "779"
+            endingLineNumber = "779"
+            landmarkName = "-rtcEngine:remoteVideoStateChangedOfUid:streamId:type:state:reason:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9CA54ACB-407E-43EC-8104-422DBDCC27E3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CloudHub Active/CHLiveRoomVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "802"
+            endingLineNumber = "802"
+            landmarkName = "-rtcEngine:remoteVideoStateChangedOfUid:streamId:type:state:reason:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6B969A25-E5BC-47E2-85D7-B138D0112E20"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CloudHub Active/CHLiveRoomVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "795"
+            endingLineNumber = "795"
+            landmarkName = "-rtcEngine:remoteVideoStateChangedOfUid:streamId:type:state:reason:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A76ED9E3-E0DC-4053-9DAA-1D070170AFC3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CloudHub Active/CHLiveRoomVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "773"
+            endingLineNumber = "773"
+            landmarkName = "-rtcEngine:remoteVideoStateChangedOfUid:streamId:type:state:reason:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "857B8925-5C54-4447-A916-B0452BD5F966"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CloudHub Active/CHLiveRoomVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "905"
+            endingLineNumber = "905"
+            landmarkName = "-rtcEngine:onPubMsg:msgId:from:withData:associatedWithUser:associatedWithMsg:ts:withExtraData:isHistory:seq:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "91B21336-D38C-4D73-BD43-DBF7FBF0C57A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CloudHub Active/CHLiveRoomVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "991"
+            endingLineNumber = "991"
+            landmarkName = "-rtcEngine:onPubMsg:msgId:from:withData:associatedWithUser:associatedWithMsg:ts:withExtraData:isHistory:seq:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "181DD606-A288-4D70-9DAD-50E842553837"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CloudHub Active/CHLiveRoomVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "673"
+            endingLineNumber = "673"
+            landmarkName = "-rtcEngine:didJoinedOfUid:properties:isHistory:fromChannel:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
