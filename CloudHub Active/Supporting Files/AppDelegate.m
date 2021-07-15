@@ -13,10 +13,13 @@
 /// https://itunes.apple.com/cn/app/id1559508438  App Store下载链接
 
 #if CHHost_API
+
 static NSString *const kAppkey = @"WrRcEjxep2NQRC2p";
+
 #else
 
-static NSString *const kAppkey = @"4dAxkcHvEOhF5HIS";
+static NSString *const kAppkey = @"2dQzwbxWNRlzjexF";
+//static NSString *const kAppkey = @"WrRcEjxep2NQRC2p";
 
 #endif
 
@@ -49,9 +52,9 @@ static NSString *const kAppkey = @"4dAxkcHvEOhF5HIS";
     [self.window makeKeyAndVisible];
     
     
-//    NSDictionary *rtcEngineKitConfig = @{ @"server": CHLiveActive_Server, @"port":@(80), @"secure":@(NO) };
-//    self.rtcEngine = [CloudHubRtcEngineKit sharedEngineWithAppId:kAppkey config:[rtcEngineKitConfig ch_toJSON]];
-    self.rtcEngine = [CloudHubRtcEngineKit sharedEngineWithAppId:kAppkey config:nil];
+    NSDictionary *rtcEngineKitConfig = @{ @"server": CHLiveActive_Server, @"port":@(80), @"secure":@(NO) };
+    self.rtcEngine = [CloudHubRtcEngineKit sharedEngineWithAppId:kAppkey config:[rtcEngineKitConfig ch_toJSON]];
+//    self.rtcEngine = [CloudHubRtcEngineKit sharedEngineWithAppId:kAppkey config:nil];
     
     [self.rtcEngine setChannelProfile:CloudHubChannelProfileLiveBroadcasting];
     

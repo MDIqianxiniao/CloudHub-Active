@@ -18,7 +18,7 @@
 
 #else
 
-#define CHLiveActive_Server          @"demo.roadofcloud.net"
+#define CHLiveActive_Server          @"api-demo.cloudhub.vip"
 
 #endif
 
@@ -59,32 +59,14 @@ static NSString *const sCHUserVideoFail             = @"vfail";
 static NSString *const sCHUserAudioFail             = @"afail";
 static NSString *const sCHUserPublishstate          = @"publishstate";
 
-/*
-/// Number of large room users
-static NSString *const sCHSignal_Notice_BigRoom_Usernum     = @"Notice_BigRoom_Usernum";
-
-static NSString *const sCHStoreTheChannel = @"https://cna-dorado-user-api.cloudhub.vip-demo/channel_users";
-
-/// Gets the configuration information before creating the channel
-static NSString *const sCHGetConfig              = @"https://cna-dorado-user-api.cloudhub.vip-demo/config";
-
-/// Get lists of channels
-static NSString *const sCHGetChannelList         = @"https://cna-dorado-user-api.cloudhub.vip-demo/channels";
-
-/// User Entry and Exit Record
-static NSString *const sCHJoinChannelRecord         = @"https://cna-dorado-user-api.cloudhub.vip-demo/record";
-
-/// Gets a list of users for the specified channel
-static NSString *const sCHGetUserList        = @"https://cna-dorado-user-api.cloudhub.vip-demo/channel_users";
- */
-
-
 /// Number of large room users
 static NSString *const sCHSignal_Notice_BigRoom_Usernum     = @"Notice_BigRoom_Usernum";
 
 static NSString *const sCHSignal_Notice_PK_Invitation     = @"PKInvitation";
 
 static NSString *const sCHSignal_Notice_PK_InvitationResult     = @"PKInvitationResult";
+
+#if CHHost_API
 
 static NSString *const sCHStoreTheChannel = @"https://cna-dorado-user-api.cloudhub.vip/channel_users";
 
@@ -102,12 +84,44 @@ static NSString *const sCHGetUserList        = @"https://cna-dorado-user-api.clo
 
 static NSString *const sCHPKInvitation        = @"https://cna-dorado-user-api.cloudhub.vip/publish/messages";
 
-
-/// Query individual Channel details
-//static NSString *const sCHGetShowChannelDate     = @"https://cna-dorado-user-api.cloudhub.vip/channels/live";
-///// deleteChannel
-//static NSString *const sCHDeleteTheChannel       = @"https://cna-dorado-user-api.cloudhub.vip/channels/live";
+#else
 
 
+static NSString *const sCHStoreTheChannel = @"https://cna-dorado-user-api-demo.cloudhub.vip/channel_users";
+
+/// Gets the configuration information before creating the channel
+static NSString *const sCHGetConfig              = @"https://cna-dorado-user-api-demo.cloudhub.vip/config";
+
+/// Get lists of channels
+static NSString *const sCHGetChannelList         = @"https://cna-dorado-user-api-demo.cloudhub.vip/channels";
+
+/// User Entry and Exit Record
+static NSString *const sCHJoinChannelRecord         = @"https://cna-dorado-user-api-demo.cloudhub.vip/record";
+
+/// Gets a list of users for the specified channel
+static NSString *const sCHGetUserList        = @"https://cna-dorado-user-api-demo.cloudhub.vip/channel_users";
+ 
+ static NSString *const sCHPKInvitation        = @"https://cna-dorado-user-api-demo.cloudhub.vip/publish/messages";
+
+#endif
+
+
+/*
+static NSString *const sCHStoreTheChannel = @"https://cna-dorado-user-api.cloudhub.vip/channel_users";
+
+/// Gets the configuration information before creating the channel
+static NSString *const sCHGetConfig              = @"https://cna-dorado-user-api.cloudhub.vip/config";
+
+/// Get lists of channels
+static NSString *const sCHGetChannelList         = @"https://cna-dorado-user-api.cloudhub.vip/channels";
+
+/// User Entry and Exit Record
+static NSString *const sCHJoinChannelRecord         = @"https://cna-dorado-user-api.cloudhub.vip/record";
+
+/// Gets a list of users for the specified channel
+static NSString *const sCHGetUserList        = @"https://cna-dorado-user-api.cloudhub.vip/channel_users";
+
+static NSString *const sCHPKInvitation        = @"https://cna-dorado-user-api.cloudhub.vip/publish/messages";
+*/
 
 #endif /* CHAppDefine_h */

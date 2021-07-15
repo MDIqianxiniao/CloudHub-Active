@@ -28,6 +28,8 @@
 
 @property (nonatomic, weak) UIButton *backButton;
 
+@property (nonatomic, weak) UIButton *moreToolsButton;
+
 @property (nonatomic, weak) UIButton *beautySetButton;
 
 @property (nonatomic, weak) UILabel *placeholderLable;
@@ -118,6 +120,7 @@
     [moreToolsButton addTarget:self action:@selector(buttonsClick:) forControlEvents:UIControlEventTouchUpInside];
     moreToolsButton.layer.cornerRadius = ButtonWidth * 0.5;
     [self addSubview:moreToolsButton];
+    self.moreToolsButton = moreToolsButton;
     
     UIButton *musicButton = [[UIButton alloc]initWithFrame:CGRectMake(moreToolsButton.ch_left - width, backButton.ch_originY, ButtonWidth, ButtonWidth)];
     musicButton.tag = CHLiveRoomFrontButton_Music;

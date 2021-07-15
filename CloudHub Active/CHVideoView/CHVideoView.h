@@ -47,6 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Whether to display the remove button
 @property (nonatomic, assign) BOOL canRemove;
 
+@property (nonatomic, assign) BOOL isStartPK;
+
 /// refresh view by user properties
 - (void)freshWithRoomUserProperty;
 

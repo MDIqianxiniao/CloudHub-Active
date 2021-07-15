@@ -20,11 +20,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CHLiveRoomFrontView : UIView
 
-@property (nonatomic, weak,readonly) UILabel *nameLable;
+@property (nonatomic, weak, readonly) UILabel *nameLable;
 
-@property (nonatomic, weak,readonly) UILabel *channelIdLable;
+@property (nonatomic, weak, readonly) UILabel *channelIdLable;
 
-@property (nonatomic, weak,readonly) UIButton *userListButton;
+@property (nonatomic, weak, readonly) UIButton *userListButton;
+
+@property (nonatomic, weak, readonly) UIButton *moreToolsButton;
+
+@property (nonatomic, weak, readonly) UIButton *beautySetButton;
 
 @property (nonatomic, copy) NSString *nickName;
 

@@ -71,7 +71,6 @@
         self.nickNameLabel.textColor = UIColor.whiteColor;
         self.nickNameLabel.adjustsFontSizeToFitWidth = YES;
         self.nickNameLabel.minimumScaleFactor = 0.3f;
-        self.nickNameLabel.hidden = NO;
         [self.coverView addSubview:self.nickNameLabel];
 
         self.volumeImageView = [[UIImageView alloc] init];
@@ -228,13 +227,12 @@
     _roomUser = roomUser;
     
 //    if (self.roomType == CHRoomUseTypeLiveRoom && roomUser.role == CHUserType_Anchor)
-    if (roomUser.role == CHUserType_Anchor)
+
+    self.nickNameLabel.text = roomUser.nickName;
+    
+    if (roomUser.role == CHUserType_Anchor && !self.isStartPK)
     {
-        self.nickNameLabel.text = @"";
-    }
-    else
-    {
-        self.nickNameLabel.text = roomUser.nickName;
+        self.nickNameLabel.hidden = YES;
     }
     
     [self setVolume:roomUser.volume];
@@ -459,7 +457,32 @@
      */
 }
 
+- (void)setIsStartPK:(BOOL)isStartPK
+{
+    _isStartPK = isStartPK;
+    
+    if (isStartPK)
+    {
+        self.nickNameLabel.hidden = NO;
+        
+        CGFloat minW = 7.0f;
 
+        CGFloat height = self.ch_width*0.1f;
+        if ([UIDevice ch_isiPad])
+        {
+            minW = 12.0f;
+        }
+        else
+        {
+            minW = 10.0f;
+        }
+        if (height < minW)
+        {
+            height = minW;
+        }
+        self.nickNameLabel.frame = CGRectMake(4.0f, self.ch_height-4.0f-height, self.ch_width*0.6f, height);
+    }
+}
 
 
 @end
