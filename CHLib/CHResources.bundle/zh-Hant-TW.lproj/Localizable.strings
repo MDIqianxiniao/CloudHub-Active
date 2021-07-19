@@ -73,7 +73,7 @@
 "PK.IncorrectChannel" = "該通道不正確或已過期";
 "PK.PKMineChannel" = "不能與自己進行 PK";
 "PK.InviteToPK" = "想要邀請你進行房間PK";
-"PK.InviteToPKInPKing" = "有其他用戶想和你PK，結束當前 PK 後，可收到邀請。";
+"PK.InviteToPKInPKing" = "有其他用戶想和你PK，結束當前 PK 後，可接受邀請。";
 "PK.IsInPK" = "該通道已拒絕或正在PK中，請稍等";
 "PK.EnterPKButton" = "結束 PK";
 "PK.EnterPKNow" = "是否結束 PK？";

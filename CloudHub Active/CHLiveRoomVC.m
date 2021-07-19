@@ -574,7 +574,7 @@
 
 - (void)rtcEngine:(CloudHubRtcEngineKit *)engine didOccurError:(CloudHubErrorCode)errorCode withMessage:(NSString *)message
 {
-
+    NSLog(@"错误：%@",message);
 }
 
 - (void)rtcEngine:(CloudHubRtcEngineKit *)engine didJoinChannelwithUid:(NSString *)uid elapsed:(NSInteger)elapsed
@@ -626,14 +626,49 @@
     [self.userList removeAllObjects];
     [self.userList addObject:self.localUser];
 
-    if (self.roleType == CHUserType_Anchor)
+    [self.rtcEngine enableAudio];
+    [self.rtcEngine enableLocalAudio:YES];
+    [self.rtcEngine enableVideo];
+    [self.rtcEngine enableLocalVideo:YES];
+    
+    if (self.isStartPK)
     {
-        [self.rtcEngine startPlayingLocalVideo:self.largeVideoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled];
+//        [self.rtcEngine stopChannelMediaRelay];
+//        self.startPkButton.hidden = NO;
+//        self.stopPkButton.hidden = YES;
+//
+//        self.anchorPkView.hidden = YES;
+//        self.pkView.hidden = YES;
+//        self.largeVideoView.hidden = NO;
+//
+//        self.liveRoomFrontView.nameLable.hidden = NO;
+//        self.liveRoomFrontView.channelIdLable.hidden = NO;
+//        self.liveRoomFrontView.userListButton.hidden = NO;
+//
+//        [self.rtcEngine startPlayingLocalVideo:self.largeVideoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled];
+        
+        self.isStartPK = NO;
+        
         self.largeVideoView.roomUser = self.localUser;
         self.largeVideoView.sourceId = self.localUser.peerID;
         self.largeVideoView.streamId = self.localUser.peerID;
 
-        [self.rtcEngine publishStream];
+        int kkgg = [self.rtcEngine publishStream];
+        
+        NSLog(@"kkgg = %d",kkgg);
+    }
+    else if (self.roleType == CHUserType_Anchor)
+    {
+//        [self.rtcEngine stopChannelMediaRelay];
+        
+        [self.rtcEngine startPlayingLocalVideo:self.largeVideoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled];
+        self.largeVideoView.roomUser = self.localUser;
+        self.largeVideoView.sourceId = self.localUser.peerID;
+        self.largeVideoView.streamId = self.localUser.peerID;
+        int kkee = [self.rtcEngine publishStream];
+
+        NSLog(@"kkee = %d",kkee);
+        
     }
 }
 
@@ -683,7 +718,7 @@
     
     if (roomUser.role == CHUserType_Anchor)
     {
-        if (![self.anchorUser ch_isNotEmpty])
+        if (![self.anchorUser ch_isNotEmpty] || [self.anchorUser.peerID isEqualToString:uid])
         {
             
             NSLog(@"主播ID 1：%@",uid);
@@ -967,20 +1002,20 @@ associatedWithMsg:(NSString *)assMsgID
     // PKInvitationResult
     if ([msgName isEqualToString:sCHSignal_Notice_PK_InvitationResult])
     {
-        
         NSDictionary *dataDic = [CHCloudHubUtil convertWithData:data];
         
         BOOL isResult = [dataDic ch_boolForKey:@"isAgree"];
+        
+        
+        if (self.roleType != CHUserType_Anchor)
+        {
+            return;
+        }
         
 //        if (!self.isStartPK)
         {
             if (isResult)
             {
-                if (self.roleType != CHUserType_Anchor)
-                {
-                    return;
-                }
-                
                 for (CHVideoView *videoView in self.smallVideoViews.allValues)
                 {
                     [self clickRemoveButtonToCloseVideoView:videoView];
@@ -1048,7 +1083,7 @@ onChatMessageArrival:(NSString *)message
     }
     
     CHRoomUser *user = [[CHRoomUser alloc] initWithPeerId:fromuid];
-    user.nickName = [messageDic ch_stringForKey:sCHUserNickname];
+    user.nickName = [messageDic ch_stringForKey:@"userName"];
     user.role = [messageDic ch_intForKey:sCHUserRole];
     
     CHChatMessageModel *messageModel = [[CHChatMessageModel alloc] init];
@@ -1338,7 +1373,7 @@ onChatMessageArrival:(NSString *)message
     self.anchorPkView.hidden = !isStartPK;
     self.pkView.hidden = !isStartPK;
     self.largeVideoView.hidden = isStartPK;
-    
+
     self.liveRoomFrontView.nameLable.hidden = isStartPK;
     self.liveRoomFrontView.channelIdLable.hidden = isStartPK;
     self.liveRoomFrontView.userListButton.hidden = isStartPK;
@@ -1353,7 +1388,7 @@ onChatMessageArrival:(NSString *)message
     {
         [self.rtcEngine stopChannelMediaRelay];
                 
-        [self playVideo:self.anchorUser.peerID streamId:self.largeVideoView.streamId];
+        [self playVideo:self.largeVideoView.roomUser.peerID streamId:self.largeVideoView.streamId];
     }
 }
 
@@ -1634,7 +1669,7 @@ onChatMessageArrival:(NSString *)message
         [messageDic setObject:@(CHChatMessageType_Text) forKey:@"type"];
 //        NSDictionary *senderDic = @{ sCHUserRole : @(self.roleType), sCHUserNickname : self.myNickName };
         [messageDic setObject:@(self.roleType) forKey:sCHUserRole];
-        [messageDic setObject:self.myNickName forKey:sCHUserNickname];
+        [messageDic setObject:self.myNickName forKey:@"userName"];
 
         return ([self.rtcEngine sendChatMsg:message to:CHRoomPubMsgTellAll withExtraData:[messageDic ch_toJSON]] == 0);
     }

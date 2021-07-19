@@ -73,7 +73,7 @@
 "PK.IncorrectChannel" = "The channel is incorrect or expired";
 "PK.PKMineChannel" = "Can't do PK with yourself";
 "PK.InviteToPK" = "want to invite you to do room PK";
-"PK.InviteToPKInPKing" = "There are other users want to PK with you, after the PK, can receive the invitation";
+"PK.InviteToPKInPKing" = "There are other users want to PK with you, after the PK, can accept the invitation.";
 "PK.IsInPK" = "This channel has been rejected or is in PK. Please wait";
 "PK.EnterPKButton" = "End of PK";
 "PK.EnterPKNow" = "Whether to end the PK";
