@@ -579,6 +579,8 @@
 
 - (void)rtcEngine:(CloudHubRtcEngineKit *)engine didJoinChannelwithUid:(NSString *)uid elapsed:(NSInteger)elapsed
 {
+    NSLog(@"[rtcEngine] didJoinChannel %@ %@", uid, @(elapsed));
+    
     self.isJoinChannel = YES;
     
     CHRoomUser *roomUser = [[CHRoomUser alloc] initWithPeerId:uid];
@@ -611,7 +613,7 @@
 
 - (void)rtcEngine:(CloudHubRtcEngineKit *)engine didReJoinChannelwithUid:(NSString *)uid elapsed:(NSInteger)elapsed
 {
-    NSLog(@"rtcEngine didReJoinChannel %@ %@", uid, @(elapsed));
+    NSLog(@"[rtcEngine] didReJoinChannel %@ %@", uid, @(elapsed));
 
     for (UIView *smallview in [self.smallVideoViews allValues])
     {
@@ -674,6 +676,8 @@
 
 - (void)rtcEngine:(CloudHubRtcEngineKit *)engine didLeaveChannel:(CloudHubChannelStats *)stats
 {
+    NSLog(@"[rtcEngine] didLeaveChannel");
+    
     if (self.anchorLeft)
     {
         [CHProgressHUD ch_showHUDAddedTo:self.view animated:YES withText:CH_Localized(@"Live_LeaveRoom") delay:CHProgressDelay];
@@ -710,7 +714,7 @@
 
 - (void)rtcEngine:(CloudHubRtcEngineKit *)engine didJoinedOfUid:(NSString *)uid properties:(NSString *)properties isHistory:(BOOL)isHistory fromChannel:(NSString *)srcChannel
 {
-    NSLog(@"rtcEngine didJoinedOfUid %@ %@ %d %@", uid, properties, isHistory, srcChannel);
+    NSLog(@"[rtcEngine] didJoinedOfUid %@ %@ %d %@", uid, properties, isHistory, srcChannel);
 
     NSDictionary *propertDic = [CHCloudHubUtil convertWithData:properties];
     
@@ -736,7 +740,7 @@
 
 - (void)rtcEngine:(CloudHubRtcEngineKit *)engine didOfflineOfUid:(NSString *)uid
 {
-    NSLog(@"CHSessionManager didOfflineOfUid: %@", uid);
+    NSLog(@"[rtcEngine] didOfflineOfUid: %@", uid);
     
     CHRoomUser *roomUser = [self getRoomUserWithId:uid];
 
@@ -809,7 +813,13 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
     }
 }
 
-- (void)rtcEngine:(CloudHubRtcEngineKit *)engine remoteVideoStateChangedOfUid:(NSString *)uid streamId:(NSString *)streamId type:(CloudHubMediaType)type state:(CloudHubVideoRemoteState)state reason:(CloudHubVideoRemoteStateReason)reason
+- (void)            rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine
+ remoteVideoStateChangedOfUid:(NSString * _Nonnull)uid
+                     streamId:(NSString * _Nonnull)streamId
+                         type:(CloudHubMediaType)type
+                        state:(CloudHubVideoRemoteState)state
+                       reason:(CloudHubVideoRemoteStateReason)reason
+                   streamInfo:(NSString * _Nullable)streamInfo
 {
     if (state == CloudHubVideoRemoteStateStarting)
     {
