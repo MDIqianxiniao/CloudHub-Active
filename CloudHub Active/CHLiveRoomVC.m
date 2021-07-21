@@ -577,8 +577,21 @@
     NSLog(@"错误：%@",message);
 }
 
+
+- (void)rtcEngine:(CloudHubRtcEngineKit * _Nonnull)engine
+        onDocAddr:(NSString * _Nonnull)docaddr
+           serial:(NSString * _Nonnull)serial
+{
+    
+    NSLog(@"onDocAddr %@ ", serial);
+    
+}
+
 - (void)rtcEngine:(CloudHubRtcEngineKit *)engine didJoinChannelwithUid:(NSString *)uid elapsed:(NSInteger)elapsed
 {
+    
+    NSLog(@"didJoinChannelwithUid %@ ", uid);
+    
     self.isJoinChannel = YES;
     
     CHRoomUser *roomUser = [[CHRoomUser alloc] initWithPeerId:uid];
@@ -607,6 +620,11 @@
         
         self.anchorUser = roomUser;
     }
+}
+
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine connectionChangedToState:(CloudHubConnectionStateType)state
+{
+    
 }
 
 - (void)rtcEngine:(CloudHubRtcEngineKit *)engine didReJoinChannelwithUid:(NSString *)uid elapsed:(NSInteger)elapsed
@@ -744,9 +762,9 @@
     {
         if ([self.anchorUser.peerID isEqualToString:uid])
         {
-            self.anchorLeft = YES;
-            
-            [self.rtcEngine leaveChannel:nil];
+//            self.anchorLeft = YES;
+//            
+//            [self.rtcEngine leaveChannel:nil];
         }
         else if (self.isStartPK)
         {
@@ -809,7 +827,7 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
     }
 }
 
-- (void)rtcEngine:(CloudHubRtcEngineKit *)engine remoteVideoStateChangedOfUid:(NSString *)uid streamId:(NSString *)streamId type:(CloudHubMediaType)type state:(CloudHubVideoRemoteState)state reason:(CloudHubVideoRemoteStateReason)reason
+- (void)rtcEngine:(CloudHubRtcEngineKit *)engine remoteVideoStateChangedOfUid:(NSString *)uid streamId:(NSString *)streamId type:(CloudHubMediaType)type state:(CloudHubVideoRemoteState)state reason:(CloudHubVideoRemoteStateReason)reason streamInfo:(NSString * _Nullable)streamInfo
 {
     if (state == CloudHubVideoRemoteStateStarting)
     {
