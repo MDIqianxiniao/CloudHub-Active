@@ -167,22 +167,21 @@
     self.promptView = promptView;
     [self addSubview:promptView];
     
-    UILabel *titleLable = [[UILabel alloc]initWithFrame:CGRectMake(0, 8, 100, 15)];
-    titleLable.text = CH_Localized(@"Live_Prompt_Title");
-    titleLable.font = CHFont12;
-    titleLable.textColor = CHColor_6D7278;
-    [promptView addSubview:titleLable];
-    titleLable.ch_centerX = promptView.ch_width *0.5;
+//    UILabel *titleLable = [[UILabel alloc]initWithFrame:CGRectMake(0, 8, 100, 15)];
+//    titleLable.text = CH_Localized(@"Live_Prompt_Title");
+//    titleLable.font = CHFont12;
+//    titleLable.textColor = CHColor_6D7278;
+//    [promptView addSubview:titleLable];
+//    titleLable.ch_centerX = promptView.ch_width *0.5;
     
-    UIButton *cancelButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 15, 15)];
+    UIButton *cancelButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 8, 15, 15)];
     [cancelButton setImage:[UIImage imageNamed:@"list_cancelButton"] forState:UIControlStateNormal];
     [cancelButton addTarget:self action:@selector(promptViewCancelButtonsClick) forControlEvents:UIControlEventTouchUpInside];
     cancelButton.tag = 1;
     [promptView addSubview:cancelButton];
     cancelButton.ch_right = promptView.ch_width - 10;
-    cancelButton.ch_centerY = titleLable.ch_centerY;
     
-    UILabel *promptLable = [[UILabel alloc]initWithFrame:CGRectMake(5, titleLable.ch_bottom + 10, promptView.ch_width - 10, promptView.ch_height - (titleLable.ch_bottom + 10) - 10)];
+    UILabel *promptLable = [[UILabel alloc]initWithFrame:CGRectMake(5, 8, promptView.ch_width - 10, promptView.ch_height - 10)];
     promptLable.text = CH_Localized(@"Live_Prompt_Content");
     promptLable.font = CHFont12;
     promptLable.textColor = CHColor_6D7278;

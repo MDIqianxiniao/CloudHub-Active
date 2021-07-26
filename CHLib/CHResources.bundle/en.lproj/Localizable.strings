@@ -37,8 +37,7 @@
 "Live_Set" = "Setting";
 "Live_Set_Resolution" = "Resolution";
 "Live_Set_Rate" = "Frame rate";
-"Live_Prompt_Title" = "Tips";
-"Live_Prompt_Content" = "This application only for test and experience, each channel up to 10 minutes and 10 mumbers";
+"Live_Prompt_Content" = "Tips\n\nThis application only for test and experience, each channel up to 10 minutes and 10 mumbers";
 "Live_InputRoomNumPrompt" = "Enter channel id";
 "Live_ChatPlaceholder" = "Say something...";
 "Live_ChatTextNumber" = "Enter a maximum of 80 characters for text";

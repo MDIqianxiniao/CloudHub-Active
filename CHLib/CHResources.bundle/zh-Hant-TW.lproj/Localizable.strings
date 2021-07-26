@@ -37,8 +37,7 @@
 "Live_Set" = "設置";
 "Live_Set_Resolution" = "分辨率";
 "Live_Set_Rate" = "幀率";
-"Live_Prompt_Title" = "溫馨提示";
-"Live_Prompt_Content" = "本應用為測試產品，請勿商用，\n單次直播最多10分鐘，每個通道最多10人";
+"Live_Prompt_Content" = "溫馨提示\n\n本應用為測試產品，請勿商用，\n單次直播最多10分鐘，每個通道最多10人";
 "Live_InputRoomNumPrompt" = "請輸入您的直播號";
 "Live_ChatPlaceholder" = "我來說幾句...";
 "Live_ChatTextNumber" = "文本最多輸入 80 個字符";
