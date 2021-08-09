@@ -293,7 +293,7 @@
 - (void)getUserList
 {
     CHWeakSelf
-    [CHNetworkRequest getWithURLString:sCHGetUserList params:@{@"channelId":self.liveModel.channelId} progress:nil success:^(NSDictionary * _Nonnull dictionary) {
+    [CHNetworkRequest getWithURLString:sCHGetUserList params:@{@"channel":self.liveModel.channelId} progress:nil success:^(NSDictionary * _Nonnull dictionary) {
         
         NSArray *array = dictionary[@"data"];
         
@@ -382,7 +382,7 @@
             sender.selected = !sender.selected;
             [self.rtcEngine muteLocalVideoStream:sender.selected];
                         
-            [self freshPlayVideo:self.localUser.peerID streamId:self.localUser.peerID mute:sender.selected];
+            [self freshPlayVideoView:self.localUser.peerID streamId:self.localUser.peerID mute:sender.selected];
         }
             break;
         case CHSetToolViewButton_Mic:
@@ -624,7 +624,10 @@
 
 - (void)rtcEngine:(CloudHubRtcEngineKit *)engine connectionChangedToState:(CloudHubConnectionStateType)state
 {
-    
+    if (state == CloudHubConnectionStateReconnecting)
+    {
+        [CHProgressHUD ch_showHUDAddedTo:self.view animated:YES];
+    }
 }
 
 - (void)rtcEngine:(CloudHubRtcEngineKit *)engine didReJoinChannelwithUid:(NSString *)uid elapsed:(NSInteger)elapsed
@@ -649,22 +652,10 @@
     [self.rtcEngine enableVideo];
     [self.rtcEngine enableLocalVideo:YES];
     
+    [CHProgressHUD ch_hideHUDForView:self.view animated:YES];
+    
     if (self.isStartPK)
     {
-//        [self.rtcEngine stopChannelMediaRelay];
-//        self.startPkButton.hidden = NO;
-//        self.stopPkButton.hidden = YES;
-//
-//        self.anchorPkView.hidden = YES;
-//        self.pkView.hidden = YES;
-//        self.largeVideoView.hidden = NO;
-//
-//        self.liveRoomFrontView.nameLable.hidden = NO;
-//        self.liveRoomFrontView.channelIdLable.hidden = NO;
-//        self.liveRoomFrontView.userListButton.hidden = NO;
-//
-//        [self.rtcEngine startPlayingLocalVideo:self.largeVideoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled];
-        
         self.isStartPK = NO;
         
         self.largeVideoView.roomUser = self.localUser;
@@ -677,8 +668,6 @@
     }
     else if (self.roleType == CHUserType_Anchor)
     {
-//        [self.rtcEngine stopChannelMediaRelay];
-        
         [self.rtcEngine startPlayingLocalVideo:self.largeVideoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled];
         self.largeVideoView.roomUser = self.localUser;
         self.largeVideoView.sourceId = self.localUser.peerID;
@@ -764,9 +753,9 @@
     {
         if ([self.anchorUser.peerID isEqualToString:uid])
         {
-//            self.anchorLeft = YES;
-//            
-//            [self.rtcEngine leaveChannel:nil];
+            self.anchorLeft = YES;
+            
+            [self.rtcEngine leaveChannel:nil];
         }
         else if (self.isStartPK)
         {
@@ -837,7 +826,7 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
         {
             if (reason == CloudHubVideoRemoteStateReasonRemoteUnmuted)
             {
-                [self freshPlayVideo:uid streamId:streamId mute:NO];
+                [self freshPlayVideoView:uid streamId:streamId mute:NO];
                 return;
             }
         }
@@ -855,7 +844,7 @@ onSetPropertyOfUid:(NSString * _Nonnull)uid
         {
             if (reason == CloudHubVideoRemoteStateReasonRemoteMuted)
             {
-                [self freshPlayVideo:uid streamId:streamId mute:YES];
+                [self freshPlayVideoView:uid streamId:streamId mute:YES];
                 return;
             }
         }
@@ -1175,139 +1164,56 @@ onChatMessageArrival:(NSString *)message
     
     [self arrangeVideoViews];
 }
-/*
-- (void)unPlayAllVideo:(NSString*)uid
-{
-    for (CHVideoView *view in self.smallVideoViews.allValues)
-    {
-        if ([view.roomUser.peerID isEqualToString:uid])
-        {
-            [self unPlayVideo:uid streamId:view.streamId];
-        }
-    }
-    
-    if ([uid isEqualToString:self.largeVideoView.roomUser.peerID])
-    {
-        [self unPlayVideo:uid streamId:self.largeVideoView.streamId];
-    }
-}
- */
 
-- (void)freshPlayVideo:(NSString*)uid streamId:(NSString *)streamId mute:(BOOL)mute
+- (void)freshPlayVideoView:(NSString*)uid streamId:(NSString *)streamId mute:(BOOL)mute
 {
+    CHVideoView *videoView = nil;
     if (self.isStartPK)
     {
         if ([self.anchorPkView.roomUser.peerID isEqualToString:uid])
         {
-            if ([uid isEqualToString:self.localUser.peerID])
-            {
-                if (mute)
-                {
-                    [self.rtcEngine stopPlayingLocalVideo];
-                }
-                else
-                {
-                    [self.rtcEngine startPlayingLocalVideo:self.anchorPkView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled];
-                }
-            }
-            else
-            {
-                if (mute)
-                {
-                    [self.rtcEngine stopPlayingRemoteVideo:streamId];
-                }
-                else
-                {
-                    [self.rtcEngine startPlayingRemoteVideo:self.anchorPkView.contentView streamId:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled];
-                }
-            }
+            videoView = self.anchorPkView;
         }
         else if ([self.pkView.roomUser.peerID isEqualToString:uid])
         {
-            if ([uid isEqualToString:self.localUser.peerID])
-            {
-                if (mute)
-                {
-                    [self.rtcEngine stopPlayingLocalVideo];
-                }
-                else
-                {
-                    [self.rtcEngine startPlayingLocalVideo:self.pkView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled];
-                }
-            }
-            else
-            {
-                if (mute)
-                {
-                    [self.rtcEngine stopPlayingRemoteVideo:streamId];
-                }
-                else
-                {
-                    [self.rtcEngine startPlayingRemoteVideo:self.pkView.contentView streamId:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled];
-                }
-            }
+            videoView = self.pkView;
         }
-        return;
+    }
+    else
+    {
+        if ([uid isEqualToString:self.largeVideoView.roomUser.peerID])
+        {
+            videoView = self.largeVideoView;
+        }
+        else
+        {
+            videoView = [self.smallVideoViews objectForKey:streamId];
+        }
     }
     
-    if ([uid isEqualToString:self.largeVideoView.roomUser.peerID])
+    if (videoView)
     {
-        if ([uid isEqualToString:self.localUser.peerID])
+        if (mute)
         {
-            if (mute)
+            if (videoView.roomUser == self.localUser)
             {
                 [self.rtcEngine stopPlayingLocalVideo];
             }
             else
             {
-                [self.rtcEngine startPlayingLocalVideo:self.largeVideoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled];
+                [self.rtcEngine stopPlayingRemoteVideo:streamId];
             }
         }
         else
         {
-            if (mute)
+            if (videoView.roomUser == self.localUser)
             {
-                [self.rtcEngine stopPlayingRemoteVideo:streamId];
+                [self.rtcEngine startPlayingLocalVideo:videoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled];
             }
             else
             {
-                [self.rtcEngine startPlayingRemoteVideo:self.largeVideoView.contentView streamId:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled];
+                [self.rtcEngine startPlayingRemoteVideo:videoView.contentView streamId:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled];
             }
-        }
-        
-        return;
-    }
-    
-    CHVideoView *videoView = [self.smallVideoViews objectForKey:streamId];
-    
-    if (videoView)
-    {
-        [self freshPlayVideoView:videoView streamId:streamId mute:mute];
-    }
-}
-
-- (void)freshPlayVideoView:(CHVideoView *)videoView streamId:(NSString *)streamId mute:(BOOL)mute
-{
-    if (mute)
-    {
-        if (videoView.roomUser == self.localUser)
-        {
-            [self.rtcEngine stopPlayingLocalVideo];
-        }
-        else
-        {
-            [self.rtcEngine stopPlayingRemoteVideo:streamId];
-        }
-    }
-    else
-    {
-        if (videoView.roomUser == self.localUser)
-        {
-            [self.rtcEngine startPlayingLocalVideo:videoView.contentView renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeEnabled];
-        }
-        else
-        {
-            [self.rtcEngine startPlayingRemoteVideo:videoView.contentView streamId:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:CloudHubVideoMirrorModeDisabled];
         }
     }
 }
@@ -1331,7 +1237,7 @@ onChatMessageArrival:(NSString *)message
         
     if ([self.anchorUser.peerID isEqualToString:uid])
     {
-        [self freshPlayVideoView:self.largeVideoView streamId:streamId mute:NO];
+        [self freshPlayVideoView:uid streamId:streamId mute:NO];
         return;
     }
     
@@ -1379,7 +1285,7 @@ onChatMessageArrival:(NSString *)message
                 [self.setToolView ch_bringToFront];
             }
         }
-        [self freshPlayVideoView:view streamId:streamId mute:NO];
+        [self freshPlayVideoView:uid streamId:streamId mute:NO];
     }
 }
 
@@ -1440,7 +1346,7 @@ onChatMessageArrival:(NSString *)message
     self.anchorPkView.roomUser = self.largeVideoView.roomUser;
     self.anchorPkView.isStartPK = self.isStartPK;
 
-    [self freshPlayVideoView:self.anchorPkView streamId:self.largeVideoView.streamId mute:NO];
+    [self freshPlayVideoView:uid streamId:self.largeVideoView.streamId mute:NO];
         
     CHRoomUser *roomUser = [self getRoomUserWithId:uid];
     if (![roomUser ch_isNotEmpty])
@@ -1463,7 +1369,7 @@ onChatMessageArrival:(NSString *)message
     self.pkView.roomUser = roomUser;
     self.pkView.isStartPK = self.isStartPK;
     
-    [self freshPlayVideoView:self.pkView streamId:streamId mute:NO];
+    [self freshPlayVideoView:uid streamId:streamId mute:NO];
     
     if (!self.stopPkButton && self.roleType == CHUserType_Anchor)
     {

@@ -7,7 +7,7 @@
 
 #import "CHLiveListVC.h"
 #import "CHLiveListTableView.h"
-#import "CHMinePopupView.h"
+#import "CHMineNickNameView.h"
 #import "CHCreatLiveVC.h"
 #import "CHLiveRoomVC.h"
 #import "AFNetworking.h"
@@ -25,7 +25,7 @@
 
 @property (nonatomic, strong) CHLiveListTableView *liveListTableView;
 
-@property (nonatomic, strong) CHMinePopupView *minPopupView;
+@property (nonatomic, strong) CHMineNickNameView *minPopupView;
 
 @property (nonatomic, weak) UIRefreshControl *refresh;
 
@@ -211,11 +211,11 @@
     self.minPopupView.hidden = !self.minPopupView.hidden;
 }
 
-- (CHMinePopupView *)minPopupView
+- (CHMineNickNameView *)minPopupView
 {
     if (!_minPopupView)
     {
-        _minPopupView = [[CHMinePopupView alloc]initWithFrame:CGRectMake(0, 0, 240, 162)];
+        _minPopupView = [[CHMineNickNameView alloc]initWithFrame:CGRectMake(0, 0, 240, 162)];
         _minPopupView.layer.cornerRadius = 10;
         _minPopupView.ch_centerX = self.view.ch_width *0.5;
         _minPopupView.ch_centerY = self.view.ch_height *0.5 - 100;

@@ -5,15 +5,15 @@
 //  Created by 马迪 on 2021/4/21.
 //
 
-#import "CHMinePopupView.h"
+#import "CHMineNickNameView.h"
 
-@interface CHMinePopupView ()
+@interface CHMineNickNameView ()
 
 @property (nonatomic, weak) UITextField *nameField;
 
 @end
 
-@implementation CHMinePopupView
+@implementation CHMineNickNameView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {

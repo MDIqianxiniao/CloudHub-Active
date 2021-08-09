@@ -54,7 +54,7 @@
 		049D7204262ED5DA002DC098 /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D71FA262ED5DA002DC098 /* MASViewConstraint.m */; };
 		049D7205262ED5DA002DC098 /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D71FB262ED5DA002DC098 /* MASViewAttribute.m */; };
 		049D7208262FCF0E002DC098 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 049D7207262FCF0E002DC098 /* Launch Screen.storyboard */; };
-		049D720B262FCF99002DC098 /* CHMinePopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D720A262FCF99002DC098 /* CHMinePopupView.m */; };
+		049D720B262FCF99002DC098 /* CHMineNickNameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D720A262FCF99002DC098 /* CHMineNickNameView.m */; };
 		049D720C262FD2D0002DC098 /* UIColor+CHCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D71A3262E792B002DC098 /* UIColor+CHCategory.m */; };
 		049D720F263009B7002DC098 /* CHCreatLiveVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D720E263009B7002DC098 /* CHCreatLiveVC.m */; };
 		049D722F26311168002DC098 /* CHRoomUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 049D722D26311168002DC098 /* CHRoomUser.m */; };
@@ -267,8 +267,8 @@
 		049D71FA262ED5DA002DC098 /* MASViewConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewConstraint.m; sourceTree = "<group>"; };
 		049D71FB262ED5DA002DC098 /* MASViewAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewAttribute.m; sourceTree = "<group>"; };
 		049D7207262FCF0E002DC098 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		049D7209262FCF99002DC098 /* CHMinePopupView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHMinePopupView.h; sourceTree = "<group>"; };
-		049D720A262FCF99002DC098 /* CHMinePopupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHMinePopupView.m; sourceTree = "<group>"; };
+		049D7209262FCF99002DC098 /* CHMineNickNameView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHMineNickNameView.h; sourceTree = "<group>"; };
+		049D720A262FCF99002DC098 /* CHMineNickNameView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHMineNickNameView.m; sourceTree = "<group>"; };
 		049D720D263009B7002DC098 /* CHCreatLiveVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHCreatLiveVC.h; sourceTree = "<group>"; };
 		049D720E263009B7002DC098 /* CHCreatLiveVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHCreatLiveVC.m; sourceTree = "<group>"; };
 		049D722D26311168002DC098 /* CHRoomUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRoomUser.m; sourceTree = "<group>"; };
@@ -706,8 +706,8 @@
 				049D71DA262EB82C002DC098 /* CHLiveListTableView.m */,
 				049D71DC262ED20C002DC098 /* CHLiveListTableViewCell.h */,
 				049D71DD262ED20C002DC098 /* CHLiveListTableViewCell.m */,
-				049D7209262FCF99002DC098 /* CHMinePopupView.h */,
-				049D720A262FCF99002DC098 /* CHMinePopupView.m */,
+				049D7209262FCF99002DC098 /* CHMineNickNameView.h */,
+				049D720A262FCF99002DC098 /* CHMineNickNameView.m */,
 			);
 			path = CHLiveListVC;
 			sourceTree = "<group>";
@@ -1126,7 +1126,7 @@
 				049D71FE262ED5DA002DC098 /* MASCompositeConstraint.m in Sources */,
 				04C8267026318942004AE13C /* UIColor+SDHexString.m in Sources */,
 				049D71BC262E792B002DC098 /* NSBundle+CHCategory.m in Sources */,
-				049D720B262FCF99002DC098 /* CHMinePopupView.m in Sources */,
+				049D720B262FCF99002DC098 /* CHMineNickNameView.m in Sources */,
 				049D7200262ED5DA002DC098 /* MASLayoutConstraint.m in Sources */,
 				04C8264D26318942004AE13C /* SDMemoryCache.m in Sources */,
 				049D7188262D6824002DC098 /* CHCloudHubUtil.m in Sources */,
